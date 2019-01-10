@@ -1,0 +1,10 @@
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\dll\ActualizarCifrado.exe.config
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\dll\ActualizarCifrado.exe
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\dll\ActualizarCifrado.pdb
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.Properties.Resources.resources
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.csproj.GenerateResource.cache
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.csproj.CopyComplete
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.exe
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\ActualizarCifrado\ActualizarCifrado\obj\Debug\ActualizarCifrado.pdb

@@ -1,0 +1,6 @@
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\bin\Debug\Threads.dll
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\bin\Debug\Threads.pdb
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.dll
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.pdb
