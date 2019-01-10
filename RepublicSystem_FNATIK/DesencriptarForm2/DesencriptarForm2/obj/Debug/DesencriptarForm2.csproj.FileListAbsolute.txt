@@ -1,0 +1,13 @@
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\bin\Debug\DesencriptarForm2.exe.config
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\bin\Debug\DesencriptarForm2.exe
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\bin\Debug\DesencriptarForm2.pdb
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.Form1.resources
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.Properties.Resources.resources
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.csproj.GenerateResource.cache
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.exe
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.pdb
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\bin\Debug\DescCompr.dll
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\bin\Debug\DescCompr.pdb
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\DesencriptarForm2\DesencriptarForm2\obj\Debug\DesencriptarForm2.csproj.CopyComplete
