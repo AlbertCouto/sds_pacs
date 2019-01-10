@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\bin\Debug\ComprimirDescomprimir.dll
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\bin\Debug\ComprimirDescomprimir.pdb
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\obj\Debug\ComprimirDescomprimir.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\obj\Debug\ComprimirDescomprimir.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\obj\Debug\ComprimirDescomprimir.dll
+C:\Users\admin\source\repos\ComprimirDescomprimir\ComprimirDescomprimir\obj\Debug\ComprimirDescomprimir.pdb
