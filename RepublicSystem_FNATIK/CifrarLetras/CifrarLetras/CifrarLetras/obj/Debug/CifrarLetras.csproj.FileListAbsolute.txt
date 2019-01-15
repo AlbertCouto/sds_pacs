@@ -1,0 +1,6 @@
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\bin\Debug\CifrarLetras.dll
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\bin\Debug\CifrarLetras.pdb
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\obj\Debug\CifrarLetras.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\obj\Debug\CifrarLetras.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\obj\Debug\CifrarLetras.dll
+C:\Users\admin\Desktop\Classes\CifrarLetras\CifrarLetras\CifrarLetras\obj\Debug\CifrarLetras.pdb

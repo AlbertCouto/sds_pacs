@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Windows.Forms;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ComprimirDescomprimir
 {
-    class ComprimirDescomprimir
+    public class ComprimirDescomprimir
     {
         //Ruta on estan els arxius
         string startPath = @"C:\Users\admin\Desktop\start";
@@ -23,16 +20,22 @@ namespace ComprimirDescomprimir
 
 
 
-        private void Comprimir(string startPath, string zipPath)
+        public void Comprimir(string startPath, string zipPath)
         {
-            if (!System.IO.File.Exists(zipPath))
-            {
-                ZipFile.CreateFromDirectory(startPath, zipPath);
-            }
+            //if (!System.IO.File.Exists(zipPath))
+            //{
+                try
+                {
+                    ZipFile.CreateFromDirectory(startPath, zipPath);
+                }
+                catch
+                {
+                    MessageBox.Show("Error al comprimir ficheros.");
+                }
+            //}
         }
 
-
-        private void Descomprimir(string zipPath, string extractPath)
+        public void Descomprimir(string zipPath, string extractPath)
         {
             if (System.IO.File.Exists(zipPathCompr))
             {
