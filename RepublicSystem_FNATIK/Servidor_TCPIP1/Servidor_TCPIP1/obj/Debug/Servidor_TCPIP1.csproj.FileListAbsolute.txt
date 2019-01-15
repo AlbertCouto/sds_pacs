@@ -1,0 +1,7 @@
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\bin\Debug\Servidor_TCPIP1.exe.config
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\bin\Debug\Servidor_TCPIP1.exe
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\bin\Debug\Servidor_TCPIP1.pdb
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\obj\Debug\Servidor_TCPIP1.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\obj\Debug\Servidor_TCPIP1.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\obj\Debug\Servidor_TCPIP1.exe
+C:\Users\admin\source\repos\Servidor_TCPIP1\Servidor_TCPIP1\obj\Debug\Servidor_TCPIP1.pdb
