@@ -1,0 +1,6 @@
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\bin\Debug\DescCompr.dll
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\bin\Debug\DescCompr.pdb
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\obj\Debug\DescCompr.csprojAssemblyReference.cache
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\obj\Debug\DescCompr.csproj.CoreCompileInputs.cache
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\obj\Debug\DescCompr.dll
+C:\Users\admin\source\repos\DesencriptarForm2\DescCompr\obj\Debug\DescCompr.pdb
