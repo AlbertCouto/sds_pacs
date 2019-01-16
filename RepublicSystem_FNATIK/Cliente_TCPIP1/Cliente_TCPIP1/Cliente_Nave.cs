@@ -27,7 +27,10 @@ namespace Cliente_TCPIP1
         {
             byte[] SendingBuffer = null;
             TcpClient client = null;
-            string fecha;
+            string fecha, fecha_bien, año;
+            string[] cosas;
+            string nave, entrega;
+
             DataSet ds = new DataSet();
             Clase_bbdd_fnatik.Clase_BBDD bd = new Clase_bbdd_fnatik.Clase_BBDD();
 
@@ -61,6 +64,11 @@ namespace Cliente_TCPIP1
                 {
                     ds = bd.PortarPerConsulta("select Day from InnerEncryption where idInnerEncryption = (select max(idInnerEncryption) from InnerEncryption);");
                     fecha = (ds.Tables[0].Rows[1]).ToString();
+                    cosas = fecha.Split('/');
+                    año = cosas[2];
+                    ds = bd.PortarPerConsulta("select SpaceShip, CodeDelivery from DeliveryData");
+                    fecha_bien = cosas[1] + cosas[0] + año[0];
+
                     byte[] nouBuffer = Encoding.ASCII.GetBytes(fecha);
                     netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
