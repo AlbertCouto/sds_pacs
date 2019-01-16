@@ -4,3 +4,5 @@ C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.c
 C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.csproj.CoreCompileInputs.cache
 C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.dll
 C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.pdb
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\bin\Debug\AccesoBBDD.pdb
+C:\Users\admin\Desktop\RepublicSystem_FNATIK\Threads\Threads\obj\Debug\Threads.csproj.CopyComplete

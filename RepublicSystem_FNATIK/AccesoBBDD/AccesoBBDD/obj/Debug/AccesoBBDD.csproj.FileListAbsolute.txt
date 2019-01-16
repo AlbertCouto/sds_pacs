@@ -1,0 +1,6 @@
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\obj\Debug\AccesoBBDD.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\obj\Debug\AccesoBBDD.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\bin\Debug\AccesoBBDD.dll
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\bin\Debug\AccesoBBDD.pdb
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\obj\Debug\AccesoBBDD.dll
+C:\Users\admin\Desktop\Classes\AccesoBBDD\AccesoBBDD\obj\Debug\AccesoBBDD.pdb
