@@ -18,8 +18,8 @@ namespace Cliente_TCPIP1
         public Clase_bbdd_fnatik.Clase_BBDD bd;
         static void Main(string[] args)
         {
-            string SendingFilePath = null;
-            SendTCP(SendingFilePath, "172.17.68.243", 29251);
+            string SendingFilePath = "C:\\Users\\admin\\Desktop\\HOLA.rar";
+            SendTCP(SendingFilePath, "172.17.68.243", 29250);
 
         }
 
@@ -53,7 +53,7 @@ namespace Cliente_TCPIP1
                         }
                         else
                             CurrentPacketLength = TotalLength;
-                        SendingBuffer = new byte[CurrentPacketLength];
+                        SendingBuffer = new byte[CurrentPacketLength];                       
                         Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                         netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
 
@@ -68,7 +68,6 @@ namespace Cliente_TCPIP1
                     año = cosas[2];
                     ds = bd.PortarPerConsulta("select SpaceShip, CodeDelivery from DeliveryData");
                     fecha_bien = cosas[1] + cosas[0] + año[0];
-
                     byte[] nouBuffer = Encoding.ASCII.GetBytes(fecha);
                     netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
@@ -80,9 +79,9 @@ namespace Cliente_TCPIP1
             }
             finally
             {
-                if(netstream != null)
+                //if(netstream != null)
                     netstream.Close();
-                if(client != null)
+                //if(client != null)
                     client.Close();
             }
         }

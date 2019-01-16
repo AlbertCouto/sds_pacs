@@ -45,7 +45,7 @@ namespace Servidor_TCPIP1
 
             for (; ; )
             {
-                string ruta = "C:\\Users\\admin\\Desktop\\hola.txt";
+                string ruta = "C:\\Users\\admin\\Desktop\\hola.rar";
                 TcpClient client = null;
                 NetworkStream netstream = null;
                 string texto = null;
@@ -63,6 +63,7 @@ namespace Servidor_TCPIP1
                             FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
                             while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                             {
+                                
                                 Fs.Write(RecData, 0, RecBytes);
                                 totalrecbytes += RecBytes;
                             }
