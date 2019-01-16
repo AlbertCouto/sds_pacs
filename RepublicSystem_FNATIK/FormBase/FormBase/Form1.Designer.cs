@@ -46,7 +46,6 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // timeLabel
@@ -54,9 +53,9 @@
             this.timeLabel.AutoSize = true;
             this.timeLabel.Location = new System.Drawing.Point(77, 291);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(35, 13);
+            this.timeLabel.Size = new System.Drawing.Size(34, 13);
             this.timeLabel.TabIndex = 1;
-            this.timeLabel.Text = "label1";
+            this.timeLabel.Text = "00:00";
             // 
             // button2
             // 
