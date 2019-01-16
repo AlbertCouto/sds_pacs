@@ -61,7 +61,7 @@ namespace Cliente_TCPIP1
                 {
                     ds = bd.PortarPerConsulta("select Day from InnerEncryption where idInnerEncryption = (select max(idInnerEncryption) from InnerEncryption);");
                     fecha = (ds.Tables[0].Rows[1]).ToString();
-                    byte[] nouBuffer = Encoding.ASCII.GetBytes("texto");
+                    byte[] nouBuffer = Encoding.ASCII.GetBytes(fecha);
                     netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
                 }
@@ -76,7 +76,6 @@ namespace Cliente_TCPIP1
                     netstream.Close();
                 if(client != null)
                     client.Close();
-
             }
         }
 
