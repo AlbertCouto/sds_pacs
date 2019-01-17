@@ -59,7 +59,7 @@ namespace Servidor_TCPIP1
                         
                         if (portN == 29250)
                         {
-                            string ruta = "C:\\Users\\admin\\Desktop\\PRUEBAS6.zip";
+                            string ruta = "C:\\Users\\admin\\Desktop\\PRUEBAS6.rar";
 
                             int totalrecbytes = 0;
                             FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);

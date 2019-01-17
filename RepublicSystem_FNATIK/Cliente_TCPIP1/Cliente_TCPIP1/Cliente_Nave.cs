@@ -19,7 +19,7 @@ namespace Cliente_TCPIP1
         static void Main(string[] args)
         {
             string SendingFilePath = "C:\\Users\\admin\\Desktop\\HOLA.rar";
-            SendTCP(SendingFilePath, "172.17.68.243", 29250);
+            SendTCP(SendingFilePath, "172.17.68.243", 5678);
 
         }
 
