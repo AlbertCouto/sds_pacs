@@ -14,6 +14,7 @@ namespace Servidor_TCPIP1
     {
         private const int BufferSize = 1024;
         public string Status = string.Empty;
+       
         
         static void Main(string[] args)
         {            
@@ -24,7 +25,7 @@ namespace Servidor_TCPIP1
         }
         public static void StartReceiving()
         {
-            ReceiveTCP(29251);
+            ReceiveTCP(29250);
         }
         public static void ReceiveTCP(int portN)
         {
@@ -45,7 +46,6 @@ namespace Servidor_TCPIP1
 
             for (; ; )
             {
-                string ruta = "C:\\Users\\admin\\Desktop\\hola.rar";
                 TcpClient client = null;
                 NetworkStream netstream = null;
                 string texto = null;
@@ -59,6 +59,8 @@ namespace Servidor_TCPIP1
                         
                         if (portN == 29250)
                         {
+                            string ruta = "C:\\Users\\admin\\Desktop\\PRUEBAS6.zip";
+
                             int totalrecbytes = 0;
                             FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
                             while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
