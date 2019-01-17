@@ -13,26 +13,75 @@ namespace FormBase
     public partial class Form1 : Form
     {
 
-        int quick = 7200;
+        int minutes, seconds;
         public Form1()
         {
             InitializeComponent();
-           
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            reload();
+        }
+        
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            quick--;
-            timeLabel.Text = quick / 60 / 60 + " : " + ((quick % 60) >= 10 ? (quick % 60).ToString() : "0" + (quick % 60));
+            seconds--;
+
+            if (seconds < 0)
+            {
+                minutes--;
+                seconds = 59;
+
+            }
+
+            if (minutes < 0)
+            {
+                timer1.Stop();
+                minutes = 0;
+                seconds = 0;
+            }
+
+
+            lbl_minutes.Text = minutes.ToString("00");
+
+            if (seconds == 60)
+            {
+                lbl_seconds.Text = "00";
+
+            }
+            else
+            {
+                lbl_seconds.Text = seconds.ToString("00");
+            }
+
+        }
+
+        private void btn_stopTimer_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
-            timer1 = new Timer();
-            timer1.Interval = 1; // para intervalos de 1 segundo
-            timer1.Tick += new EventHandler(timer1_Tick);
-            timer1.Enabled = true;
+
+            timer1.Start();
+            
+        }
+
+        private void btn_reload_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+            reload();
+        }
+
+        private void reload()
+        {
+            minutes = 3;
+            seconds = 0;
+            lbl_seconds.Text = seconds.ToString("00");
+            lbl_minutes.Text = minutes.ToString("00");
         }
     }
 }
