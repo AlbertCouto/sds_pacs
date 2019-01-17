@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="AccesoBBDD">
+      <HintPath>..\..\..\..\Documents\GitHub\sds_pacs\RepublicSystem_FNATIK\AccesoBBDD\AccesoBBDD\bin\Debug\AccesoBBDD.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
