@@ -54,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(67, 16);
+            this.label1.Location = new System.Drawing.Point(59, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 37);
             this.label1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             this.lbl_seconds.AutoSize = true;
             this.lbl_seconds.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_seconds.Location = new System.Drawing.Point(91, 16);
+            this.lbl_seconds.Location = new System.Drawing.Point(72, 16);
             this.lbl_seconds.Name = "lbl_seconds";
             this.lbl_seconds.Size = new System.Drawing.Size(53, 37);
             this.lbl_seconds.TabIndex = 2;
@@ -78,7 +78,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_minutes);
             this.Name = "Timer";
-            this.Size = new System.Drawing.Size(161, 65);
+            this.Size = new System.Drawing.Size(142, 65);
             this.Load += new System.EventHandler(this.Timer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

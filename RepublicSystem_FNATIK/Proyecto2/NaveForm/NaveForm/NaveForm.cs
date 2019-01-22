@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using RepublicSystemClasses;
 
@@ -11,18 +7,10 @@ namespace NaveForm
 {
     public partial class NaveForm : Form
     {
+        bool conectado_planeta = false;
         public NaveForm()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-
-            string directorio;
-            if (fbd.ShowDialog() == DialogResult.OK)
-                directorio = fbd.SelectedPath;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -31,38 +19,51 @@ namespace NaveForm
             timer1.StartTimer();
         }
 
+        //Conectar Con Planeta (PING)
         private void btn_Conectar_Click(object sender, EventArgs e)
         {
-           
             console_Log.AppendText("Conectando..." + "\r\n");
             try
             {
-                btn_Conectar.Enabled = false;
                 ClienteNave cliente = new ClienteNave();
+                btn_Conectar.Enabled = false;
                 cliente.puerto = 9250;
                 cliente.Start_Client();
-                string conectado = "Conexión verificada";
-                
-                console_Log.AppendText(conectado + "\r\n");
-                console_Log.Select(console_Log.Text.IndexOf(conectado), conectado.Length);
-                console_Log.SelectionColor = Color.Green;
-               
+
+                MostrarMsgLog("Conexión verificada", Color.Green);
+                btn_Archivo.Enabled = true;
+                conectado_planeta = true;
             }
             catch
             {
-                string error = "Error al conectar con el planeta";
-                console_Log.AppendText(error + "\r\n");
-                console_Log.Select(console_Log.Text.IndexOf(error), error.Length);
-                console_Log.SelectionColor = Color.Red;
+                MostrarMsgLog("Error al conectar con el planeta", Color.Red);
                 btn_Conectar.Enabled = true;
+                conectado_planeta = false;
             }
+        }
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            console_Log.AppendText(msg + "\r\n");
+            console_Log.Select(console_Log.Text.IndexOf(msg), msg.Length);
+            console_Log.SelectionColor = Color.Green;
+        }
+
+        //Enviar Mensaje al Planeta
+        private void btn_Mensaje_Click(object sender, EventArgs e)
+        {
 
         }
 
-        private void btn_Mensaje_Click(object sender, EventArgs e)
+        //Devolver Fichero
+        private void btn_Archivo_Click(object sender, EventArgs e)
         {
-       
 
+        }
+
+        //LOAD
+        private void NaveForm_Load(object sender, EventArgs e)
+        {
+            btn_Archivo.Enabled = false;
         }
     }
 }
