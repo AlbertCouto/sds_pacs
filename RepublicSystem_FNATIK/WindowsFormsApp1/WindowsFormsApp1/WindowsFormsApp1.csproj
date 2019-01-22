@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AccesoBBDD">
-      <HintPath>..\..\..\..\Documents\Git\sds_pacs\RepublicSystem_FNATIK\AccesoBBDD\AccesoBBDD\bin\Debug\AccesoBBDD.dll</HintPath>
+      <HintPath>..\..\AccesoBBDD\AccesoBBDD\bin\Debug\AccesoBBDD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -19,7 +19,7 @@ namespace Cliente_Nave
         public void Start_Client()
         {
             string SendingFilePath = "C:\\Users\\admin\\Desktop\\as.rar";
-            SendTCP(SendingFilePath, "172.17.20.198", puerto);
+            SendTCP(SendingFilePath, "172.17.20.96", puerto);
         }
         public static void SendTCP(string M, string IPA, Int32 PortN)
         {
