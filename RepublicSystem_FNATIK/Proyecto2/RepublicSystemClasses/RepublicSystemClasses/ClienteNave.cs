@@ -16,8 +16,6 @@ namespace RepublicSystemClasses
         {
             string SendingFilePath = "C:\\Users\\admin\\Desktop\\as.rar";
 
-            string IP = "172.17.20.90";
-
             string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][1]).ToString();
             puerto = (Int32)((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][1]);
 

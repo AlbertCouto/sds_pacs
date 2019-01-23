@@ -10,6 +10,7 @@ namespace RepublicSystemClasses
 {
     public class ServidorPlanet
     {
+        static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
         public string Status = string.Empty;
         private static TcpListener Listener;
@@ -31,7 +32,9 @@ namespace RepublicSystemClasses
         }
         public static void StartReceiving()
         {
-            ReceiveTCP(5678, 9250);
+            int puerto_archivo = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            ReceiveTCP(puerto_archivo, puerto_mensaje);
 
         }
         public static void ReceiveTCP(int portN, int portN2)
