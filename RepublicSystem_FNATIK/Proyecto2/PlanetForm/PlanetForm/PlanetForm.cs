@@ -29,9 +29,15 @@ namespace PlanetForm
 
         private void Btn_Apagar_Click(object sender, EventArgs e)
         {
-            Btn_Apagar.Enabled = false;
-            sp.OffServer();
-            Btn_encender.Enabled = true;
+            //try
+            //{
+            //    Btn_Apagar.Enabled = false;
+            //    Btn_Apagar.Enabled = true;
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Error al Encender el Servidor.");
+            //}
         }
 
         private void PlanetForm_Load(object sender, EventArgs e)
