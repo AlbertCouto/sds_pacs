@@ -12,6 +12,8 @@ namespace RepublicSystemClasses
     {
         private const int BufferSize = 1024;
         public string Status = string.Empty;
+        private static TcpListener Listener;
+        private static TcpListener Listener2;
 
         public void StartServer()
         {
@@ -22,6 +24,11 @@ namespace RepublicSystemClasses
             T.Start();
 
         }
+        public void OffServer()
+        {
+            Listener.Stop();
+            Listener2.Stop();
+        }
         public static void StartReceiving()
         {
             ReceiveTCP(5678, 9250);
@@ -30,8 +37,7 @@ namespace RepublicSystemClasses
         public static void ReceiveTCP(int portN, int portN2)
         {
             string Status = string.Empty;
-            TcpListener Listener = null;
-            TcpListener Listener2 = null;
+            
             try
             {
                 Listener = new TcpListener(IPAddress.Any, portN);
@@ -43,11 +49,9 @@ namespace RepublicSystemClasses
             {
                 Console.WriteLine(ex.Message);
             }
-
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
             byte[] RecData2 = new byte[BufferSize];
-
 
             for (; ; )
             {
