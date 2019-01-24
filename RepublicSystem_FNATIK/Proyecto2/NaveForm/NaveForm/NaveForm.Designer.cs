@@ -29,34 +29,35 @@
         private void InitializeComponent()
         {
             this.btn_Conectar = new System.Windows.Forms.Button();
-            this.btn_Archivo = new System.Windows.Forms.Button();
+            this.btn_Mensaje = new System.Windows.Forms.Button();
             this.console_Log = new System.Windows.Forms.RichTextBox();
             this.timer1 = new RepublicSystemClasses.Timer();
             this.button4 = new System.Windows.Forms.Button();
             this.Titulo = new System.Windows.Forms.Label();
+            this.btn_DevolverFichero = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_Conectar
             // 
             this.btn_Conectar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Conectar.Location = new System.Drawing.Point(75, 126);
+            this.btn_Conectar.Location = new System.Drawing.Point(60, 143);
             this.btn_Conectar.Name = "btn_Conectar";
             this.btn_Conectar.Size = new System.Drawing.Size(96, 78);
             this.btn_Conectar.TabIndex = 0;
-            this.btn_Conectar.Text = "Conectar";
+            this.btn_Conectar.Text = "Verificar Conexión";
             this.btn_Conectar.UseVisualStyleBackColor = true;
             this.btn_Conectar.Click += new System.EventHandler(this.btn_Conectar_Click);
             // 
-            // btn_Archivo
+            // btn_Mensaje
             // 
-            this.btn_Archivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Archivo.Location = new System.Drawing.Point(308, 126);
-            this.btn_Archivo.Name = "btn_Archivo";
-            this.btn_Archivo.Size = new System.Drawing.Size(96, 80);
-            this.btn_Archivo.TabIndex = 1;
-            this.btn_Archivo.Text = "Enviar archivo";
-            this.btn_Archivo.UseVisualStyleBackColor = true;
-            this.btn_Archivo.Click += new System.EventHandler(this.btn_Archivo_Click);
+            this.btn_Mensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Mensaje.Location = new System.Drawing.Point(195, 142);
+            this.btn_Mensaje.Name = "btn_Mensaje";
+            this.btn_Mensaje.Size = new System.Drawing.Size(96, 80);
+            this.btn_Mensaje.TabIndex = 1;
+            this.btn_Mensaje.Text = "Enviar mensaje";
+            this.btn_Mensaje.UseVisualStyleBackColor = true;
+            this.btn_Mensaje.Click += new System.EventHandler(this.btn_Mensaje_Click);
             // 
             // console_Log
             // 
@@ -93,22 +94,33 @@
             this.Titulo.AutoEllipsis = true;
             this.Titulo.AutoSize = true;
             this.Titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Titulo.Location = new System.Drawing.Point(83, 33);
+            this.Titulo.Location = new System.Drawing.Point(69, 47);
             this.Titulo.Name = "Titulo";
             this.Titulo.Size = new System.Drawing.Size(321, 33);
             this.Titulo.TabIndex = 7;
             this.Titulo.Text = "Spacefighter Software";
+            // 
+            // btn_DevolverFichero
+            // 
+            this.btn_DevolverFichero.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_DevolverFichero.Location = new System.Drawing.Point(325, 142);
+            this.btn_DevolverFichero.Name = "btn_DevolverFichero";
+            this.btn_DevolverFichero.Size = new System.Drawing.Size(96, 80);
+            this.btn_DevolverFichero.TabIndex = 8;
+            this.btn_DevolverFichero.Text = "Devolver Fichero";
+            this.btn_DevolverFichero.UseVisualStyleBackColor = true;
             // 
             // NaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 392);
+            this.Controls.Add(this.btn_DevolverFichero);
             this.Controls.Add(this.Titulo);
             this.Controls.Add(this.timer1);
             this.Controls.Add(this.console_Log);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.btn_Archivo);
+            this.Controls.Add(this.btn_Mensaje);
             this.Controls.Add(this.btn_Conectar);
             this.Name = "NaveForm";
             this.Text = "Form1";
@@ -121,11 +133,12 @@
         #endregion
 
         private System.Windows.Forms.Button btn_Conectar;
-        private System.Windows.Forms.Button btn_Archivo;
+        private System.Windows.Forms.Button btn_Mensaje;
         private System.Windows.Forms.RichTextBox console_Log;
         private RepublicSystemClasses.Timer timer1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label Titulo;
+        private System.Windows.Forms.Button btn_DevolverFichero;
     }
 }
 
