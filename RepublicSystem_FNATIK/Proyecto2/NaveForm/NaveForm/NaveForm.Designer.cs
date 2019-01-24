@@ -109,6 +109,7 @@
             this.btn_DevolverFichero.TabIndex = 8;
             this.btn_DevolverFichero.Text = "Devolver Fichero";
             this.btn_DevolverFichero.UseVisualStyleBackColor = true;
+            this.btn_DevolverFichero.Click += new System.EventHandler(this.btn_DevolverFichero_Click_1);
             // 
             // NaveForm
             // 

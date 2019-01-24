@@ -5,14 +5,13 @@ using System.IO;
 
 namespace RepublicSystemClasses
 {
-    public class ComprimirDescomprimirComparar
+    public class ZipUnzipCompare
     {
         
         //Rutas on estan i on aniran els arxius
-        //string startPath = @"C:\Users\admin\Desktop\start";
-        //string zipPath = @"C:\Users\admin\Desktop\result.zip";
-        //string zipPathCompr = @"C:\Users\admin\Desktop\result.zip";
-        //string extractPath = @"C:\Users\admin\Desktop\extract";
+        string startPath    = @"C:\Users\admin\Desktop\PACS\PlanetTXT";
+        string zipPath      = @"C:\Users\admin\Desktop\PACS\PACS.zip";
+        string extractPath  = @"C:\Users\admin\Desktop\PACS\NaveTXT";
 
         public void Comprimir(string startPath, string zipPath)
         {
@@ -26,16 +25,10 @@ namespace RepublicSystemClasses
             }
         }
 
-        public void Descomprimir(string zipPath, string extractPath)
+        public void Descomprimir()
         {
-            try
-            {
-                ZipFile.ExtractToDirectory(zipPath, extractPath);
-            }  
-            catch
-            {
-                MessageBox.Show("Error al descomprimir ficheros.");
-            }
+            if (Directory.Exists(extractPath)) Directory.Delete(extractPath);
+            ZipFile.ExtractToDirectory(zipPath, extractPath);
         }
 
         public bool Comparar(string original_file_path, string returned_file_path)
