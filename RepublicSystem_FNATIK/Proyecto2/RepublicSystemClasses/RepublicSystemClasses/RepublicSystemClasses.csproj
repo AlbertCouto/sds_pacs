@@ -49,6 +49,7 @@
     <Compile Include="GenerarFicheros.cs" />
     <Compile Include="ActualizarCifradoBD.cs" />
     <Compile Include="AccesoBD.cs" />
+    <Compile Include="GenerarMensajes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServidorPlanet.cs" />
     <Compile Include="Timer.cs">

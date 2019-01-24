@@ -21,14 +21,20 @@ namespace HASHCODE
 
         private void button1_Click(object sender, EventArgs e)
         {
-            bool boolean;
-            string original, returned;
-            original = @"C:\Users\admin\Desktop\descomprimido1.txt";
-            returned = @"C:\Users\admin\Desktop\descomprimido2.txt";
-            CompararArchivos ca = new CompararArchivos();
-            boolean = ca.Comparar(original, returned);
+            //bool boolean;
+            //string original, returned;
+            //original = @"C:\Users\admin\Desktop\descomprimido1.txt";
+            //returned = @"C:\Users\admin\Desktop\descomprimido2.txt";
+            //CompararArchivos ca = new CompararArchivos();
+            //boolean = ca.Comparar(original, returned);
 
-            textBox2.Text = boolean.ToString();
+            //textBox2.Text = boolean.ToString();
+
+            GenerarMensajes gm = new GenerarMensajes();
+            string mensaje = gm.GenerarMensajeInicio();
+
+            textBox2.Text = mensaje;
+           
 
         }
     }
