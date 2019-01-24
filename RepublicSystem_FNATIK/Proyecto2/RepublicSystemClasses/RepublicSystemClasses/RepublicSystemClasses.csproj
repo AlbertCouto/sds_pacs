@@ -45,9 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteNave.cs" />
-    <Compile Include="CompararArchivos.cs" />
     <Compile Include="GenerarFicheros.cs" />
-    <Compile Include="ComprimirDescomprimirComparar.cs" />
     <Compile Include="ActualizarCifradoBD.cs" />
     <Compile Include="AccesoBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
