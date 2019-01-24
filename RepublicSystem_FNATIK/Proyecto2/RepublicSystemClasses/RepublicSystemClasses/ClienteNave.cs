@@ -10,7 +10,7 @@ namespace RepublicSystemClasses
     {
         public string SendingFilePath = string.Empty;
         private const int BufferSize = 1024;
-        public AccesoBD bd = new AccesoBD();
+        public static AccesoBD bd = new AccesoBD();
         public Int32 puerto;
         public void Start_Client()
         {
@@ -23,9 +23,9 @@ namespace RepublicSystemClasses
         {
             byte[] SendingBuffer = null;
             TcpClient client = null;
-            /*string fecha, fecha_bien, año;
+            string fecha, fecha_bien, año;
             string[] cosas;
-            string nave, entrega;*/
+            string nave, entrega;
 
             DataSet ds = new DataSet();
 
@@ -57,12 +57,12 @@ namespace RepublicSystemClasses
             }
             else
             {
-                /*ds = bd.PortarPerConsulta("select Day from InnerEncryption where idInnerEncryption = (select max(idInnerEncryption) from InnerEncryption);");
+                ds = bd.PortarPerConsulta("select Day from InnerEncryption where idInnerEncryption = (select max(idInnerEncryption) from InnerEncryption);");
                 fecha = (ds.Tables[0].Rows[1]).ToString();
                 cosas = fecha.Split('/');
                 año = cosas[2];
                 ds = bd.PortarPerConsulta("select SpaceShip, CodeDelivery from DeliveryData");
-                fecha_bien = cosas[1] + cosas[0] + año[0];*/
+                fecha_bien = cosas[1] + cosas[0] + año[0];
                 byte[] nouBuffer = Encoding.ASCII.GetBytes("ESTO ES UN TEXTO DE PRUEBA");
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 

@@ -26,7 +26,7 @@ namespace NaveForm
             try
             {
                 ClienteNave cliente = new ClienteNave();
-                //btn_Conectar.Enabled = false;
+                btn_Conectar.Enabled = false;
                 cliente.puerto = 9250;
                 cliente.Start_Client();
 
@@ -44,9 +44,8 @@ namespace NaveForm
         private void MostrarMsgLog(string msg, Color color)
         {
             console_Log.AppendText(msg + "\r\n");
-            
-            console_Log.Select(console_Log.Text.Length-msg.Length-1, msg.Length);
-            console_Log.SelectionColor = color;
+            console_Log.Select(console_Log.Text.IndexOf(msg), msg.Length);
+            console_Log.SelectionColor = Color.Green;
         }
 
         //Enviar Mensaje al Planeta
