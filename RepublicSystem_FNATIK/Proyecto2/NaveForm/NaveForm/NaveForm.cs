@@ -37,16 +37,35 @@ namespace NaveForm
         {
             try
             {
+
                 Ping ping = new Ping();
                 PingReply pingStatus = ping.Send(IPAddress.Parse("8.8.8.8"));
                 PingReply pingStatus2 = ping.Send(IPAddress.Parse(((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString()));
                 return (pingStatus.Status == IPStatus.Success)&&(pingStatus2.Status == IPStatus.Success);
+
+                ClienteNave cliente = new ClienteNave();
+                btn_Conectar.Enabled = false;
+                cliente.puerto = 9250;
+                cliente.Start_Client();
+
+                MostrarMsgLog("Conexión verificada", Color.Green);
+                btn_Archivo.Enabled = true;
+                conectado_planeta = true;
+
             }
             catch
             {
                 return false;
             }
         }
+
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            console_Log.AppendText(msg + "\r\n");
+            console_Log.Select(console_Log.Text.IndexOf(msg), msg.Length);
+            console_Log.SelectionColor = Color.Green;
+        }
+
 
         //Enviar Mensaje al Planeta
         private void btn_Mensaje_Click(object sender, EventArgs e)
