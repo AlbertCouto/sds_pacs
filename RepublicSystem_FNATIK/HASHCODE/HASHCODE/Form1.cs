@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using RepublicSystemClasses;
 
 namespace HASHCODE
 {
@@ -20,12 +21,14 @@ namespace HASHCODE
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //int hashcode = textBox1.Text.GetHashCode();
-            //textBox2.Text = hashcode.ToString();
-            string path = @"C:\Users\admin\Desktop\descomprimido1.txt";
-            string texto;
-            texto = File.ReadAllText(path);
-            textBox2.Text = (texto.GetHashCode()).ToString();
+            bool boolean;
+            string original, returned;
+            original = @"C:\Users\admin\Desktop\descomprimido1.txt";
+            returned = @"C:\Users\admin\Desktop\descomprimido2.txt";
+            CompararArchivos ca = new CompararArchivos();
+            boolean = ca.Comparar(original, returned);
+
+            textBox2.Text = boolean.ToString();
 
         }
     }
