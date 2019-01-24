@@ -60,13 +60,9 @@ namespace RepublicSystemClasses
             }
             else
             {
-                ds = bd.PortarPerConsulta("select Day from InnerEncryption where idInnerEncryption = (select max(idInnerEncryption) from InnerEncryption);");
-                fecha = (ds.Tables[0].Rows[1]).ToString();
-                cosas = fecha.Split('/');
-                año = cosas[2];
-                ds = bd.PortarPerConsulta("select SpaceShip, CodeDelivery from DeliveryData");
-                fecha_bien = cosas[1] + cosas[0] + año[0];
-                byte[] nouBuffer = Encoding.ASCII.GetBytes("ESTO ES UN TEXTO DE PRUEBA");
+                GenerarMensajes gm = new GenerarMensajes();
+                string mensaje = gm.GenerarMensajeInicio();
+                byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
             }
