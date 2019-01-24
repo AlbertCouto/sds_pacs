@@ -11,7 +11,7 @@ namespace RepublicSystemClasses
     {
         AccesoBD db = new AccesoBD();
         DataSet ds = new DataSet();
-        private string GenerarMensajeInicio()
+        public string GenerarMensajeInicio()
         {
             string fecha, fecha_bien;
             string[] cosas;
