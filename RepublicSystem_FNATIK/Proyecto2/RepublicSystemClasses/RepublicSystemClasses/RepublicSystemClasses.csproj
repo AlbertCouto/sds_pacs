@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteNave.cs" />
+    <Compile Include="ComprobarNave.cs" />
     <Compile Include="Descifrar.cs" />
     <Compile Include="GenerarFicheros.cs" />
     <Compile Include="ActualizarCifradoBD.cs" />

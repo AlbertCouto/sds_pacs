@@ -15,6 +15,7 @@ namespace RepublicSystemClasses
         public string Status = string.Empty;
         private static TcpListener Listener;
         private static TcpListener Listener2;
+        public static ComprobarNave cn;
         private bool verificar { get; set; }
         public void StartServer()
         {
@@ -41,6 +42,7 @@ namespace RepublicSystemClasses
         {
             string Status = string.Empty;
             
+
             try
             {
                 Listener = new TcpListener(IPAddress.Any, portN);
@@ -70,19 +72,11 @@ namespace RepublicSystemClasses
                     {
                         client = Listener.AcceptTcpClient();
                         netstream = client.GetStream();
-                        string ruta = "C:\\Users\\admin\\Desktop\\Pruebas.rar";
-                        //int totalrecbytes = 0;
+                        string ruta = "C:\\Users\\admin\\Desktop\\Pruebas.rar";                        
                         FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
                         RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                        Fs.Write(RecData, 0, RecBytes);
-                        //while (RecBytes > 0)
-                        //{
-                        //    MessageBox.Show(RecBytes.ToString());
-                        //totalrecbytes += RecBytes;
-                        //RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                        //}
-                        MessageBox.Show("Archivo recibido");
-                        verificar = true;
+                        Fs.Write(RecData, 0, RecBytes);                       
+                        MessageBox.Show("Archivo recibido");                        
                         Fs.Close();
                         netstream.Close();
                         client.Close();
@@ -93,8 +87,11 @@ namespace RepublicSystemClasses
                         netstream2 = client2.GetStream();
                         int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
                         texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
-                        MessageBox.Show(texto);
-                        verificar = true;
+                        MessageBox.Show(texto); 
+                        if(texto.Length == 28)
+                        {
+                            bool v = cn.Comprobacion(texto);
+                        }
                         netstream2.Close();
                         client2.Close();
                     }
