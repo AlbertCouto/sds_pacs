@@ -76,13 +76,19 @@ namespace NaveForm
         //Devolver Fichero
         private void btn_DevolverFichero_Click_1(object sender, EventArgs e)
         {
-            Descifrar d = new Descifrar();
-            if (!d.DescifrarFichero())
+            if (conexion_ok)
             {
-                MessageBox.Show("Error al Descifrar el Fichero");
-                return;
+                Descifrar d = new Descifrar();
+                if (!d.DescifrarFichero())
+                {
+                    MessageBox.Show("Error al Descifrar el Fichero");
+                    return;
+                }
+                MostrarMsgLog("Ficheros TXT Generados", Color.Green);
+
+
             }
-            MostrarMsgLog("Ficheros TXT Generados", Color.Green);
+            else MessageBox.Show("Debe Verificar Conexión");
         }
         //LOAD
         private void NaveForm_Load(object sender, EventArgs e)

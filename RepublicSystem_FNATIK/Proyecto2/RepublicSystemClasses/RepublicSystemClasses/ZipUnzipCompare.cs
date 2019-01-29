@@ -27,7 +27,12 @@ namespace RepublicSystemClasses
 
         public void Descomprimir()
         {
-            if (Directory.Exists(extractPath)) Directory.Delete(extractPath);
+            System.IO.DirectoryInfo di = new DirectoryInfo(extractPath);
+
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
             ZipFile.ExtractToDirectory(zipPath, extractPath);
         }
 
