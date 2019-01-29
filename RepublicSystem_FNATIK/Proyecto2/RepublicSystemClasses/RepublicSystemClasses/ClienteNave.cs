@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Net.Sockets;
 using System.Data;
+using System.Net;
 
 namespace RepublicSystemClasses
 {
@@ -11,6 +12,7 @@ namespace RepublicSystemClasses
         public string SendingFilePath = string.Empty;
         private const int BufferSize = 1024;
         public static AccesoBD bd = new AccesoBD();
+        private static TcpListener Listener;
         public Int32 puerto;
         public void Start_Client()
         {
@@ -25,7 +27,10 @@ namespace RepublicSystemClasses
         public static void SendTCP(string M, string IPA, Int32 PortN)
         {
             byte[] SendingBuffer = null;
-            TcpClient client = null;            
+            TcpClient client = null;
+
+            Listener = new TcpListener(IPAddress.Any, PortN);
+            Listener.Start();
 
             DataSet ds = new DataSet();
 
@@ -62,6 +67,7 @@ namespace RepublicSystemClasses
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
             }          
+
         }
     }
 }
