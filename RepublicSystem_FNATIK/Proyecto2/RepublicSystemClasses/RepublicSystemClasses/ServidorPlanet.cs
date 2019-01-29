@@ -35,14 +35,20 @@ namespace RepublicSystemClasses
         {
             int puerto_archivo = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
-            ReceiveTCP(puerto_archivo, puerto_mensaje);
+            string IP = ((bd.PortarPerConsulta("select IPSpaceShip from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]).ToString();
+            ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
 
         }
-        public static void ReceiveTCP(int portN, int portN2)
+        public static void ReceiveTCP(int portN, int portN2, string IP)
         {
-            string Status = string.Empty;
-            bool v = false;
+            string Status = string.Empty;         
             string rutaZip = "C:\\PACS.zip";
+            byte[] SendingBuffer = null;
+            TcpClient client3 = null;
+            NetworkStream netstream3 = null;
+
+            client3 = new TcpClient(IP, portN2);
+            netstream3 = client3.GetStream();
 
             try
             {
@@ -94,7 +100,24 @@ namespace RepublicSystemClasses
                         {                       
                             if (cn.Comprobacion(texto))
                             {
+                                FileStream Fs = new FileStream(rutaZip, FileMode.Open, FileAccess.Read);
+                                int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
+                                int TotalLength = (int)Fs.Length, CurrentPacketLength;
+                                for (int i = 0; i < NoOfPackets; i++)
+                                {
+                                    if (TotalLength > BufferSize)
+                                    {
+                                        CurrentPacketLength = BufferSize;
+                                        TotalLength = TotalLength - CurrentPacketLength;
+                                    }
+                                    else
+                                        CurrentPacketLength = TotalLength;
+                                    SendingBuffer = new byte[CurrentPacketLength];
+                                    Fs.Read(SendingBuffer, 0, CurrentPacketLength);
+                                    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
 
+                                }
+                                Fs.Close();
                             }
                         }
                         //MessageBox.Show(texto);

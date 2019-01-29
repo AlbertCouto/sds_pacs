@@ -25,16 +25,12 @@ namespace RepublicSystemClasses
         public static void SendTCP(string M, string IPA, Int32 PortN)
         {
             byte[] SendingBuffer = null;
-            TcpClient client = null;
-            string fecha, fecha_bien, año;
-            string[] cosas;
-            string nave, entrega;
+            TcpClient client = null;            
 
             DataSet ds = new DataSet();
 
             NetworkStream netstream = null;
-            //try
-            //{
+            
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
             if (PortN == 5678)
@@ -65,19 +61,7 @@ namespace RepublicSystemClasses
                 byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
-            }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //finally
-            //{
-            //    if (netstream != null)
-            //        netstream.Close();
-            //    if (client != null)
-            //        client.Close();
-            //}
+            }          
         }
     }
 }
