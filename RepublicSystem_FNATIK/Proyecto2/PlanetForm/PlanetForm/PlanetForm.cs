@@ -19,6 +19,7 @@ namespace PlanetForm
                 sp = new ServidorPlanet();
                 Btn_encender.Enabled = false;
                 sp.StartServer();
+                
                 Btn_Apagar.Enabled = true;
             }
             catch
