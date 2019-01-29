@@ -88,10 +88,11 @@ namespace RepublicSystemClasses
                         int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
                         texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
                         MessageBox.Show(texto); 
-                        if(texto.Length == 28)
-                        {
+                        //if(texto.Length == 28)
+                        //{
                             bool v = cn.Comprobacion(texto);
-                        }
+                        //}
+                        MessageBox.Show(v.ToString());
                         netstream2.Close();
                         client2.Close();
                     }

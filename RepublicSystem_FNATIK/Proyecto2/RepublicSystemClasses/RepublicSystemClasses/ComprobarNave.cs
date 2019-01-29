@@ -9,7 +9,7 @@ namespace RepublicSystemClasses
 {    
     public class ComprobarNave
     {
-        public string datosEnvio;
+        //public string datosEnvio;
         public AccesoBD ab = new AccesoBD();
         public DataSet ds = new DataSet();
             
