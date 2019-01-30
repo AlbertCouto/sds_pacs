@@ -7,7 +7,6 @@ namespace RepublicSystemClasses
 {
     public class ZipUnzipCompare
     {
-        
         //Rutas on estan i on aniran els arxius
         string startPath    = @"C:\Users\admin\Desktop\PACS\PlanetTXT";
         string zipPath      = @"C:\Users\admin\Desktop\PACS\PACS.zip";

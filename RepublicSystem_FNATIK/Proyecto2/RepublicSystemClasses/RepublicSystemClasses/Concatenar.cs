@@ -5,7 +5,6 @@ namespace RepublicSystemClasses
 {
     public class Concatenar
     {
-
         public void ConcatenaFicheros(string Directorio, string ArchivoFinal)
         {
             string[] inputFilePaths = Directory.GetFiles(Directorio);
