@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="ClienteNave.cs" />
     <Compile Include="ComprobarNave.cs" />
-    <Compile Include="Descifrar.cs" />
+    <Compile Include="Concatenar.cs" />
+    <Compile Include="Conexiones_NavePlaneta.cs" />
+    <Compile Include="Desencriptar.cs" />
     <Compile Include="GenerarFicheros.cs" />
     <Compile Include="ActualizarCifradoBD.cs" />
     <Compile Include="AccesoBD.cs" />

@@ -25,9 +25,9 @@ namespace RepublicSystemClasses
             }
         }
 
-        public void Descomprimir()
+        public void Descomprimir(string zipPath)
         {
-            System.IO.DirectoryInfo di = new DirectoryInfo(extractPath);
+            DirectoryInfo di = new DirectoryInfo(extractPath);
 
             foreach (FileInfo file in di.GetFiles())
             {

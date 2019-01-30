@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using System.Threading;
 using RepublicSystemClasses;
-using System.Net;
 
 namespace NaveForm
 {
     public partial class NaveForm : Form
     {
         private static AccesoBD bd = new AccesoBD();
-        private static ClienteNave cliente = new ClienteNave();
-        private static bool conexion_ok;
+        private static Conexiones_NavePlaneta cnp = new Conexiones_NavePlaneta();
+        Thread th1;
+        Thread th2;
+        Thread th3;
         public NaveForm()
         {
             InitializeComponent();
@@ -26,83 +28,76 @@ namespace NaveForm
         //Conectar Con Planeta (PING)
         private void btn_Conectar_Click(object sender, EventArgs e)
         {
-            console_Log.AppendText("Conectando..." + "\r\n");
-            if (Ping())
-            {
-                conexion_ok = true;
-                MostrarMsgLog("Conexión a Internet Verificada", Color.Green);
-            }
-            else
-            {
-                MostrarMsgLog("Error de conexión a Internet", Color.Red);
-                conexion_ok = false;
-            }
+            th1 = new Thread(ConectarConPlaneta);
+            th1.Start();
         }
-        private bool Ping()
+        private void ConectarConPlaneta()
         {
-            try
-            {
-                Ping ping = new Ping();
-                PingReply pingStatus = ping.Send(IPAddress.Parse("8.8.8.8"));
-                PingReply pingStatus2 = ping.Send(IPAddress.Parse(((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString()));
-                return (pingStatus.Status == IPStatus.Success) && (pingStatus2.Status == IPStatus.Success);
-            }
-            catch
-            {
-                return false;
-            }
+            MostrarMsgLog("Conectando...", Color.White);
+            if (cnp.Ping()) MostrarMsgLog("Conexión a Internet Verificada", Color.Green);
+            else MostrarMsgLog("Error de conexión", Color.Red);
         }
+
         //Enviar Mensaje al Planeta
         private void btn_Mensaje_Click(object sender, EventArgs e)
         {
-            if (conexion_ok)
+            th2 = new Thread(EnviarCodigoPlaneta);
+            th2.Start();
+        }
+        private void EnviarCodigoPlaneta()
+        {
+            if (btn_Mensaje.InvokeRequired)
             {
-                try
+                btn_Mensaje.Invoke((MethodInvoker)delegate
                 {
                     btn_Mensaje.Enabled = false;
-                    cliente.puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
-                    cliente.Start_Client();
-
-                    MostrarMsgLog("Mensaje Enviado", Color.Green);
+                    MostrarMsgLog("Enviando Código...", Color.White);
+                    if (cnp.EnviarCodigo()) MostrarMsgLog("Código Enviado", Color.Green);
+                    else MostrarMsgLog("Error al enviar el código", Color.Red);
                     btn_Mensaje.Enabled = true;
-                }
-                catch
-                {
-                    MostrarMsgLog("Error al enviar el mensaje", Color.Red);
-                }
+                });
             }
-            else MessageBox.Show("Debe Verificar Conexión");
         }
+
         //Devolver Fichero
-        private void btn_DevolverFichero_Click_1(object sender, EventArgs e)
+        private void btn_DevolverFicheroClick(object sender, EventArgs e)
         {
-            if (conexion_ok)
-            {
-                Descifrar d = new Descifrar();
-                if (!d.DescifrarFichero())
-                {
-                    MessageBox.Show("Error al Descifrar el Fichero");
-                    return;
-                }
-                MostrarMsgLog("Ficheros TXT Generados", Color.Green);
-
-
-            }
-            else MessageBox.Show("Debe Verificar Conexión");
+            th3 = new Thread(DevolverFicheroPlaneta);
+            th3.SetApartmentState(ApartmentState.STA);
+            th3.Start();
         }
+        private void DevolverFicheroPlaneta()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            
+            openFileDialog.FileName = "PACS";
+            openFileDialog.Filter = "ZIP Folders (.ZIP)|*.zip";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                MostrarMsgLog("Devolviendo el Fichero...", Color.White);
+                if (cnp.GestionarFicheros(openFileDialog.FileName))
+                    MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
+                else MostrarMsgLog("Error al devolver ficheros", Color.Red);
+            }
+        }
+
         //LOAD
         private void NaveForm_Load(object sender, EventArgs e)
         {
-            conexion_ok = false;
         }
 
-
+        //Mostrar Mensaje
         private void MostrarMsgLog(string msg, Color color)
         {
-            console_Log.AppendText(msg + "\r\n");
-
-            console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
-            console_Log.SelectionColor = color;
+            if(console_Log.InvokeRequired)
+            {
+                console_Log.Invoke((MethodInvoker)delegate
+                {
+                    console_Log.AppendText(msg + "\r\n");
+                    console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
+                    console_Log.SelectionColor = color;
+                });
+            }
         }
     }
 }
