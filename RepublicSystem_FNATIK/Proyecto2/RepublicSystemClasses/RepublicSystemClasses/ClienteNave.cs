@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Data;
 using System.Net;
+using System.Windows.Forms;
 
 namespace RepublicSystemClasses
 {
@@ -26,18 +27,18 @@ namespace RepublicSystemClasses
         }
         public static void SendTCP(string M, string IPA, Int32 PortN)
         {
-            byte[] SendingBuffer = null;
             TcpClient client = null;
+            DataSet ds = new DataSet();
+            NetworkStream netstream = null;
+            byte[] RecData = new byte[BufferSize];
+            int RecBytes;
+            byte[] SendingBuffer = null;       
 
             Listener = new TcpListener(IPAddress.Any, PortN);
             Listener.Start();
-
-            DataSet ds = new DataSet();
-
-            NetworkStream netstream = null;
-            
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
+
             if (PortN == 5678)
             {
                 FileStream Fs = new FileStream(M, FileMode.Open, FileAccess.Read);
@@ -66,7 +67,20 @@ namespace RepublicSystemClasses
                 byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
-            }          
+            }
+            if (Listener.Pending())
+            {
+                client = Listener.AcceptTcpClient();
+                netstream = client.GetStream();
+                string ruta = "C:\\Users\\admin\\Desktop\\PACS.zip";
+                FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
+                RecBytes = netstream.Read(RecData, 0, RecData.Length);
+                Fs.Write(RecData, 0, RecBytes);
+                MessageBox.Show("Archivo recibido");
+                Fs.Close();
+                netstream.Close();
+                client.Close();
+            }
 
         }
     }
