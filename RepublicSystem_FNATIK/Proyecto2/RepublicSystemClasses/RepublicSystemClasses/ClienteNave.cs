@@ -88,12 +88,16 @@ namespace RepublicSystemClasses
             {
                 if (Listener2.Pending())
                 {
+                    int totalrecbytes = 0;
                     client2 = Listener2.AcceptTcpClient();
                     netstream = client2.GetStream();
                     string ruta = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
                     FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
-                    RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                    Fs.Write(RecData, 0, RecBytes);
+                    while ((RecBytes = netstream.Read(RecData, 0, RecData.Length))>0)
+                    {
+                        Fs.Write(RecData, 0, RecBytes);
+                        totalrecbytes += RecBytes;
+                    }
                     MessageBox.Show("Archivo recibido");
                     Fs.Close();
                     netstream.Close();
