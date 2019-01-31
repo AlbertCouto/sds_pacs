@@ -39,5 +39,18 @@ namespace PlanetForm
         {
             Btn_Apagar.Enabled = false;
         }
+
+        //private void MostrarMsgLog(string msg, Color color)
+        //{
+        //    if (console_Log.InvokeRequired)
+        //    {
+        //        console_Log.Invoke((MethodInvoker)delegate
+        //        {
+        //            console_Log.AppendText(msg + "\r\n");
+        //            console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
+        //            console_Log.SelectionColor = color;
+        //        });
+        //    }
+        //}
     }
 }

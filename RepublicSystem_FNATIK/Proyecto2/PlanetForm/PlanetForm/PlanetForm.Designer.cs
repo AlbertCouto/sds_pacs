@@ -31,6 +31,7 @@
             this.Btn_encender = new System.Windows.Forms.Button();
             this.Btn_Apagar = new System.Windows.Forms.Button();
             this.timer1 = new RepublicSystemClasses.Timer();
+            this.consoleLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // Btn_encender
@@ -55,16 +56,26 @@
             // 
             // timer1
             // 
-            this.timer1.Location = new System.Drawing.Point(516, 150);
+            this.timer1.Location = new System.Drawing.Point(199, 274);
             this.timer1.Name = "timer1";
             this.timer1.Size = new System.Drawing.Size(142, 65);
             this.timer1.TabIndex = 2;
+            // 
+            // consoleLog
+            // 
+            this.consoleLog.BackColor = System.Drawing.Color.Black;
+            this.consoleLog.Location = new System.Drawing.Point(459, 96);
+            this.consoleLog.Name = "consoleLog";
+            this.consoleLog.Size = new System.Drawing.Size(314, 341);
+            this.consoleLog.TabIndex = 3;
+            this.consoleLog.Text = "";
             // 
             // PlanetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 536);
+            this.Controls.Add(this.consoleLog);
             this.Controls.Add(this.timer1);
             this.Controls.Add(this.Btn_Apagar);
             this.Controls.Add(this.Btn_encender);
@@ -80,6 +91,7 @@
         private System.Windows.Forms.Button Btn_encender;
         private System.Windows.Forms.Button Btn_Apagar;
         private RepublicSystemClasses.Timer timer1;
+        private System.Windows.Forms.RichTextBox consoleLog;
     }
 }
 
