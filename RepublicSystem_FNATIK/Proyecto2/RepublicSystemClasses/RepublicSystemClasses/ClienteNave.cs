@@ -34,13 +34,11 @@ namespace RepublicSystemClasses
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
-            byte[] SendingBuffer = null;       
-
-            Listener = new TcpListener(IPAddress.Any, PortN);
-            Listener.Start();
+            byte[] SendingBuffer = null;          
+         
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
-
+            ThreadListener();
             if (PortN == 5678)
             {
                 FileStream Fs = new FileStream(M, FileMode.Open, FileAccess.Read);
@@ -69,44 +67,49 @@ namespace RepublicSystemClasses
                 byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
-            }
-           
-
+            }         
         }
-
-        public static void CrearListener(string IPA, Int32 PortN)
-        {
-            TcpClient client = null;
+       
+        public static void CrearListener()
+        {            
+            string IPA = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
+            Int32 PortN = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            TcpClient client2 = null;
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
             int RecBytes;            
 
-            Listener = new TcpListener(IPAddress.Any, PortN);
-            Listener.Start();
-            client = new TcpClient(IPA, PortN);
-            netstream = client.GetStream();
+            TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
+            Listener2.Start();
+            client2 = new TcpClient(IPA, PortN);
+            netstream = client2.GetStream();
             for (; ; )
             {
-                if (Listener.Pending())
+                if (Listener2.Pending())
                 {
-                    client = Listener.AcceptTcpClient();
-                    netstream = client.GetStream();
-                    string ruta = "C:\\Users\\admin\\Desktop\\PACS.zip";
+                    int totalrecbytes = 0;
+                    client2 = Listener2.AcceptTcpClient();
+                    netstream = client2.GetStream();
+                    string ruta = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
                     FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
-                    RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                    Fs.Write(RecData, 0, RecBytes);
+                    while ((RecBytes = netstream.Read(RecData, 0, RecData.Length))>0)
+                    {
+                        Fs.Write(RecData, 0, RecBytes);
+                        totalrecbytes += RecBytes;
+                    }
                     MessageBox.Show("Archivo recibido");
                     Fs.Close();
                     netstream.Close();
-                    client.Close();
+                    client2.Close();
                 }
             }
         }
 
-        public void ThreadListener()
+        public static void ThreadListener()
         {
-            th = new Thread(CrearListener);
+            Thread th = new Thread(CrearListener);
+            th.Start();
         }
     }
 }
