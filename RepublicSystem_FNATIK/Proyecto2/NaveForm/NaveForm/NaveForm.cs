@@ -51,9 +51,15 @@ namespace NaveForm
                 btn_Mensaje.Invoke((MethodInvoker)delegate
                 {
                     btn_Mensaje.Enabled = false;
-                    MostrarMsgLog("Enviando Código...", Color.White);
-                    if (cnp.EnviarCodigo()) MostrarMsgLog("Código Enviado", Color.Green);
-                    else MostrarMsgLog("Error al enviar el código", Color.Red);
+                });
+            }
+            MostrarMsgLog("Enviando Código...", Color.White);
+            if (cnp.EnviarCodigo()) MostrarMsgLog("Código Enviado", Color.Green);
+            else MostrarMsgLog("Error al enviar el código", Color.Red);
+            if (btn_Mensaje.InvokeRequired)
+            {
+                btn_Mensaje.Invoke((MethodInvoker)delegate
+                {
                     btn_Mensaje.Enabled = true;
                 });
             }

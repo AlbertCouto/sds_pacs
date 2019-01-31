@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using System.Net;
+using RepublicSystemClasses;
 
 namespace RepublicSystemClasses
 {
