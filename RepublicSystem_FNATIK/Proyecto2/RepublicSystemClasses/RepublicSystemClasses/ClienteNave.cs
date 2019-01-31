@@ -5,11 +5,13 @@ using System.Net.Sockets;
 using System.Data;
 using System.Net;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace RepublicSystemClasses
 {
     public class ClienteNave
     {
+        Thread th;
         public string SendingFilePath = string.Empty;
         private const int BufferSize = 1024;
         public static AccesoBD bd = new AccesoBD();
@@ -68,20 +70,43 @@ namespace RepublicSystemClasses
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
             }
-            if (Listener.Pending())
-            {
-                client = Listener.AcceptTcpClient();
-                netstream = client.GetStream();
-                string ruta = "C:\\Users\\admin\\Desktop\\PACS.zip";
-                FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
-                RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                Fs.Write(RecData, 0, RecBytes);
-                MessageBox.Show("Archivo recibido");
-                Fs.Close();
-                netstream.Close();
-                client.Close();
-            }
+           
 
+        }
+
+        public static void CrearListener(string IPA, Int32 PortN)
+        {
+            TcpClient client = null;
+            DataSet ds = new DataSet();
+            NetworkStream netstream = null;
+            byte[] RecData = new byte[BufferSize];
+            int RecBytes;            
+
+            Listener = new TcpListener(IPAddress.Any, PortN);
+            Listener.Start();
+            client = new TcpClient(IPA, PortN);
+            netstream = client.GetStream();
+            for (; ; )
+            {
+                if (Listener.Pending())
+                {
+                    client = Listener.AcceptTcpClient();
+                    netstream = client.GetStream();
+                    string ruta = "C:\\Users\\admin\\Desktop\\PACS.zip";
+                    FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
+                    RecBytes = netstream.Read(RecData, 0, RecData.Length);
+                    Fs.Write(RecData, 0, RecBytes);
+                    MessageBox.Show("Archivo recibido");
+                    Fs.Close();
+                    netstream.Close();
+                    client.Close();
+                }
+            }
+        }
+
+        public void ThreadListener()
+        {
+            th = new Thread(CrearListener);
         }
     }
 }
