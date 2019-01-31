@@ -42,14 +42,8 @@ namespace RepublicSystemClasses
         public static void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;         
-            string rutaZip = "C:\\PACS.zip";
-            byte[] SendingBuffer = null;
-            TcpClient client3 = null;
-            NetworkStream netstream3 = null;
-
-            client3 = new TcpClient(IP, portN2);
-            netstream3 = client3.GetStream();
-
+            string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
+            byte[] SendingBuffer = null;         
             try
             {
                 cn = new ComprobarNave();
@@ -72,6 +66,8 @@ namespace RepublicSystemClasses
                 NetworkStream netstream = null;
                 TcpClient client2 = null;
                 NetworkStream netstream2 = null;
+                TcpClient client3 = null;
+                NetworkStream netstream3 = null;
                 string texto = null;
                 Status = string.Empty;
                 try
@@ -100,6 +96,10 @@ namespace RepublicSystemClasses
                         {                       
                             if (cn.Comprobacion(texto))
                             {
+                                MessageBox.Show("MENSAJE CORRECTO");
+                                client3 = new TcpClient(IP, portN2);
+                                netstream3 = client3.GetStream();
+
                                 FileStream Fs = new FileStream(rutaZip, FileMode.Open, FileAccess.Read);
                                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
                                 int TotalLength = (int)Fs.Length, CurrentPacketLength;
@@ -114,9 +114,15 @@ namespace RepublicSystemClasses
                                         CurrentPacketLength = TotalLength;
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
-                                    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                                    netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                                    //if (i >= 800)
+                                    //{
+                                    //    MessageBox.Show("NO = " + NoOfPackets.ToString());
+                                    //    MessageBox.Show("I = " + i.ToString());
+                                    //}
 
                                 }
+                                MessageBox.Show("ARCHIVO ENVIADO");
                                 Fs.Close();
                             }
                         }
