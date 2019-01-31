@@ -1,6 +1,7 @@
 ﻿using System;
 using RepublicSystemClasses;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PlanetForm
 {
@@ -21,6 +22,7 @@ namespace PlanetForm
                 sp.StartServer();
                 
                 Btn_Apagar.Enabled = true;
+                MostrarMsgLog("Conexión establecida", Color.Green);
             }
             catch
             {
@@ -40,17 +42,17 @@ namespace PlanetForm
             Btn_Apagar.Enabled = false;
         }
 
-        //private void MostrarMsgLog(string msg, Color color)
-        //{
-        //    if (console_Log.InvokeRequired)
-        //    {
-        //        console_Log.Invoke((MethodInvoker)delegate
-        //        {
-        //            console_Log.AppendText(msg + "\r\n");
-        //            console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
-        //            console_Log.SelectionColor = color;
-        //        });
-        //    }
-        //}
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            //if (console_Log.InvokeRequired)
+            //{
+            //    console_Log.Invoke((MethodInvoker)delegate
+            //    {
+                    console_Log.AppendText(msg + "\r\n");
+                    console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
+                    console_Log.SelectionColor = color;
+            //    });
+            //}
+        }
     }
 }

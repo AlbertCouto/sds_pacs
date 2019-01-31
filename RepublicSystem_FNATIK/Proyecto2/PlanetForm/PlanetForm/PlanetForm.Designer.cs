@@ -30,8 +30,8 @@
         {
             this.Btn_encender = new System.Windows.Forms.Button();
             this.Btn_Apagar = new System.Windows.Forms.Button();
+            this.console_Log = new System.Windows.Forms.RichTextBox();
             this.timer1 = new RepublicSystemClasses.Timer();
-            this.consoleLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // Btn_encender
@@ -54,6 +54,16 @@
             this.Btn_Apagar.UseVisualStyleBackColor = true;
             this.Btn_Apagar.Click += new System.EventHandler(this.Btn_Apagar_Click);
             // 
+            // console_Log
+            // 
+            this.console_Log.BackColor = System.Drawing.Color.Black;
+            this.console_Log.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.console_Log.Location = new System.Drawing.Point(460, 96);
+            this.console_Log.Name = "console_Log";
+            this.console_Log.Size = new System.Drawing.Size(314, 341);
+            this.console_Log.TabIndex = 3;
+            this.console_Log.Text = "";
+            // 
             // timer1
             // 
             this.timer1.Location = new System.Drawing.Point(199, 274);
@@ -61,21 +71,12 @@
             this.timer1.Size = new System.Drawing.Size(142, 65);
             this.timer1.TabIndex = 2;
             // 
-            // consoleLog
-            // 
-            this.consoleLog.BackColor = System.Drawing.Color.Black;
-            this.consoleLog.Location = new System.Drawing.Point(459, 96);
-            this.consoleLog.Name = "consoleLog";
-            this.consoleLog.Size = new System.Drawing.Size(314, 341);
-            this.consoleLog.TabIndex = 3;
-            this.consoleLog.Text = "";
-            // 
             // PlanetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 536);
-            this.Controls.Add(this.consoleLog);
+            this.Controls.Add(this.console_Log);
             this.Controls.Add(this.timer1);
             this.Controls.Add(this.Btn_Apagar);
             this.Controls.Add(this.Btn_encender);
@@ -91,7 +92,7 @@
         private System.Windows.Forms.Button Btn_encender;
         private System.Windows.Forms.Button Btn_Apagar;
         private RepublicSystemClasses.Timer timer1;
-        private System.Windows.Forms.RichTextBox consoleLog;
+        private System.Windows.Forms.RichTextBox console_Log;
     }
 }
 
