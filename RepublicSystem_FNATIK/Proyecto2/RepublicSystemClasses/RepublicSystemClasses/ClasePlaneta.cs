@@ -27,8 +27,7 @@ namespace RepublicSystemClasses
 
         }
         public void OffServer()
-        {
-            Listener.Stop();
+        {            
             Listener2.Stop();
         }
         public static void StartReceiving()
@@ -46,9 +45,7 @@ namespace RepublicSystemClasses
             byte[] SendingBuffer = null;         
             try
             {
-                cn = new ComprobarNave();
-                Listener = new TcpListener(IPAddress.Any, portN);
-                Listener.Start();
+                cn = new ComprobarNave();                
                 Listener2 = new TcpListener(IPAddress.Any, portN2);
                 Listener2.Start();
             }
@@ -56,8 +53,7 @@ namespace RepublicSystemClasses
             {
                 Console.WriteLine(ex.Message);
             }
-            byte[] RecData = new byte[BufferSize];
-            
+            byte[] RecData = new byte[BufferSize];            
             byte[] RecData2 = new byte[BufferSize];
 
             for (; ; )
