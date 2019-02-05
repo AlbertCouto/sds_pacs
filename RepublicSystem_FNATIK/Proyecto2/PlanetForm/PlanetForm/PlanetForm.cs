@@ -7,7 +7,7 @@ namespace PlanetForm
 {
     public partial class PlanetForm : Form
     {
-        ServidorPlanet sp;
+        ClasePlaneta cp;
         public PlanetForm()
         {
             InitializeComponent();
@@ -17,9 +17,9 @@ namespace PlanetForm
         {
             try
             {
-                sp = new ServidorPlanet();
+                cp = new ClasePlaneta();
                 Btn_encender.Enabled = false;
-                sp.StartServer();
+                cp.StartServer();
                 
                 Btn_Apagar.Enabled = true;
                 MostrarMsgLog("Conexión establecida", Color.Green);
@@ -33,7 +33,7 @@ namespace PlanetForm
         private void Btn_Apagar_Click(object sender, EventArgs e)
         {
             Btn_Apagar.Enabled = false;
-            sp.OffServer();
+            cp.OffServer();
             Btn_encender.Enabled = true;
         }
 
