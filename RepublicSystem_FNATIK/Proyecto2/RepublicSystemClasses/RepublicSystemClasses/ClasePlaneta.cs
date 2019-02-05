@@ -42,7 +42,7 @@ namespace RepublicSystemClasses
         public static void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;         
-            string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
+            string rutaZip = @"C:\Users\admin\Desktop\pacs1.zip";
             byte[] SendingBuffer = null;         
             try
             {
@@ -111,11 +111,14 @@ namespace RepublicSystemClasses
                                         TotalLength = TotalLength - CurrentPacketLength;
                                     }
                                     else
+                                    {
                                         CurrentPacketLength = TotalLength;
+                                    }
+                                        
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                                     netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
-                                    //if (i >= 800)
+                                    //if (i = 1779)
                                     //{
                                     //    MessageBox.Show("NO = " + NoOfPackets.ToString());
                                     //    MessageBox.Show("I = " + i.ToString());
@@ -124,6 +127,7 @@ namespace RepublicSystemClasses
                                 }
                                 MessageBox.Show("ARCHIVO ENVIADO");
                                 Fs.Close();
+                                netstream3.Close();
                             }
                         }
                         //MessageBox.Show(texto);
