@@ -74,7 +74,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(308, 306);
+            this.button4.Location = new System.Drawing.Point(294, 312);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(96, 24);
             this.button4.TabIndex = 3;
@@ -112,7 +112,7 @@
             // 
             // timer1
             // 
-            this.timer1.Location = new System.Drawing.Point(22, 311);
+            this.timer1.Location = new System.Drawing.Point(37, 293);
             this.timer1.Name = "timer1";
             this.timer1.Size = new System.Drawing.Size(159, 62);
             this.timer1.TabIndex = 6;
