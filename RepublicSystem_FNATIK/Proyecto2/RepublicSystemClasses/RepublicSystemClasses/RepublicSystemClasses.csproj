@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClienteNave.cs" />
+    <Compile Include="ClaseNave.cs" />
     <Compile Include="ComprobarNave.cs" />
     <Compile Include="Concatenar.cs" />
     <Compile Include="Conexiones_NavePlaneta.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="AccesoBD.cs" />
     <Compile Include="GenerarMensajes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServidorPlanet.cs" />
+    <Compile Include="ClasePlaneta.cs" />
     <Compile Include="Timer.cs">
       <SubType>UserControl</SubType>
     </Compile>

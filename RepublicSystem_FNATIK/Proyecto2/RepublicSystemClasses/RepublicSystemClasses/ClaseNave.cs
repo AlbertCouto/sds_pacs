@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace RepublicSystemClasses
 {
-    public class ClienteNave
+    public class ClaseNave
     {
         Thread th;
         public string SendingFilePath = string.Empty;

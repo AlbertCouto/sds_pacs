@@ -10,7 +10,7 @@ namespace RepublicSystemClasses
         AccesoBD bd = new AccesoBD();
         ZipUnzipCompare zuc = new ZipUnzipCompare();
         Ping ping = new Ping();
-        ClienteNave cliente = new ClienteNave();
+        ClaseNave cliente = new ClaseNave();
         Concatenar con = new Concatenar();
         Desencriptar dc = new Desencriptar();
         public bool Ping()

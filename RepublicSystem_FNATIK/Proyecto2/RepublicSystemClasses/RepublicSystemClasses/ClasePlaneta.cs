@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace RepublicSystemClasses
 {
-    public class ServidorPlanet
+    public class ClasePlaneta
     {
         static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
