@@ -69,22 +69,15 @@ namespace NaveForm
         private void btn_DevolverFicheroClick(object sender, EventArgs e)
         {
             th3 = new Thread(DevolverFicheroPlaneta);
-            th3.SetApartmentState(ApartmentState.STA);
             th3.Start();
         }
         private void DevolverFicheroPlaneta()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            
-            openFileDialog.FileName = "PACS";
-            openFileDialog.Filter = "ZIP Folders (.ZIP)|*.zip";
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                MostrarMsgLog("Devolviendo el Fichero...", Color.White);
-                if (cnp.GestionarFicheros(openFileDialog.FileName))
-                    MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
-                else MostrarMsgLog("Error al devolver ficheros", Color.Red);
-            }
+            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
+            MostrarMsgLog("Enviando Fichero al Planeta...", Color.White);
+            if (cnp.GestionarFicheros(ruta_inicial))
+                MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
+            else MostrarMsgLog("Error al devolver ficheros", Color.Red);
         }
 
         //LOAD

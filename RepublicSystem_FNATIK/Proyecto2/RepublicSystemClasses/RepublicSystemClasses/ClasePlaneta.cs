@@ -10,6 +10,7 @@ namespace RepublicSystemClasses
 {
     public class ClasePlaneta
     {
+        Thread T;
         static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
         public string Status = string.Empty;
@@ -19,16 +20,22 @@ namespace RepublicSystemClasses
         private bool verificar { get; set; }
         public void StartServer()
         {
-
-            ThreadStart Ts = new ThreadStart(StartReceiving);
-            Thread T = new Thread(Ts);
+            T = new Thread(StartReceiving);
             T.SetApartmentState(ApartmentState.STA);
             T.Start();
 
         }
         public void OffServer()
-        {            
-            Listener2.Stop();
+        {
+            try
+            {
+                Listener2.Stop();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
         public static void StartReceiving()
         {
@@ -40,25 +47,25 @@ namespace RepublicSystemClasses
         }
         public static void ReceiveTCP(int portN, int portN2, string IP)
         {
-            string Status = string.Empty;         
+            string Status = string.Empty;
             string rutaZip = @"C:\Users\admin\Desktop\pacs1.zip";
-            byte[] SendingBuffer = null;         
+            byte[] SendingBuffer = null;
             try
             {
-                cn = new ComprobarNave();                
+                cn = new ComprobarNave();
                 Listener2 = new TcpListener(IPAddress.Any, portN2);
                 Listener2.Start();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
-            byte[] RecData = new byte[BufferSize];            
+            byte[] RecData = new byte[BufferSize];
             byte[] RecData2 = new byte[BufferSize];
 
             for (; ; )
             {
-                
+
                 TcpClient client2 = null;
                 NetworkStream netstream2 = null;
                 TcpClient client3 = null;
@@ -67,7 +74,7 @@ namespace RepublicSystemClasses
                 Status = string.Empty;
                 try
                 {
-                   
+
                     if (Listener2.Pending())
                     {
                         client2 = Listener2.AcceptTcpClient();
@@ -76,7 +83,7 @@ namespace RepublicSystemClasses
                         texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
 
                         if (texto.Length == 28)
-                        {                       
+                        {
                             if (cn.Comprobacion(texto))
                             {
                                 MessageBox.Show("MENSAJE CORRECTO");
@@ -97,7 +104,7 @@ namespace RepublicSystemClasses
                                     {
                                         CurrentPacketLength = TotalLength;
                                     }
-                                        
+
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                                     netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
@@ -127,3 +134,4 @@ namespace RepublicSystemClasses
         }
     }
 }
+
