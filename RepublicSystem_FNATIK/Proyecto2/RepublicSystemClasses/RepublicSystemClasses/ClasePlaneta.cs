@@ -64,13 +64,12 @@ namespace RepublicSystemClasses
                 MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
-            int RecBytes;
+            
             byte[] RecData2 = new byte[BufferSize];
 
             for (; ; )
             {
-                TcpClient client = null;
-                NetworkStream netstream = null;
+                
                 TcpClient client2 = null;
                 NetworkStream netstream2 = null;
                 TcpClient client3 = null;
@@ -79,19 +78,7 @@ namespace RepublicSystemClasses
                 Status = string.Empty;
                 try
                 {
-                    if (Listener.Pending())
-                    {
-                        client = Listener.AcceptTcpClient();
-                        netstream = client.GetStream();
-                        string ruta = "C:\\Users\\admin\\Desktop\\Pruebas.rar";
-                        FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
-                        RecBytes = netstream.Read(RecData, 0, RecData.Length);
-                        Fs.Write(RecData, 0, RecBytes);
-                        MessageBox.Show("Archivo recibido");
-                        Fs.Close();
-                        netstream.Close();
-                        client.Close();
-                    }
+                   
                     if (Listener2.Pending())
                     {
                         client2 = Listener2.AcceptTcpClient();
