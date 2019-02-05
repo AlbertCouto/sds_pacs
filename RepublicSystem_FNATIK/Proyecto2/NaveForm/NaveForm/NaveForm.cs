@@ -77,7 +77,7 @@ namespace NaveForm
             MostrarMsgLog("Enviando Fichero al Planeta...", Color.White);
             if (cnp.GestionarFicheros(ruta_inicial))
                 MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
-            else MostrarMsgLog("Error al devolver ficheros", Color.Red);
+            else MostrarMsgLog("Error al devolver el fichero", Color.Red);
         }
 
         //LOAD
