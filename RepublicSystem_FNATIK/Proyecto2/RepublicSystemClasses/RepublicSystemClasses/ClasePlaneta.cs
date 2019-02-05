@@ -28,8 +28,15 @@ namespace RepublicSystemClasses
         }
         public void OffServer()
         {
-            Listener.Stop();
-            Listener2.Stop();
+            try {
+                Listener.Stop();
+                Listener2.Stop();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+           
         }
         public static void StartReceiving()
         {
@@ -54,7 +61,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
