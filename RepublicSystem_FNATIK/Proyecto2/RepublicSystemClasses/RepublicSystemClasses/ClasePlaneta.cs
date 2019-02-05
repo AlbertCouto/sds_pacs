@@ -14,9 +14,8 @@ namespace RepublicSystemClasses
         static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
         public string Status = string.Empty;
-        private static TcpListener Listener;
-        private static TcpListener Listener2;
-        public static ComprobarNave cn;
+        public  TcpListener Listener2;
+        public  ComprobarNave cn;
         private bool verificar { get; set; }
         public void StartServer()
         {
@@ -27,9 +26,16 @@ namespace RepublicSystemClasses
         }
         public void OffServer()
         {
+
             try
             {
-                Listener2.Stop();
+                if (Listener2 != null)
+                {
+                    Listener2.Stop();
+                    T.Abort();
+                                        
+                }
+
             }
             catch (Exception ex)
             {
@@ -37,7 +43,7 @@ namespace RepublicSystemClasses
             }
 
         }
-        public static void StartReceiving()
+        public  void StartReceiving()
         {
             int puerto_archivo = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
@@ -45,7 +51,7 @@ namespace RepublicSystemClasses
             ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
 
         }
-        public static void ReceiveTCP(int portN, int portN2, string IP)
+        public  void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;
             string rutaZip = @"C:\Users\admin\Desktop\pacs1.zip";
