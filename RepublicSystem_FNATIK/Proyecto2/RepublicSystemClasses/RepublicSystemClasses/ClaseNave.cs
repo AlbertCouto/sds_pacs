@@ -33,7 +33,7 @@ namespace RepublicSystemClasses
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
-            int RecBytes;
+      
             byte[] SendingBuffer = null;          
          
             client = new TcpClient(IPA, PortN);
