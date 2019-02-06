@@ -126,7 +126,10 @@ namespace RepublicSystemClasses
                                 {
                                     if (ctrl.GetType() == typeof(Timer))
                                     {
-                                        ((Timer)ctrl).StartTimer();
+                                        ((Timer)ctrl).Invoke((MethodInvoker)delegate {
+                                            ((Timer)ctrl).Show();
+                                            ((Timer)ctrl).StartTimer();
+                                        });
                                     }
                                 }
                                 Fs.Close();

@@ -72,6 +72,7 @@
             this.timer1.Name = "timer1";
             this.timer1.Size = new System.Drawing.Size(142, 65);
             this.timer1.TabIndex = 2;
+            this.timer1.Visible = false;
             // 
             // pictureBox1
             // 
