@@ -21,17 +21,8 @@ namespace RepublicSystemClasses
         {
             T = new Thread(StartReceiving);
             T.SetApartmentState(ApartmentState.STA);
-            T.Start();
-            
-            foreach(Control ctrl in form.Controls)
-            {
-                if(ctrl.GetType() == typeof(Timer))
-                {
-                    Timer time = new Timer();
-                    time.StartTimer();
-                }
-            }
-
+            T.Start();         
+           
         }
         public void OffServer()
         {
@@ -48,7 +39,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
 
         }
@@ -73,7 +64,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
             byte[] RecData2 = new byte[BufferSize];
@@ -131,6 +122,14 @@ namespace RepublicSystemClasses
 
                                 }
                                 MessageBox.Show("ARCHIVO ENVIADO");
+                                foreach (Control ctrl in form.Controls)
+                                {
+                                    if (ctrl.GetType() == typeof(Timer))
+                                    {
+                                        Timer time = new Timer();
+                                        time.StartTimer();
+                                    }
+                                }
                                 Fs.Close();
                                 netstream3.Close();
                             }
@@ -142,7 +141,7 @@ namespace RepublicSystemClasses
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString());
                     Console.WriteLine(ex.Message);
                 }
             }
