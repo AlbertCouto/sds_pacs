@@ -19,6 +19,7 @@ namespace NaveForm
         public NaveForm()
         {
             InitializeComponent();
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -30,8 +31,7 @@ namespace NaveForm
         //Conectar Con Planeta (PING)
         private void btn_Conectar_Click(object sender, EventArgs e)
         {
-            Form frm = FindForm();
-            cn.form = frm;
+            
             th1 = new Thread(ConectarConPlaneta);
             th1.Start();
 
@@ -88,6 +88,8 @@ namespace NaveForm
         //LOAD
         private void NaveForm_Load(object sender, EventArgs e)
         {
+            Form frm = FindForm();
+            cn.form = frm;
         }
 
         //Mostrar Mensaje

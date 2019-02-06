@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
 
+
 namespace RepublicSystemClasses
 {
     public class ClaseNave
@@ -95,7 +96,7 @@ namespace RepublicSystemClasses
                         totalrecbytes += RecBytes;
                     }
                     MessageBox.Show("Archivo recibido");
-
+                    
                     foreach (Control ctrl in form.Controls)
                     {
                         if (ctrl.GetType() == typeof(Timer))
