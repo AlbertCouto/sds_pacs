@@ -169,7 +169,9 @@
             this.Controls.Add(this.console_Log);
             this.Controls.Add(this.button4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "NaveForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.NaveForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).EndInit();

@@ -17,6 +17,7 @@ namespace RepublicSystemClasses
         public static AccesoBD bd = new AccesoBD();
         private static TcpListener Listener;
         public Int32 puerto;
+        public Form form { get; set; }
         public void Start_Client()
         {          
             string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
@@ -24,7 +25,7 @@ namespace RepublicSystemClasses
 
             SendTCP(IP, puerto);
         }
-        public static void SendTCP(string IPA, Int32 PortN)
+        public void SendTCP(string IPA, Int32 PortN)
         {
             TcpClient client = null;
             DataSet ds = new DataSet();
@@ -65,7 +66,7 @@ namespace RepublicSystemClasses
             }         
         }
        
-        public static void CrearListener()
+        public void CrearListener()
         {            
             string IPA = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
             Int32 PortN = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
@@ -95,7 +96,14 @@ namespace RepublicSystemClasses
                     }
                     MessageBox.Show("Archivo recibido");
 
-                    
+                    foreach (Control ctrl in form.Controls)
+                    {
+                        if (ctrl.GetType() == typeof(Timer))
+                        {
+                       
+                            ((Timer)ctrl).StartTimer();
+                        }
+                    }
 
                     Fs.Close();
                     netstream.Close();
@@ -105,7 +113,7 @@ namespace RepublicSystemClasses
             }
         }
 
-        public static void ThreadListener()
+        public void ThreadListener()
         {
             Thread th = new Thread(CrearListener);
             th.Start();

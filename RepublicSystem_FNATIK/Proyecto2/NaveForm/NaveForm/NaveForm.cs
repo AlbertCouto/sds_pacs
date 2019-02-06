@@ -14,6 +14,8 @@ namespace NaveForm
         Thread th1;
         Thread th2;
         Thread th3;
+        ClaseNave cn = new ClaseNave();
+
         public NaveForm()
         {
             InitializeComponent();
@@ -28,8 +30,11 @@ namespace NaveForm
         //Conectar Con Planeta (PING)
         private void btn_Conectar_Click(object sender, EventArgs e)
         {
+            Form frm = FindForm();
+            cn.form = frm;
             th1 = new Thread(ConectarConPlaneta);
             th1.Start();
+
         }
         private void ConectarConPlaneta()
         {
