@@ -16,13 +16,13 @@ namespace RepublicSystemClasses
         public string Status = string.Empty;
         public  TcpListener Listener2;
         public  ComprobarNave cn;
-        private bool verificar { get; set; }
+        public Form form { get; set; }
         public void StartServer()
         {
             T = new Thread(StartReceiving);
             T.SetApartmentState(ApartmentState.STA);
-            T.Start();
-
+            T.Start();         
+           
         }
         public void OffServer()
         {
@@ -39,7 +39,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
 
         }
@@ -64,7 +64,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
             byte[] RecData2 = new byte[BufferSize];
@@ -122,6 +122,13 @@ namespace RepublicSystemClasses
 
                                 }
                                 MessageBox.Show("ARCHIVO ENVIADO");
+                                foreach (Control ctrl in form.Controls)
+                                {
+                                    if (ctrl.GetType() == typeof(Timer))
+                                    {
+                                        ((Timer)ctrl).StartTimer();
+                                    }
+                                }
                                 Fs.Close();
                                 netstream3.Close();
                             }
@@ -133,7 +140,7 @@ namespace RepublicSystemClasses
                 }
                 catch (Exception ex)
                 {
-                    //MessageBox.Show(ex.ToString());
+                    MessageBox.Show(ex.ToString());
                     Console.WriteLine(ex.Message);
                 }
             }
