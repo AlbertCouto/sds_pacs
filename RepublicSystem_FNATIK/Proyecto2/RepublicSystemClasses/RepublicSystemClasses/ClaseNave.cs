@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Data;
 using System.Net;
 using System.Windows.Forms;
+using System.Drawing;
 using System.Threading;
 
 namespace RepublicSystemClasses
@@ -93,9 +94,13 @@ namespace RepublicSystemClasses
                         totalrecbytes += RecBytes;
                     }
                     MessageBox.Show("Archivo recibido");
+
+                    
+
                     Fs.Close();
                     netstream.Close();
                     client2.Close();
+
                 }
             }
         }
@@ -104,6 +109,7 @@ namespace RepublicSystemClasses
         {
             Thread th = new Thread(CrearListener);
             th.Start();
+            
         }
     }
 }
