@@ -16,12 +16,21 @@ namespace RepublicSystemClasses
         public string Status = string.Empty;
         public  TcpListener Listener2;
         public  ComprobarNave cn;
-        private bool verificar { get; set; }
+        public Form form { get; set; }
         public void StartServer()
         {
             T = new Thread(StartReceiving);
             T.SetApartmentState(ApartmentState.STA);
             T.Start();
+            
+            foreach(Control ctrl in form.Controls)
+            {
+                if(ctrl.GetType() == typeof(Timer))
+                {
+                    Timer time = new Timer();
+                    time.StartTimer();
+                }
+            }
 
         }
         public void OffServer()

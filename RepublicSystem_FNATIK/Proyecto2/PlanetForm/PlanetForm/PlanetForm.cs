@@ -17,8 +17,10 @@ namespace PlanetForm
         {
             try
             {
+                Form frm = FindForm();
                 cp = new ClasePlaneta();
                 Btn_encender.Enabled = false;
+                cp.form = frm;
                 cp.StartServer();
                 
                 Btn_Apagar.Enabled = true;
