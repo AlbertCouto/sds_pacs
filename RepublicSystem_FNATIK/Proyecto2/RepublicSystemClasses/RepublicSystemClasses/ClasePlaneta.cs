@@ -126,8 +126,7 @@ namespace RepublicSystemClasses
                                 {
                                     if (ctrl.GetType() == typeof(Timer))
                                     {
-                                        Timer time = new Timer();
-                                        time.StartTimer();
+                                        ((Timer)ctrl).StartTimer();
                                     }
                                 }
                                 Fs.Close();
