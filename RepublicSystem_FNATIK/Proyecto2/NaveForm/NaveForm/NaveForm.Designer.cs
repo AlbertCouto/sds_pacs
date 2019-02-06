@@ -49,10 +49,10 @@
             this.console_Log.BackColor = System.Drawing.Color.Black;
             this.console_Log.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.console_Log.ForeColor = System.Drawing.Color.White;
-            this.console_Log.Location = new System.Drawing.Point(1122, 1);
+            this.console_Log.Location = new System.Drawing.Point(768, 1);
             this.console_Log.Name = "console_Log";
             this.console_Log.ReadOnly = true;
-            this.console_Log.Size = new System.Drawing.Size(481, 883);
+            this.console_Log.Size = new System.Drawing.Size(331, 569);
             this.console_Log.TabIndex = 5;
             this.console_Log.Text = "";
             // 
@@ -85,9 +85,9 @@
             this.btn_Conectar.BackColor = System.Drawing.Color.Transparent;
             this.btn_Conectar.BackgroundImage = global::NaveForm.Properties.Resources._58afdad6829958a978a4a693;
             this.btn_Conectar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Conectar.Location = new System.Drawing.Point(143, 119);
+            this.btn_Conectar.Location = new System.Drawing.Point(106, 68);
             this.btn_Conectar.Name = "btn_Conectar";
-            this.btn_Conectar.Size = new System.Drawing.Size(114, 125);
+            this.btn_Conectar.Size = new System.Drawing.Size(100, 100);
             this.btn_Conectar.TabIndex = 9;
             this.btn_Conectar.TabStop = false;
             this.btn_Conectar.Click += new System.EventHandler(this.btn_Conectar_Click);
@@ -97,9 +97,9 @@
             this.btn_Mensaje.BackColor = System.Drawing.Color.Transparent;
             this.btn_Mensaje.BackgroundImage = global::NaveForm.Properties.Resources._58afdad6829958a978a4a693;
             this.btn_Mensaje.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Mensaje.Location = new System.Drawing.Point(143, 414);
+            this.btn_Mensaje.Location = new System.Drawing.Point(106, 259);
             this.btn_Mensaje.Name = "btn_Mensaje";
-            this.btn_Mensaje.Size = new System.Drawing.Size(114, 129);
+            this.btn_Mensaje.Size = new System.Drawing.Size(100, 100);
             this.btn_Mensaje.TabIndex = 10;
             this.btn_Mensaje.TabStop = false;
             this.btn_Mensaje.Click += new System.EventHandler(this.btn_Mensaje_Click);
@@ -109,9 +109,9 @@
             this.btn_DevolverFichero.BackColor = System.Drawing.Color.Transparent;
             this.btn_DevolverFichero.BackgroundImage = global::NaveForm.Properties.Resources._58afdad6829958a978a4a693;
             this.btn_DevolverFichero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_DevolverFichero.Location = new System.Drawing.Point(143, 710);
+            this.btn_DevolverFichero.Location = new System.Drawing.Point(106, 457);
             this.btn_DevolverFichero.Name = "btn_DevolverFichero";
-            this.btn_DevolverFichero.Size = new System.Drawing.Size(114, 133);
+            this.btn_DevolverFichero.Size = new System.Drawing.Size(100, 100);
             this.btn_DevolverFichero.TabIndex = 11;
             this.btn_DevolverFichero.TabStop = false;
             this.btn_DevolverFichero.Click += new System.EventHandler(this.btn_DevolverFicheroClick);
@@ -120,10 +120,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(166, 52);
+            this.label1.Location = new System.Drawing.Point(125, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 13);
+            this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Verificar conexión";
             // 
@@ -131,10 +132,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(175, 346);
+            this.label2.Location = new System.Drawing.Point(125, 222);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.Size = new System.Drawing.Size(79, 14);
             this.label2.TabIndex = 13;
             this.label2.Text = "Enviar Código";
             // 
@@ -142,10 +144,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(166, 649);
+            this.label3.Location = new System.Drawing.Point(125, 416);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 13);
+            this.label3.Size = new System.Drawing.Size(71, 13);
             this.label3.TabIndex = 14;
             this.label3.Text = "Devolver Fichero";
             // 
@@ -155,7 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1424, 881);
+            this.ClientSize = new System.Drawing.Size(1099, 571);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
