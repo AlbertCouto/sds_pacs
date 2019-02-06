@@ -32,7 +32,7 @@ namespace RepublicSystemClasses
                 if (Listener2 != null)
                 {
                     Listener2.Stop();
-                    T.Abort();
+                    //T.Abort();
                                         
                 }
 
