@@ -39,7 +39,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
 
         }
@@ -64,7 +64,7 @@ namespace RepublicSystemClasses
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
             byte[] RecData2 = new byte[BufferSize];
@@ -133,7 +133,7 @@ namespace RepublicSystemClasses
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    //MessageBox.Show(ex.ToString());
                     Console.WriteLine(ex.Message);
                 }
             }
