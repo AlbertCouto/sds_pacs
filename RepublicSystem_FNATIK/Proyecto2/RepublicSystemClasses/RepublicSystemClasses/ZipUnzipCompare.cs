@@ -11,17 +11,25 @@ namespace RepublicSystemClasses
         //string startPath    = @"C:\Users\admin\Desktop\PACS\PlanetTXT";
         //string zipPath      = @"C:\Users\admin\Desktop\PACS\PACS.zip";
         string extractPath  = @"C:\Users\admin\Desktop\PACS\NaveTXT";
+        
 
         public void Comprimir(string startPath, string zipPath)
         {
-            try
+
+            if (File.Exists(zipPath))
             {
-                ZipFile.CreateFromDirectory(startPath, zipPath);
+                File.Delete(zipPath);
+                try
+                {
+                    ZipFile.CreateFromDirectory(startPath, zipPath);
+                    MessageBox.Show("Sistema preparado");
+                }
+                catch
+                {
+                    MessageBox.Show("Error al comprimir ficheros.");
+                }
             }
-            catch
-            {
-                MessageBox.Show("Error al comprimir ficheros.");
-            }
+
         }
 
         public void Descomprimir(string zipPath)

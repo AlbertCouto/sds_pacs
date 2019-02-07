@@ -28,33 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Btn_encender = new System.Windows.Forms.Button();
-            this.Btn_Apagar = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlanetForm));
             this.console_Log = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new RepublicSystemClasses.Timer();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnEncender = new System.Windows.Forms.PictureBox();
+            this.timer1 = new RepublicSystemClasses.Timer();
+            this.lbl_Encender = new System.Windows.Forms.Label();
+            this.lblApagar = new System.Windows.Forms.Label();
+            this.btnApagarServer = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnApagarServer)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Btn_encender
-            // 
-            this.Btn_encender.Location = new System.Drawing.Point(107, 81);
-            this.Btn_encender.Name = "Btn_encender";
-            this.Btn_encender.Size = new System.Drawing.Size(90, 76);
-            this.Btn_encender.TabIndex = 0;
-            this.Btn_encender.Text = "Encender Servidor";
-            this.Btn_encender.UseVisualStyleBackColor = true;
-            this.Btn_encender.Click += new System.EventHandler(this.Btn_encender_Click);
-            // 
-            // Btn_Apagar
-            // 
-            this.Btn_Apagar.Location = new System.Drawing.Point(109, 270);
-            this.Btn_Apagar.Name = "Btn_Apagar";
-            this.Btn_Apagar.Size = new System.Drawing.Size(88, 78);
-            this.Btn_Apagar.TabIndex = 1;
-            this.Btn_Apagar.Text = "Apagar Servidor";
-            this.Btn_Apagar.UseVisualStyleBackColor = true;
-            this.Btn_Apagar.Click += new System.EventHandler(this.Btn_Apagar_Click);
             // 
             // console_Log
             // 
@@ -66,19 +51,11 @@
             this.console_Log.TabIndex = 3;
             this.console_Log.Text = "";
             // 
-            // timer1
-            // 
-            this.timer1.Location = new System.Drawing.Point(463, 417);
-            this.timer1.Name = "timer1";
-            this.timer1.Size = new System.Drawing.Size(142, 65);
-            this.timer1.TabIndex = 2;
-            this.timer1.Visible = false;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Desktop;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Image = global::PlanetForm.Properties.Resources.Radar_Red;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(-1, 381);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(310, 190);
@@ -86,33 +63,98 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // btnEncender
+            // 
+            this.btnEncender.BackColor = System.Drawing.Color.Transparent;
+            this.btnEncender.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnEncender.Image = global::PlanetForm.Properties.Resources.circle_button;
+            this.btnEncender.Location = new System.Drawing.Point(105, 67);
+            this.btnEncender.Name = "btnEncender";
+            this.btnEncender.Size = new System.Drawing.Size(100, 100);
+            this.btnEncender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnEncender.TabIndex = 5;
+            this.btnEncender.TabStop = false;
+            this.btnEncender.Click += new System.EventHandler(this.btnEncender_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.BackColor = System.Drawing.Color.Transparent;
+            this.timer1.Location = new System.Drawing.Point(463, 417);
+            this.timer1.Name = "timer1";
+            this.timer1.Size = new System.Drawing.Size(142, 65);
+            this.timer1.TabIndex = 2;
+            this.timer1.Visible = false;
+            // 
+            // lbl_Encender
+            // 
+            this.lbl_Encender.AutoSize = true;
+            this.lbl_Encender.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_Encender.Font = new System.Drawing.Font("Microsoft Tai Le", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Encender.ForeColor = System.Drawing.Color.White;
+            this.lbl_Encender.Location = new System.Drawing.Point(126, 31);
+            this.lbl_Encender.Name = "lbl_Encender";
+            this.lbl_Encender.Size = new System.Drawing.Size(71, 13);
+            this.lbl_Encender.TabIndex = 6;
+            this.lbl_Encender.Text = "Encender Server";
+            // 
+            // lblApagar
+            // 
+            this.lblApagar.AutoSize = true;
+            this.lblApagar.BackColor = System.Drawing.Color.Transparent;
+            this.lblApagar.Font = new System.Drawing.Font("Microsoft Tai Le", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApagar.ForeColor = System.Drawing.Color.White;
+            this.lblApagar.Location = new System.Drawing.Point(126, 220);
+            this.lblApagar.Name = "lblApagar";
+            this.lblApagar.Size = new System.Drawing.Size(78, 14);
+            this.lblApagar.TabIndex = 7;
+            this.lblApagar.Text = "Apagar Server";
+            // 
+            // btnApagarServer
+            // 
+            this.btnApagarServer.BackColor = System.Drawing.Color.Transparent;
+            this.btnApagarServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnApagarServer.Image = global::PlanetForm.Properties.Resources.circle_button;
+            this.btnApagarServer.Location = new System.Drawing.Point(105, 257);
+            this.btnApagarServer.Name = "btnApagarServer";
+            this.btnApagarServer.Size = new System.Drawing.Size(100, 100);
+            this.btnApagarServer.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnApagarServer.TabIndex = 8;
+            this.btnApagarServer.TabStop = false;
+            this.btnApagarServer.Click += new System.EventHandler(this.btnApagarServer_Click);
+            // 
             // PlanetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::PlanetForm.Properties.Resources.F25;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1099, 571);
+            this.Controls.Add(this.btnApagarServer);
+            this.Controls.Add(this.lblApagar);
+            this.Controls.Add(this.lbl_Encender);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.console_Log);
             this.Controls.Add(this.timer1);
-            this.Controls.Add(this.Btn_Apagar);
-            this.Controls.Add(this.Btn_encender);
+            this.Controls.Add(this.btnEncender);
             this.Name = "PlanetForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.PlanetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnApagarServer)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button Btn_encender;
-        private System.Windows.Forms.Button Btn_Apagar;
         private RepublicSystemClasses.Timer timer1;
         private System.Windows.Forms.RichTextBox console_Log;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox btnEncender;
+        private System.Windows.Forms.Label lbl_Encender;
+        private System.Windows.Forms.Label lblApagar;
+        private System.Windows.Forms.PictureBox btnApagarServer;
     }
 }
 

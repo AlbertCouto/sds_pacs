@@ -90,5 +90,9 @@
   <ItemGroup>
     <None Include="Resources\Radar_Red.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\circle_button.png" />
+    <None Include="Resources\circle_button1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
