@@ -26,37 +26,46 @@ namespace RepublicSystemClasses
 
             SendTCP(IP, puerto);
         }
+        public void Start_Client_File()
+        {
+            string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
+            puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+
+            SendTCP(IP, puerto);
+        }
+
         public void SendTCP(string IPA, Int32 PortN)
         {
             TcpClient client = null;
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];      
-            //byte[] SendingBuffer = null;             
+            byte[] SendingBuffer = null;
+            string ruta_inicial = "C:\\User\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
             ThreadListener();
-            //if (PortN == 5678)
-            //{
-            //    FileStream Fs = new FileStream(M, FileMode.Open, FileAccess.Read);
-            //    int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
-            //    int TotalLength = (int)Fs.Length, CurrentPacketLength;
-            //    for (int i = 0; i < NoOfPackets; i++)
-            //    {
-            //        if (TotalLength > BufferSize)
-            //        {
-            //            CurrentPacketLength = BufferSize;
-            //            TotalLength = TotalLength - CurrentPacketLength;
-            //        }
-            //        else
-            //            CurrentPacketLength = TotalLength;
-            //        SendingBuffer = new byte[CurrentPacketLength];
-            //        Fs.Read(SendingBuffer, 0, CurrentPacketLength);
-            //        netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+            if (PortN == 5678)
+            {
+                FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
+                int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
+                int TotalLength = (int)Fs.Length, CurrentPacketLength;
+                for (int i = 0; i < NoOfPackets; i++)
+                {
+                    if (TotalLength > BufferSize)
+                    {
+                        CurrentPacketLength = BufferSize;
+                        TotalLength = TotalLength - CurrentPacketLength;
+                    }
+                    else
+                        CurrentPacketLength = TotalLength;
+                    SendingBuffer = new byte[CurrentPacketLength];
+                    Fs.Read(SendingBuffer, 0, CurrentPacketLength);
+                    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
 
-            //    }
-            //    Fs.Close();
-            //}
+                }
+                Fs.Close();
+            }
             if (PortN == 9250)
             {
                 GenerarMensajes gm = new GenerarMensajes();
