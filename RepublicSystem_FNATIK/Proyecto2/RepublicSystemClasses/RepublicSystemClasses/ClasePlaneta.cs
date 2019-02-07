@@ -17,6 +17,7 @@ namespace RepublicSystemClasses
         public string Status = string.Empty;
         public  TcpListener Listener2;
         public  ComprobarNave cn;
+        
         public Form form { get; set; }
         private string msg;
         private Color color;
@@ -52,12 +53,13 @@ namespace RepublicSystemClasses
             int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             string IP = ((bd.PortarPerConsulta("select IPSpaceShip from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]).ToString();
             ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
+           
 
         }
         public  void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;
-            string rutaZip = @"C:\Users\admin\Desktop\pacs1.zip";
+            string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
             byte[] SendingBuffer = null;
             try
             {
@@ -95,7 +97,17 @@ namespace RepublicSystemClasses
                         {
                             if (cn.Comprobacion(texto))
                             {
-                                MessageBox.Show("MENSAJE CORRECTO");
+                                msg = "Solicitud de planeta recibida.";
+                                color = Color.Green;
+                                MostrarMsgLog(msg, color);
+
+                                
+
+
+
+
+
+
                                 client3 = new TcpClient(IP, portN2);
                                 netstream3 = client3.GetStream();
 
@@ -117,11 +129,6 @@ namespace RepublicSystemClasses
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                                     netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
-                                    //if (i = 1779)
-                                    //{
-                                    //    MessageBox.Show("NO = " + NoOfPackets.ToString());
-                                    //    MessageBox.Show("I = " + i.ToString());
-                                    //}
 
                                 }
                                 
@@ -137,25 +144,12 @@ namespace RepublicSystemClasses
                                 }
                                 Fs.Close();
                                 netstream3.Close();
-                                msg = "Archivo enviado";
+                                msg = "Archivo enviado.";
                                 color = Color.Green;
-                                foreach (Control ctrl in form.Controls)
-                                {
-                                    if (ctrl.GetType() == typeof(RichTextBox))
-                                    {
-                                        ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
-                                        {
-
-                                            ((RichTextBox)ctrl).AppendText(msg + "\r\n");
-                                            ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
-                                            ((RichTextBox)ctrl).SelectionColor = color;
-
-                                        });
-                                    }
-                                }
+                                MostrarMsgLog(msg, color);
+                                
                             }
                         }
-                        //MessageBox.Show(texto);
                         netstream2.Close();
                         client2.Close();
                     }
@@ -167,6 +161,25 @@ namespace RepublicSystemClasses
                 }
             }
         }
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = color;
+
+                    });
+                }
+            }
+        }
     }
+    
+
 }
 

@@ -16,6 +16,7 @@ namespace RepublicSystemClasses
         private Dictionary<char, string> cifrado = new Dictionary<char, string>();
         private Thread th1;
         private Thread th2;
+        ZipUnzipCompare zip = new ZipUnzipCompare();
 
         public void GenerarLosFicheros()
         {
@@ -62,7 +63,8 @@ namespace RepublicSystemClasses
         }
         private void InvokeFicherosLetras(string valor)
         {
-            string ruta = "C:\\Users\\admin\\Desktop\\RepublicSystem_FNATIK\\Threads\\Threads\\resources\\FicherosLetras\\pacs" + valor + ".txt";
+            string ruta = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
+            //"C:\\Users\\admin\\Desktop\\RepublicSystem_FNATIK\\Threads\\Threads\\resources\\FicherosLetras\\pacs" + valor + ".txt";
 
             if (File.Exists(ruta)) File.Delete(ruta);
             try
@@ -92,13 +94,17 @@ namespace RepublicSystemClasses
                             () => { InvokeFicherosNumeros("3"); },
                             () => { InvokeFicherosNumeros("4"); }
             );
-            MessageBox.Show("Ficheros Generados");
+            //MessageBox.Show("Ficheros Generados");
             cifrado.Clear();
+
+            zip.Comprimir("C:\\Users\\admin\\Desktop\\FicherosNumeros", "C:\\Users\\admin\\Desktop\\PACS.zip");
+
         }
         private void InvokeFicherosNumeros(string valor)
         {
-            string ruta_numeros = "C:\\Users\\admin\\Desktop\\RepublicSystem_FNATIK\\Threads\\Threads\\resources\\FicherosNumeros\\pacs" + valor + ".txt";
-            string ruta_letras = "C:\\Users\\admin\\Desktop\\RepublicSystem_FNATIK\\Threads\\Threads\\resources\\FicherosLetras\\pacs" + valor + ".txt";
+            string ruta_numeros = "C:\\Users\\admin\\Desktop\\FicherosNumeros\\pacs" + valor + ".txt";
+            string ruta_letras = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
+
 
             if (File.Exists(ruta_numeros)) File.Delete(ruta_numeros);
             try

@@ -2,46 +2,57 @@
 using RepublicSystemClasses;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace PlanetForm
 {
     public partial class PlanetForm : Form
     {
         ClasePlaneta cp;
+        GenerarFicheros gf = new GenerarFicheros();
         public PlanetForm()
         {
             InitializeComponent();
         }
 
-        private void Btn_encender_Click(object sender, EventArgs e)
+        private void btnEncender_Click(object sender, EventArgs e)
         {
             try
             {
                 Form frm = FindForm();
                 cp = new ClasePlaneta();
-                Btn_encender.Enabled = false;
+          
+                btnEncender.Enabled = false;
                 cp.form = frm;
                 cp.StartServer();
-                
-                Btn_Apagar.Enabled = true;
-                MostrarMsgLog("Conexión establecida", Color.Green);
+
+                btnApagarServer.Enabled = true;
+                MostrarMsgLog("Conexión establecida.", Color.Green);
             }
             catch
             {
-                MessageBox.Show("Error al Encender el Servidor.");
+                MostrarMsgLog("Error de conexión.", Color.Red);
             }
         }
 
-        private void Btn_Apagar_Click(object sender, EventArgs e)
+
+        private void btnApagarServer_Click(object sender, EventArgs e)
         {
-            Btn_Apagar.Enabled = false;
+
+            btnApagarServer.Enabled = false;
             cp.OffServer();
-            Btn_encender.Enabled = true;
+            btnEncender.Enabled = true;
         }
+
 
         private void PlanetForm_Load(object sender, EventArgs e)
         {
-            Btn_Apagar.Enabled = false;
+           
+            btnApagarServer.Enabled = false;
+
+            gf.GenerarLosFicheros();
+
+
         }
 
         private void MostrarMsgLog(string msg, Color color)
@@ -50,11 +61,13 @@ namespace PlanetForm
             //{
             //    console_Log.Invoke((MethodInvoker)delegate
             //    {
-                    console_Log.AppendText(msg + "\r\n");
-                    console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
-                    console_Log.SelectionColor = color;
+            console_Log.AppendText(msg + "\r\n");
+            console_Log.Select(console_Log.Text.Length - msg.Length - 1, msg.Length);
+            console_Log.SelectionColor = color;
             //    });
             //}
         }
+
+
     }
 }
