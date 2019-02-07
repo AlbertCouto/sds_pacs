@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace RepublicSystemClasses
 {
@@ -17,6 +18,8 @@ namespace RepublicSystemClasses
         public  TcpListener Listener2;
         public  ComprobarNave cn;
         public Form form { get; set; }
+        private string msg;
+        private Color color;
         public void StartServer()
         {
             T = new Thread(StartReceiving);
@@ -121,7 +124,7 @@ namespace RepublicSystemClasses
                                     //}
 
                                 }
-                                MessageBox.Show("ARCHIVO ENVIADO");
+                                
                                 foreach (Control ctrl in form.Controls)
                                 {
                                     if (ctrl.GetType() == typeof(Timer))
@@ -134,6 +137,22 @@ namespace RepublicSystemClasses
                                 }
                                 Fs.Close();
                                 netstream3.Close();
+                                msg = "Archivo enviado";
+                                color = Color.Green;
+                                foreach (Control ctrl in form.Controls)
+                                {
+                                    if (ctrl.GetType() == typeof(RichTextBox))
+                                    {
+                                        ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                                        {
+
+                                            ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                                            ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                                            ((RichTextBox)ctrl).SelectionColor = color;
+
+                                        });
+                                    }
+                                }
                             }
                         }
                         //MessageBox.Show(texto);
