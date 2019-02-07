@@ -13,10 +13,10 @@ namespace RepublicSystemClasses
 {
     public class ClaseNave
     {
-        Thread th;        
+        //Thread th;        
         private const int BufferSize = 1024;
         public static AccesoBD bd = new AccesoBD();
-        private static TcpListener Listener;
+        //private static TcpListener Listener;
         public Int32 puerto;
         public Form form { get; set; }
         public void Start_Client()
@@ -95,21 +95,42 @@ namespace RepublicSystemClasses
                         Fs.Write(RecData, 0, RecBytes);
                         totalrecbytes += RecBytes;
                     }
-                    MessageBox.Show("Archivo recibido");
+                    string msgOK = "Archivo Recibido";
+                    string msg = "Archivo No Recibido";
                     
+                    foreach (Control ctrl in form.Controls)
+                    {
+                        if (ctrl.GetType() == typeof(RichTextBox))
+                        {
+                            ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate {
+                                if (File.Exists(ruta))
+                                {
+                                    ((RichTextBox)ctrl).AppendText(msgOK);
+                                    ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msgOK.Length, msgOK.Length);
+                                    ((RichTextBox)ctrl).SelectionColor = Color.Green;
+                                }
+                                else
+                                {
+                                    ((RichTextBox)ctrl).AppendText(msg);
+                                    ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length, msg.Length);
+                                    ((RichTextBox)ctrl).SelectionColor = Color.Red;
+                                }
+                            });
+                        }
+                    }
+               
                     foreach (Control ctrl in form.Controls)
                     {
                         if (ctrl.GetType() == typeof(Timer))
                         {
-                       
-                            ((Timer)ctrl).StartTimer();
+                            ((Timer)ctrl).Invoke((MethodInvoker)delegate{
+                                ((Timer)ctrl).StartTimer();
+                            });
                         }
                     }
-
                     Fs.Close();
                     netstream.Close();
                     client2.Close();
-
                 }
             }
         }

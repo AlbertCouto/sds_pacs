@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using System.Net;
+using System.Windows.Forms;
 
 namespace RepublicSystemClasses
 {
@@ -9,9 +10,10 @@ namespace RepublicSystemClasses
         AccesoBD bd = new AccesoBD();
         ZipUnzipCompare zuc = new ZipUnzipCompare();
         Ping ping = new Ping();
-        ClaseNave cliente = new ClaseNave();
+        ClaseNave cn = new ClaseNave();
         Concatenar con = new Concatenar();
         Desencriptar dc = new Desencriptar();
+        public Form form { get; set; }
         public bool Ping()
         {
             try
@@ -27,10 +29,11 @@ namespace RepublicSystemClasses
         }
         public bool EnviarCodigo()
         {
+            cn.form = form;
             try
             {
-                cliente.puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1").Tables[0].Rows[0][0]);
-                cliente.Start_Client();
+                cn.puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1").Tables[0].Rows[0][0]);
+                cn.Start_Client();
                 return true;
             }
             catch
