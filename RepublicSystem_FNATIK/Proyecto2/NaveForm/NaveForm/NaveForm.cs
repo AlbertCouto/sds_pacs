@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
@@ -9,12 +10,13 @@ namespace NaveForm
 {
     public partial class NaveForm : Form
     {
+        string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
         private static AccesoBD bd = new AccesoBD();
         private static Conexiones_NavePlaneta cnp = new Conexiones_NavePlaneta();
         Thread th1;
         Thread th2;
         Thread th3;
-        ClaseNave cn = new ClaseNave();
+       
 
         public NaveForm()
         {
@@ -68,6 +70,8 @@ namespace NaveForm
                     btn_Mensaje.Enabled = true;
                 });
             }
+            if (File.Exists(ruta_inicial))
+                MostrarMsgLog("Archivo PACS recibido", Color.Green);
         }
 
         //Devolver Fichero
@@ -78,18 +82,18 @@ namespace NaveForm
         }
         private void DevolverFicheroPlaneta()
         {
-            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
             MostrarMsgLog("Enviando Fichero al Planeta...", Color.White);
             if (cnp.GestionarFicheros(ruta_inicial))
                 MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
-            else MostrarMsgLog("Error al devolver el fichero", Color.Red);
+            else MostrarMsgLog("Error al devolver el fichero, asegúrese de enviar su código al planeta correctamente", Color.Red);
         }
 
         //LOAD
         private void NaveForm_Load(object sender, EventArgs e)
         {
+            //if (File.Exists(ruta_inicial)) File.Delete(ruta_inicial);
             Form frm = FindForm();
-            cn.form = frm;
+            cnp.form = frm;
         }
 
         //Mostrar Mensaje
