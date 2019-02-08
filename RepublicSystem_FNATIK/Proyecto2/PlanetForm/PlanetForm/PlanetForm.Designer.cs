@@ -68,7 +68,7 @@
             // 
             this.btnEncender.BackColor = System.Drawing.Color.Transparent;
             this.btnEncender.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnEncender.Image = global::PlanetForm.Properties.Resources.circle_button;
+            this.btnEncender.Image = global::PlanetForm.Properties.Resources.red_button;
             this.btnEncender.Location = new System.Drawing.Point(105, 67);
             this.btnEncender.Name = "btnEncender";
             this.btnEncender.Size = new System.Drawing.Size(100, 100);
@@ -76,6 +76,7 @@
             this.btnEncender.TabIndex = 5;
             this.btnEncender.TabStop = false;
             this.btnEncender.Click += new System.EventHandler(this.btnEncender_Click);
+            this.btnEncender.MouseHover += new System.EventHandler(this.btnEncender_MouseHover);
             // 
             // lbl_Encender
             // 
@@ -105,7 +106,7 @@
             // 
             this.btnApagarServer.BackColor = System.Drawing.Color.Transparent;
             this.btnApagarServer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnApagarServer.Image = global::PlanetForm.Properties.Resources.circle_button;
+            this.btnApagarServer.Image = global::PlanetForm.Properties.Resources.red_button;
             this.btnApagarServer.Location = new System.Drawing.Point(105, 257);
             this.btnApagarServer.Name = "btnApagarServer";
             this.btnApagarServer.Size = new System.Drawing.Size(100, 100);

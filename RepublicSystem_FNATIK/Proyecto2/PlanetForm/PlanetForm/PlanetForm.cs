@@ -68,6 +68,9 @@ namespace PlanetForm
             //}
         }
 
-
+        private void btnEncender_MouseHover(object sender, EventArgs e)
+        {
+            //btnEncender.Image = @"C:\Users\admin\Documents\GitHub\sds_pacs\RepublicSystem_FNATIK\Proyecto2\PlanetForm\PlanetForm\Resources\gray_button.png";
+        }
     }
 }

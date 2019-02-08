@@ -83,9 +83,39 @@ namespace PlanetForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap gray_button {
+            get {
+                object obj = ResourceManager.GetObject("gray_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Radar_Red {
             get {
                 object obj = ResourceManager.GetObject("Radar_Red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_button {
+            get {
+                object obj = ResourceManager.GetObject("red_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_button_dark {
+            get {
+                object obj = ResourceManager.GetObject("red_button_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
