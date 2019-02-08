@@ -43,33 +43,33 @@
             // lbl_minutes
             // 
             this.lbl_minutes.AutoSize = true;
-            this.lbl_minutes.Font = new System.Drawing.Font("Microsoft Tai Le", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_minutes.ForeColor = System.Drawing.Color.White;
-            this.lbl_minutes.Location = new System.Drawing.Point(15, 16);
+            this.lbl_minutes.Font = new System.Drawing.Font("Microsoft Tai Le", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_minutes.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbl_minutes.Location = new System.Drawing.Point(62, 54);
             this.lbl_minutes.Name = "lbl_minutes";
-            this.lbl_minutes.Size = new System.Drawing.Size(54, 41);
+            this.lbl_minutes.Size = new System.Drawing.Size(156, 122);
             this.lbl_minutes.TabIndex = 0;
             this.lbl_minutes.Text = "00";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(58, 16);
+            this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Firebrick;
+            this.label1.Location = new System.Drawing.Point(192, 50);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(27, 41);
+            this.label1.Size = new System.Drawing.Size(78, 122);
             this.label1.TabIndex = 1;
             this.label1.Text = ":";
             // 
             // lbl_seconds
             // 
             this.lbl_seconds.AutoSize = true;
-            this.lbl_seconds.Font = new System.Drawing.Font("Microsoft Tai Le", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_seconds.ForeColor = System.Drawing.Color.White;
-            this.lbl_seconds.Location = new System.Drawing.Point(77, 16);
+            this.lbl_seconds.Font = new System.Drawing.Font("Microsoft Tai Le", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_seconds.ForeColor = System.Drawing.Color.Firebrick;
+            this.lbl_seconds.Location = new System.Drawing.Point(240, 54);
             this.lbl_seconds.Name = "lbl_seconds";
-            this.lbl_seconds.Size = new System.Drawing.Size(54, 41);
+            this.lbl_seconds.Size = new System.Drawing.Size(156, 122);
             this.lbl_seconds.TabIndex = 2;
             this.lbl_seconds.Text = "00";
             // 
@@ -78,11 +78,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.lbl_seconds);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_minutes);
-            this.Controls.Add(this.lbl_seconds);
             this.Name = "Timer";
-            this.Size = new System.Drawing.Size(142, 65);
+            this.Size = new System.Drawing.Size(449, 228);
             this.Load += new System.EventHandler(this.Timer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

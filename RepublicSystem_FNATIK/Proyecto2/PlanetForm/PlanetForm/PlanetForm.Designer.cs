@@ -32,10 +32,10 @@
             this.console_Log = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnEncender = new System.Windows.Forms.PictureBox();
-            this.timer1 = new RepublicSystemClasses.Timer();
             this.lbl_Encender = new System.Windows.Forms.Label();
             this.lblApagar = new System.Windows.Forms.Label();
             this.btnApagarServer = new System.Windows.Forms.PictureBox();
+            this.timer1 = new RepublicSystemClasses.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApagarServer)).BeginInit();
@@ -47,6 +47,7 @@
             this.console_Log.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.console_Log.Location = new System.Drawing.Point(770, -2);
             this.console_Log.Name = "console_Log";
+            this.console_Log.ReadOnly = true;
             this.console_Log.Size = new System.Drawing.Size(331, 573);
             this.console_Log.TabIndex = 3;
             this.console_Log.Text = "";
@@ -75,15 +76,6 @@
             this.btnEncender.TabIndex = 5;
             this.btnEncender.TabStop = false;
             this.btnEncender.Click += new System.EventHandler(this.btnEncender_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.BackColor = System.Drawing.Color.Transparent;
-            this.timer1.Location = new System.Drawing.Point(463, 417);
-            this.timer1.Name = "timer1";
-            this.timer1.Size = new System.Drawing.Size(142, 65);
-            this.timer1.TabIndex = 2;
-            this.timer1.Visible = false;
             // 
             // lbl_Encender
             // 
@@ -122,6 +114,14 @@
             this.btnApagarServer.TabStop = false;
             this.btnApagarServer.Click += new System.EventHandler(this.btnApagarServer_Click);
             // 
+            // timer1
+            // 
+            this.timer1.BackColor = System.Drawing.Color.Transparent;
+            this.timer1.Location = new System.Drawing.Point(315, 331);
+            this.timer1.Name = "timer1";
+            this.timer1.Size = new System.Drawing.Size(449, 228);
+            this.timer1.TabIndex = 9;
+            // 
             // PlanetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,15 +129,19 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1099, 571);
+            this.Controls.Add(this.timer1);
             this.Controls.Add(this.btnApagarServer);
             this.Controls.Add(this.lblApagar);
             this.Controls.Add(this.lbl_Encender);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.console_Log);
-            this.Controls.Add(this.timer1);
             this.Controls.Add(this.btnEncender);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "PlanetForm";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Planet";
             this.Load += new System.EventHandler(this.PlanetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).EndInit();
@@ -148,13 +152,13 @@
         }
 
         #endregion
-        private RepublicSystemClasses.Timer timer1;
         private System.Windows.Forms.RichTextBox console_Log;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox btnEncender;
         private System.Windows.Forms.Label lbl_Encender;
         private System.Windows.Forms.Label lblApagar;
         private System.Windows.Forms.PictureBox btnApagarServer;
+        private RepublicSystemClasses.Timer timer1;
     }
 }
 
