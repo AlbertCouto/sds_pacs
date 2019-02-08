@@ -100,14 +100,6 @@ namespace RepublicSystemClasses
                                 msg = "Solicitud de planeta recibida.";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
-
-                                
-
-
-
-
-
-
                                 client3 = new TcpClient(IP, portN2);
                                 netstream3 = client3.GetStream();
 
