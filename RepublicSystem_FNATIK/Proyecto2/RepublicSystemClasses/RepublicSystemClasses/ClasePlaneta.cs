@@ -16,6 +16,7 @@ namespace RepublicSystemClasses
         private const int BufferSize = 1024;
         public string Status = string.Empty;
         public  TcpListener Listener2;
+        public  TcpListener Listener;
         public  ComprobarNave cn;
         
         public Form form { get; set; }
@@ -33,11 +34,12 @@ namespace RepublicSystemClasses
 
             try
             {
-                if (Listener2 != null)
+                if (Listener2 != null||Listener!=null)
                 {
                     Listener2.Stop();
+                    Listener.Stop();
                     //T.Abort();
-                                        
+
                 }
 
             }
@@ -52,20 +54,22 @@ namespace RepublicSystemClasses
             int puerto_archivo = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             string IP = ((bd.PortarPerConsulta("select IPSpaceShip from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]).ToString();
+
             ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
            
-
         }
         public  void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;
-            string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
+            string rutaZip = @"C:\Users\admin\Desktop\PACSSOL.zip";
             byte[] SendingBuffer = null;
             try
             {
                 cn = new ComprobarNave();
                 Listener2 = new TcpListener(IPAddress.Any, portN2);
                 Listener2.Start();
+                Listener = new TcpListener(IPAddress.Any, portN);
+                Listener.Start();
             }
             catch (Exception ex)
             {
@@ -76,12 +80,15 @@ namespace RepublicSystemClasses
 
             for (; ; )
             {
-
+                TcpClient client = null;
+                NetworkStream netstream = null;
                 TcpClient client2 = null;
                 NetworkStream netstream2 = null;
                 TcpClient client3 = null;
                 NetworkStream netstream3 = null;
                 string texto = null;
+                int RecBytes;
+
                 Status = string.Empty;
                 try
                 {
@@ -97,7 +104,7 @@ namespace RepublicSystemClasses
                         {
                             if (cn.Comprobacion(texto))
                             {
-                                msg = "Solicitud de planeta recibida.";
+                                msg = "Solicitud de planeta recibida";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
                                 client3 = new TcpClient(IP, portN2);
@@ -136,7 +143,7 @@ namespace RepublicSystemClasses
                                 }
                                 Fs.Close();
                                 netstream3.Close();
-                                msg = "Archivo enviado.";
+                                msg = "Archivo enviado";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
                                 
@@ -144,6 +151,25 @@ namespace RepublicSystemClasses
                         }
                         netstream2.Close();
                         client2.Close();
+                        //CREAR PACS AQUÍ
+                    }
+                    if (Listener.Pending())
+                    {
+                        int totalrecbytes = 0;
+                        client = Listener.AcceptTcpClient();
+                        netstream = client.GetStream();                        
+                        FileStream Fs = new FileStream(rutaZip, FileMode.OpenOrCreate, FileAccess.Write);
+                        while((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
+                        {
+                            Fs.Write(RecData, 0, RecBytes);
+                            totalrecbytes += RecBytes;
+                        }
+                        Fs.Close();
+                        netstream.Close();
+                        client.Close();
+                        msg = "Archivo recibido";
+                        color = Color.Green;
+                        MostrarMsgLog(msg, color);
                     }
                 }
                 catch (Exception ex)

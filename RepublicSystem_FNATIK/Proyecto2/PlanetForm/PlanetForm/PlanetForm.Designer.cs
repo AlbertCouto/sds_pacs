@@ -48,7 +48,7 @@
             this.console_Log.Location = new System.Drawing.Point(770, -2);
             this.console_Log.Name = "console_Log";
             this.console_Log.ReadOnly = true;
-            this.console_Log.Size = new System.Drawing.Size(331, 573);
+            this.console_Log.Size = new System.Drawing.Size(331, 561);
             this.console_Log.TabIndex = 3;
             this.console_Log.Text = "";
             // 
@@ -57,9 +57,9 @@
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Desktop;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-1, 381);
+            this.pictureBox1.Location = new System.Drawing.Point(1, 388);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(310, 190);
+            this.pictureBox1.Size = new System.Drawing.Size(308, 171);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
