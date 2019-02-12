@@ -45,14 +45,14 @@ namespace RepublicSystemClasses
         {
             string ruta_directorio_ficheros_numeros = "C:\\Users\\admin\\Desktop\\PACS\\NaveTXT";
             string ruta_fichero_numeros_concatenados = "C:\\Users\\admin\\Desktop\\PACS\\PACS.txt";
-            string ruta_fichero_letras_concatenadas = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.txt";
+            string ruta_fichero_letras_concatenadas = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL\\PACSSOL.txt";
             string ruta_final = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
             try
             {
                 zuc.Descomprimir(ruta);
                 con.ConcatenaFicheros(ruta_directorio_ficheros_numeros, ruta_fichero_numeros_concatenados);
                 dc.DesencriptarFichero(ruta_fichero_numeros_concatenados, ruta_fichero_letras_concatenadas);
-                zuc.Comprimir("C:\\Users\\admin\\Desktop\\PACS\\PACSOL", ruta_final);
+                zuc.Comprimir("C:\\Users\\admin\\Desktop\\PACS\\PACSSOL", ruta_final);
                 cn.Start_Client_File();
                 return true;
             }

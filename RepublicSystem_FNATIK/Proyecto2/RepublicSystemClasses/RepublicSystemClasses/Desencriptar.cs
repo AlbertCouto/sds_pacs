@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RepublicSystemClasses
 {
-    class Desencriptar
+    public class Desencriptar
     {
         private static AccesoBD db = new AccesoBD();
         private static char[] abecedario = new char[] {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
