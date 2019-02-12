@@ -23,7 +23,7 @@ namespace RepublicSystemClasses
         {          
             string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
             puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
-
+            ThreadListener();
             SendTCP(IP, puerto);
         }
         public void Start_Client_File()
@@ -44,7 +44,7 @@ namespace RepublicSystemClasses
             string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
-            ThreadListener();
+            
             if (PortN == 5678)
             {
                 FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
@@ -87,8 +87,8 @@ namespace RepublicSystemClasses
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
-            try
-            {
+            /*try
+            {*/
                 TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
                 Listener2.Start();
                 client2 = new TcpClient(IPA, PortN);
@@ -148,11 +148,11 @@ namespace RepublicSystemClasses
 
                     }
                 }
-            }
+            /*}
             catch
             {
 
-            }
+            }*/
         }
 
         public void ThreadListener()
