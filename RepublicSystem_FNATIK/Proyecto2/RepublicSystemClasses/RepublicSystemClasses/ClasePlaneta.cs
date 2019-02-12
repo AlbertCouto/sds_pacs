@@ -61,7 +61,8 @@ namespace RepublicSystemClasses
         public  void ReceiveTCP(int portN, int portN2, string IP)
         {
             string Status = string.Empty;
-            string rutaZip = @"C:\Users\admin\Desktop\PACSSOL.zip";
+            string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
+            string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.zip";
             byte[] SendingBuffer = null;
             try
             {
@@ -90,8 +91,8 @@ namespace RepublicSystemClasses
                 int RecBytes;
 
                 Status = string.Empty;
-                try
-                {
+                /*try
+                {*/
 
                     if (Listener2.Pending())
                     {
@@ -158,7 +159,7 @@ namespace RepublicSystemClasses
                         int totalrecbytes = 0;
                         client = Listener.AcceptTcpClient();
                         netstream = client.GetStream();                        
-                        FileStream Fs = new FileStream(rutaZip, FileMode.OpenOrCreate, FileAccess.Write);
+                        FileStream Fs = new FileStream(rutaZipSol, FileMode.OpenOrCreate, FileAccess.Write);
                         while((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                         {
                             Fs.Write(RecData, 0, RecBytes);
@@ -171,12 +172,12 @@ namespace RepublicSystemClasses
                         color = Color.Green;
                         MostrarMsgLog(msg, color);
                     }
-                }
+               /* }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                     Console.WriteLine(ex.Message);
-                }
+                }*/
             }
         }
         private void MostrarMsgLog(string msg, Color color)

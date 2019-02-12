@@ -22,7 +22,19 @@ namespace RepublicSystemClasses
                 try
                 {
                     ZipFile.CreateFromDirectory(startPath, zipPath);
-                    MessageBox.Show("Sistema preparado");
+                    MessageBox.Show("Archivo listo para enviar");
+                }
+                catch
+                {
+                    MessageBox.Show("Error al comprimir ficheros.");
+                }
+            }
+            else
+            {
+                try
+                {
+                    ZipFile.CreateFromDirectory(startPath, zipPath);
+                    MessageBox.Show("Archivo listo para enviar");
                 }
                 catch
                 {
