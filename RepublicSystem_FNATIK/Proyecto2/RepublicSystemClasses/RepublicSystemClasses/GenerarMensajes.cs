@@ -33,6 +33,21 @@ namespace RepublicSystemClasses
 
             return fecha_bien; 
         }
+        
+        public string generarMensageAprovacion(bool ver)
+        {
+            string verificacion = null;
+            string menFinal = null;
+            ds = db.PortarPerConsulta("select SpaceShip from DeliberyData Where idDeliveryData = 1");
+
+            if (ver) verificacion = "AG";            
+            else verificacion = "AD";
+
+            menFinal = (ds.Tables[0].Rows[0][0]).ToString() + verificacion;
+
+            return menFinal;
+        }
+
 
     }
 }

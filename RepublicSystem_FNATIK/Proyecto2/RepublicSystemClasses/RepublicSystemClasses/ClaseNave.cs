@@ -41,7 +41,7 @@ namespace RepublicSystemClasses
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];      
             byte[] SendingBuffer = null;
-            string ruta_inicial = "C:\\User\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
+            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
             ThreadListener();
@@ -65,6 +65,8 @@ namespace RepublicSystemClasses
 
                 }
                 Fs.Close();
+                netstream.Close();
+                client.Close();
             }
             if (PortN == 9250)
             {
@@ -84,63 +86,72 @@ namespace RepublicSystemClasses
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
-            int RecBytes;            
-
-            TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
-            Listener2.Start();
-            client2 = new TcpClient(IPA, PortN);
-            netstream = client2.GetStream();
-            for (; ; )
+            int RecBytes;
+            try
             {
-                if (Listener2.Pending())
+                TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
+                Listener2.Start();
+                client2 = new TcpClient(IPA, PortN);
+                netstream = client2.GetStream();
+                for (; ; )
                 {
-                    int totalrecbytes = 0;
-                    client2 = Listener2.AcceptTcpClient();
-                    netstream = client2.GetStream();
-                    string ruta = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
-                    FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
-                    while ((RecBytes = netstream.Read(RecData, 0, RecData.Length))>0)
+                    if (Listener2.Pending())
                     {
-                        Fs.Write(RecData, 0, RecBytes);
-                        totalrecbytes += RecBytes;
-                    }
-                    string msgOK = "Archivo Recibido";
-                    string msg = "Archivo No Recibido";
-                    
-                    foreach (Control ctrl in form.Controls)
-                    {
-                        if (ctrl.GetType() == typeof(RichTextBox))
+                        int totalrecbytes = 0;
+                        client2 = Listener2.AcceptTcpClient();
+                        netstream = client2.GetStream();
+                        string ruta = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
+                        FileStream Fs = new FileStream(ruta, FileMode.OpenOrCreate, FileAccess.Write);
+                        while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                         {
-                            ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate {
-                                if (File.Exists(ruta))
-                                {
-                                    ((RichTextBox)ctrl).AppendText(msgOK);
-                                    ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msgOK.Length, msgOK.Length);
-                                    ((RichTextBox)ctrl).SelectionColor = Color.Green;
-                                }
-                                else
-                                {
-                                    ((RichTextBox)ctrl).AppendText(msg);
-                                    ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length, msg.Length);
-                                    ((RichTextBox)ctrl).SelectionColor = Color.Red;
-                                }
-                            });
+                            Fs.Write(RecData, 0, RecBytes);
+                            totalrecbytes += RecBytes;
                         }
-                    }
-               
-                    foreach (Control ctrl in form.Controls)
-                    {
-                        if (ctrl.GetType() == typeof(Timer))
+                        Fs.Close();
+                        netstream.Close();
+                        client2.Close();
+                        string msgOK = "Archivo Recibido";
+                        string msg = "Archivo No Recibido";
+
+                        foreach (Control ctrl in form.Controls)
                         {
-                            ((Timer)ctrl).Invoke((MethodInvoker)delegate{
-                                ((Timer)ctrl).StartTimer();
-                            });
+                            if (ctrl.GetType() == typeof(RichTextBox))
+                            {
+                                ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                                {
+                                    if (File.Exists(ruta))
+                                    {
+                                        ((RichTextBox)ctrl).AppendText(msgOK);
+                                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msgOK.Length, msgOK.Length);
+                                        ((RichTextBox)ctrl).SelectionColor = Color.Green;
+                                    }
+                                    else
+                                    {
+                                        ((RichTextBox)ctrl).AppendText(msg);
+                                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length, msg.Length);
+                                        ((RichTextBox)ctrl).SelectionColor = Color.Red;
+                                    }
+                                });
+                            }
                         }
+
+                        foreach (Control ctrl in form.Controls)
+                        {
+                            if (ctrl.GetType() == typeof(Timer))
+                            {
+                                ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                {
+                                    ((Timer)ctrl).StartTimer();
+                                });
+                            }
+                        }
+
                     }
-                    Fs.Close();
-                    netstream.Close();
-                    client2.Close();
                 }
+            }
+            catch
+            {
+
             }
         }
 

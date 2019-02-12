@@ -17,7 +17,6 @@ namespace NaveForm
         Thread th2;
         Thread th3;
        
-
         public NaveForm()
         {
             InitializeComponent();
@@ -41,7 +40,7 @@ namespace NaveForm
         private void ConectarConPlaneta()
         {
             MostrarMsgLog("Conectando...", Color.White);
-            if (cnp.Ping()) MostrarMsgLog("Conexión a Internet Verificada", Color.Green);
+            if (cnp.Ping()) MostrarMsgLog("Conexión a Internet Verificada, ya puede enviar código de acceso", Color.Green);
             else MostrarMsgLog("Error de conexión", Color.Red);
         }
 
@@ -61,7 +60,7 @@ namespace NaveForm
                 });
             }
             MostrarMsgLog("Enviando Código...", Color.White);
-            if (cnp.EnviarCodigo()) MostrarMsgLog("Código Enviado", Color.Green);
+            if (cnp.EnviarCodigo()) MostrarMsgLog("Código Enviado, devuelva el fichero para confirmación de acceso", Color.Green);
             else MostrarMsgLog("Error al enviar el código", Color.Red);
             if (btn_Mensaje.InvokeRequired)
             {
@@ -70,8 +69,6 @@ namespace NaveForm
                     btn_Mensaje.Enabled = true;
                 });
             }
-            if (File.Exists(ruta_inicial))
-                MostrarMsgLog("Archivo PACS recibido", Color.Green);
         }
 
         //Devolver Fichero
@@ -84,7 +81,7 @@ namespace NaveForm
         {
             MostrarMsgLog("Enviando Fichero al Planeta...", Color.White);
             if (cnp.GestionarFicheros(ruta_inicial))
-                MostrarMsgLog("Fichero devuelto correctamente", Color.Green);
+                MostrarMsgLog("Fichero devuelto correctamente, esperando confirmación...", Color.Green);
             else MostrarMsgLog("Error al devolver el fichero, asegúrese de enviar su código al planeta correctamente", Color.Red);
         }
 

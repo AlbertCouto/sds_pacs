@@ -147,7 +147,11 @@ namespace RepublicSystemClasses
                                 msg = "Archivo enviado";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
-                                
+
+                            }
+                            else
+                            {
+                                //AQUI HACER OUTER RING
                             }
                         }
                         netstream2.Close();
