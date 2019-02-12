@@ -41,7 +41,7 @@ namespace RepublicSystemClasses
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];      
             byte[] SendingBuffer = null;
-            string ruta_inicial = "C:\\User\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
+            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
             ThreadListener();
@@ -65,6 +65,8 @@ namespace RepublicSystemClasses
 
                 }
                 Fs.Close();
+                netstream.Close();
+                client.Close();
             }
             if (PortN == 9250)
             {
@@ -104,6 +106,9 @@ namespace RepublicSystemClasses
                         Fs.Write(RecData, 0, RecBytes);
                         totalrecbytes += RecBytes;
                     }
+                    Fs.Close();
+                    netstream.Close();
+                    client2.Close();
                     string msgOK = "Archivo Recibido";
                     string msg = "Archivo No Recibido";
                     
@@ -137,9 +142,7 @@ namespace RepublicSystemClasses
                             });
                         }
                     }
-                    Fs.Close();
-                    netstream.Close();
-                    client2.Close();
+                    
                 }
             }
         }
