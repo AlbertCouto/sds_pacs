@@ -24,13 +24,13 @@ namespace RepublicSystemClasses
             SIZE_1369 = 1369
         };
 
-        static void Main(string[] args, string clave)
+        static void Main(string[] args)
         {
-            string message = clave;
+            string message = "FNATIK";
             generateKeys();
             byte[] encrypted = Encrypt(Encoding.UTF8.GetBytes(message));
             byte[] decrypted = Decrypt(encrypted);
-
+           
             Console.WriteLine("Original\n\t " + message + "\n");
             Console.WriteLine("Encriptado\n\t" + BitConverter.ToString(encrypted).Replace("-", "") + "\n");
             Console.WriteLine("Desencriptado\n\t" + Encoding.UTF8.GetString(decrypted));
@@ -42,7 +42,7 @@ namespace RepublicSystemClasses
         //GENERAMOS LAS LLAVES// 
         static void generateKeys()
         {
-            using (var rsa = new RSACryptoServiceProvider(2048)) //CREANDO EL OBJETO RSA, LE INDICAMOS EL TAMAÑO DE LAS LLAVES
+            using(var rsa = new RSACryptoServiceProvider(2048)) //CREANDO EL OBJETO RSA, LE INDICAMOS EL TAMAÑO DE LAS LLAVES
             {
                 rsa.PersistKeyInCsp = false; //NO GUARDA LA KEY EN UN CONTENEDOR
                 publicKey = rsa.ExportParameters(false); //LLAVE PUBLICA
