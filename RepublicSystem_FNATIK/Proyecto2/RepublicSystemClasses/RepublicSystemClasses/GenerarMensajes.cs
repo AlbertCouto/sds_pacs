@@ -33,5 +33,6 @@ namespace RepublicSystemClasses
 
             return fecha_bien; 
         }
+
     }
 }
