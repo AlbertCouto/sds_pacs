@@ -17,7 +17,9 @@ namespace RepublicSystemClasses
         public string Status = string.Empty;
         public  TcpListener Listener2;
         public  TcpListener Listener;
-        public  ComprobarNave cn;
+        private  ComprobarNave cn;
+        private ZipUnzipCompare zipCompare;
+        private Concatenar concat;
         
         public Form form { get; set; }
         private string msg;
@@ -156,7 +158,7 @@ namespace RepublicSystemClasses
                         }
                         netstream2.Close();
                         client2.Close();
-                        //CREAR PACS AQUÍ
+                   
                     }
                     if (Listener.Pending())
                     {
@@ -175,13 +177,36 @@ namespace RepublicSystemClasses
                         msg = "Archivo recibido";
                         color = Color.Green;
                         MostrarMsgLog(msg, color);
-                    }
-               /* }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    Console.WriteLine(ex.Message);
-                }*/
+
+
+
+                    //CREAR PACS AQUÍ
+                    concat = new Concatenar();
+                    zipCompare = new ZipUnzipCompare();
+                    string ruta_concatenar = @"C:\Users\admin\Desktop\FicherosLetras";
+                    string ruta_txt_concatenado = @"C:\Users\admin\Desktop\concatenado.txt";
+                    string ruta_toUnzip = @"C:\Users\admin\Desktop\PACSSOL.zip";
+                    string original_file_path = @"C: \Users\admin\Desktop\concatenado.txt";
+                    string returned_file_path = @"C:\Users\admin\Desktop\PACS\NaveTXT\PACSSOL.txt";
+                    bool verificacion;
+
+                    concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
+                    zipCompare.Descomprimir(ruta_toUnzip);
+                    verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
+                    MessageBox.Show(verificacion.ToString());
+
+
+
+
+
+
+                }
+                /* }
+                 catch (Exception ex)
+                 {
+                     MessageBox.Show(ex.ToString());
+                     Console.WriteLine(ex.Message);
+                 }*/
             }
         }
         private void MostrarMsgLog(string msg, Color color)
