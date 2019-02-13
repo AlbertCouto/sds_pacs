@@ -87,8 +87,8 @@ namespace RepublicSystemClasses
             NetworkStream netstream = null;
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
-            /*try
-            {*/
+            try
+            {
                 TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
                 Listener2.Start();
                 client2 = new TcpClient(IPA, PortN);
@@ -148,11 +148,11 @@ namespace RepublicSystemClasses
 
                     }
                 }
-            /*}
+            }
             catch
             {
 
-            }*/
+            }
         }
 
         public void ThreadListener()
