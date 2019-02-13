@@ -44,12 +44,14 @@
             // console_Log
             // 
             this.console_Log.BackColor = System.Drawing.Color.Black;
+            this.console_Log.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.console_Log.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.console_Log.ForeColor = System.Drawing.Color.White;
             this.console_Log.Location = new System.Drawing.Point(770, -2);
             this.console_Log.Name = "console_Log";
             this.console_Log.ReadOnly = true;
             this.console_Log.Size = new System.Drawing.Size(331, 561);
-            this.console_Log.TabIndex = 3;
+            this.console_Log.TabIndex = 5;
             this.console_Log.Text = "";
             // 
             // pictureBox1
