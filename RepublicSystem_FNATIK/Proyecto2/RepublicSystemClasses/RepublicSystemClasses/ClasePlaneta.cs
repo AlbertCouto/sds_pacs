@@ -93,8 +93,8 @@ namespace RepublicSystemClasses
                 int RecBytes;
 
                 Status = string.Empty;
-                /*try
-                {*/
+                try
+                {
 
                     if (Listener2.Pending())
                     {
@@ -162,6 +162,10 @@ namespace RepublicSystemClasses
                     }
                     if (Listener.Pending())
                     {
+                        if (File.Exists(rutaZipSol))
+                        {
+                            File.Delete(rutaZipSol);
+                        }
                         int totalrecbytes = 0;
                         client = Listener.AcceptTcpClient();
                         netstream = client.GetStream();                        
@@ -201,12 +205,13 @@ namespace RepublicSystemClasses
 
 
                 }
-                /* }
-                 catch (Exception ex)
-                 {
-                     MessageBox.Show(ex.ToString());
-                     Console.WriteLine(ex.Message);
-                 }*/
+                }
+                catch (Exception ex)
+                {
+                   
+                    //MessageBox.Show(ex.ToString());
+                    //Console.WriteLine(ex.Message);
+                }
             }
         }
         private void MostrarMsgLog(string msg, Color color)

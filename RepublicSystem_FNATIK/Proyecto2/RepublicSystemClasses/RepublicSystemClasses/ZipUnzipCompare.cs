@@ -19,7 +19,8 @@ namespace RepublicSystemClasses
             if (File.Exists(zipPath))
             {
                 File.Delete(zipPath);
-                try
+            }
+            try
                 {
                     ZipFile.CreateFromDirectory(startPath, zipPath);
                     MessageBox.Show("Archivo listo para enviar");
@@ -29,20 +30,9 @@ namespace RepublicSystemClasses
                     MessageBox.Show("Error al comprimir ficheros.");
                 }
             }
-            else
-            {
-                try
-                {
-                    ZipFile.CreateFromDirectory(startPath, zipPath);
-                    MessageBox.Show("Archivo listo para enviar");
-                }
-                catch
-                {
-                    MessageBox.Show("Error al comprimir ficheros.");
-                }
-            }
-
-        }
+          
+  
+        
 
         public void Descomprimir(string zipPath)
         {
