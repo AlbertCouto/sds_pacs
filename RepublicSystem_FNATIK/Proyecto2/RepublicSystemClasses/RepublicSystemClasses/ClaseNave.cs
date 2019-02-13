@@ -50,19 +50,26 @@ namespace RepublicSystemClasses
                 FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
                 int TotalLength = (int)Fs.Length, CurrentPacketLength;
-                for (int i = 0; i < NoOfPackets; i++)
+                try
                 {
-                    if (TotalLength > BufferSize)
+                    for (int i = 0; i < NoOfPackets; i++)
                     {
-                        CurrentPacketLength = BufferSize;
-                        TotalLength = TotalLength - CurrentPacketLength;
-                    }
-                    else
-                        CurrentPacketLength = TotalLength;
-                    SendingBuffer = new byte[CurrentPacketLength];
-                    Fs.Read(SendingBuffer, 0, CurrentPacketLength);
-                    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                        if (TotalLength > BufferSize)
+                        {
+                            CurrentPacketLength = BufferSize;
+                            TotalLength = TotalLength - CurrentPacketLength;
+                        }
+                        else
+                            CurrentPacketLength = TotalLength;
 
+                        SendingBuffer = new byte[CurrentPacketLength];
+                        Fs.Read(SendingBuffer, 0, CurrentPacketLength);
+                        netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                    }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message);
                 }
                 Fs.Close();
                 netstream.Close();
