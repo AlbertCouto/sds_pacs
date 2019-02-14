@@ -11,12 +11,10 @@ namespace RepublicSystemClasses
 {
     public class GenerarFicheros
     {
-        AccesoBD db = new AccesoBD();
         private char[] abecedario = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
         private Dictionary<char, string> cifrado = new Dictionary<char, string>();
         private Thread th1;
         private Thread th2;
-        ZipUnzipCompare zip = new ZipUnzipCompare();
 
         public void GenerarLosFicheros()
         {
@@ -33,9 +31,10 @@ namespace RepublicSystemClasses
             }
         }
 
-        // Diccionario letra-numeros
+        // Diccionario letra-numeros de la BD
         private bool ObtenerDiccionario()
         {
+            AccesoBD db = new AccesoBD();
             string query = "select Numbers from InnerEncryptionData where IdInnerEncryption = 13";
             try
             {
@@ -47,12 +46,11 @@ namespace RepublicSystemClasses
             }
             catch
             {
-                MessageBox.Show("Error al Obtener los numeros de la BD.");
                 return false;
             }
         }
 
-        // Generamos los ficheros con 1M de ltras Random a la vez
+        //Generamos los ficheros con 1M de letras Random a la vez
         private void GenerarFicherosLetras()
         {
             Parallel.Invoke(() => { InvokeFicherosLetras("1"); },
@@ -64,24 +62,16 @@ namespace RepublicSystemClasses
         private void InvokeFicherosLetras(string valor)
         {
             string ruta = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
-            //"C:\\Users\\admin\\Desktop\\RepublicSystem_FNATIK\\Threads\\Threads\\resources\\FicherosLetras\\pacs" + valor + ".txt";
 
             if (File.Exists(ruta)) File.Delete(ruta);
-            try
+            Random rnd = new Random();
+            using (StreamWriter sw = File.CreateText(ruta))
             {
-                Random rnd = new Random();
-                using (StreamWriter sw = File.CreateText(ruta))
+                for (int j = 0; j < 1000000; j++)
                 {
-                    for (int j = 0; j < 1000000; j++)
-                    {
-                        sw.Write(abecedario[rnd.Next(abecedario.Length)]);
-                        sw.Flush();
-                    }
+                    sw.Write(abecedario[rnd.Next(abecedario.Length)]);
+                    sw.Flush();
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Ruta de ficheros no válida");
             }
         }
 
@@ -89,38 +79,28 @@ namespace RepublicSystemClasses
         private void GenerarFicherosNumeros()
         {
             th2.Join(); // Espera a que acabe de generar los ficheros de letras para iniciar el de numeros 
+            ZipUnzipCompare zip = new ZipUnzipCompare();
             Parallel.Invoke(() => { InvokeFicherosNumeros("1"); },
                             () => { InvokeFicherosNumeros("2"); },
                             () => { InvokeFicherosNumeros("3"); },
                             () => { InvokeFicherosNumeros("4"); }
             );
-            //MessageBox.Show("Ficheros Generados");
             cifrado.Clear();
-
             zip.Comprimir("C:\\Users\\admin\\Desktop\\FicherosNumeros", "C:\\Users\\admin\\Desktop\\PACS.zip");
-
         }
         private void InvokeFicherosNumeros(string valor)
         {
             string ruta_numeros = "C:\\Users\\admin\\Desktop\\FicherosNumeros\\pacs" + valor + ".txt";
             string ruta_letras = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
 
-
             if (File.Exists(ruta_numeros)) File.Delete(ruta_numeros);
-            try
+            using (StreamWriter sw = File.CreateText(ruta_numeros))
             {
-                using (StreamWriter sw = File.CreateText(ruta_numeros))
+                using (StreamReader sr = File.OpenText(ruta_letras))
                 {
-                    using (StreamReader sr = File.OpenText(ruta_letras))
-                    {
-                        do sw.Write(cifrado[(char)sr.Read()]);
-                        while (!sr.EndOfStream);
-                    }
+                    do sw.Write(cifrado[(char)sr.Read()]);
+                    while (!sr.EndOfStream);
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Ruta de ficheros no válida");
             }
         }
     }
