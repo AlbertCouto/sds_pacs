@@ -32,7 +32,6 @@
             this.console_Log = new System.Windows.Forms.RichTextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new RepublicSystemClasses.Timer();
             this.btn_Conectar = new System.Windows.Forms.PictureBox();
             this.btn_Mensaje = new System.Windows.Forms.PictureBox();
             this.btn_DevolverFichero = new System.Windows.Forms.PictureBox();
@@ -40,6 +39,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.timer2 = new RepublicSystemClasses.Timer();
+            this.timer1 = new RepublicSystemClasses.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Mensaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_DevolverFichero)).BeginInit();
@@ -72,14 +72,6 @@
             this.openFileDialog.DefaultExt = "zip";
             this.openFileDialog.FileName = "openFileDialog1";
             this.openFileDialog.Title = "Seleccione fichero ZIP a descifrar:";
-            // 
-            // timer1
-            // 
-            this.timer1.Location = new System.Drawing.Point(710, 629);
-            this.timer1.Name = "timer1";
-            this.timer1.Size = new System.Drawing.Size(159, 62);
-            this.timer1.TabIndex = 6;
-            this.timer1.Visible = false;
             // 
             // btn_Conectar
             // 
@@ -155,10 +147,20 @@
             // 
             // timer2
             // 
+            this.timer2.BackColor = System.Drawing.Color.Transparent;
             this.timer2.Location = new System.Drawing.Point(475, 364);
             this.timer2.Name = "timer2";
             this.timer2.Size = new System.Drawing.Size(142, 65);
             this.timer2.TabIndex = 15;
+            // 
+            // timer1
+            // 
+            this.timer1.BackColor = System.Drawing.Color.Transparent;
+            this.timer1.Location = new System.Drawing.Point(710, 629);
+            this.timer1.Name = "timer1";
+            this.timer1.Size = new System.Drawing.Size(159, 62);
+            this.timer1.TabIndex = 6;
+            this.timer1.Visible = false;
             // 
             // NaveForm
             // 
