@@ -5,21 +5,29 @@ namespace RepublicSystemClasses
 {
     public class Concatenar
     {
-        public void ConcatenaFicheros(string Directorio, string ArchivoFinal)
+        public bool ConcatenaFicheros(string Directorio, string ArchivoFinal)
         {
-            string[] inputFilePaths = Directory.GetFiles(Directorio);
-            if (File.Exists(ArchivoFinal)) File.Delete(ArchivoFinal);
-
-            using (var outputStream = File.Create(ArchivoFinal))
+            try
             {
-                foreach (var inputFilePath in inputFilePaths)
+                string[] inputFilePaths = Directory.GetFiles(Directorio);
+                if (File.Exists(ArchivoFinal)) File.Delete(ArchivoFinal);
+
+                using (var outputStream = File.Create(ArchivoFinal))
                 {
-                    using (var inputStream = File.OpenRead(inputFilePath))
+                    foreach (var inputFilePath in inputFilePaths)
                     {
-                        // Buffer size can be passed as the second argument.
-                        inputStream.CopyTo(outputStream);
+                        using (var inputStream = File.OpenRead(inputFilePath))
+                        {
+                            // Buffer size can be passed as the second argument.
+                            inputStream.CopyTo(outputStream);
+                        }
                     }
                 }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

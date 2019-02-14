@@ -14,8 +14,9 @@ namespace RepublicSystemClasses
     public class ClaseNave
     {
         //Thread th;        
-        private const int BufferSize = 1024;
+        private const int BufferSize = 2048;
         public static AccesoBD bd = new AccesoBD();
+        Thread th;
         //private static TcpListener Listener;
         public Int32 puerto;
         public Form form { get; set; }
@@ -24,27 +25,59 @@ namespace RepublicSystemClasses
             string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
             puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             ThreadListener();
-            SendTCP(IP, puerto);
+            SendTCPMessage(IP, puerto);
         }
-        public void Start_Client_File()
+        public bool Start_Client_File()
         {
-            string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
-            puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            try
+            {
+                string IP = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
+                puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
 
-            SendTCP(IP, puerto);
+                SendTCPFile(IP, puerto);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void SendTCP(string IPA, Int32 PortN)
+        public void SendTCPMessage(string IPA, Int32 PortN)
         {
             TcpClient client = null;
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
-            byte[] RecData = new byte[BufferSize];      
-            byte[] SendingBuffer = null;
-            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.ZIP";
+            byte[] RecData = new byte[BufferSize];  
+            
+
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
             
+         
+            if (PortN == 9250)
+            {
+                GenerarMensajes gm = new GenerarMensajes();
+                string mensaje = gm.GenerarMensajeInicio();
+                byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
+                netstream.Write(nouBuffer, 0, nouBuffer.Length);
+                netstream.Close();
+            }         
+        }
+
+        public void SendTCPFile(string IPA, Int32 PortN)
+        {
+            TcpClient client = null;
+            DataSet ds = new DataSet();
+            NetworkStream netstream = null;
+            byte[] RecData = new byte[BufferSize];
+            byte[] SendingBuffer = null;
+            string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.txt";
+
+
+            client = new TcpClient(IPA, PortN);
+            netstream = client.GetStream();
+
             if (PortN == 5678)
             {
                 FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
@@ -54,6 +87,12 @@ namespace RepublicSystemClasses
                 {
                     for (int i = 0; i < NoOfPackets; i++)
                     {
+
+                        if (i % 100 == 0)
+                        {
+                            MessageBox.Show(i.ToString());
+                        }
+
                         if (TotalLength > BufferSize)
                         {
                             CurrentPacketLength = BufferSize;
@@ -62,31 +101,28 @@ namespace RepublicSystemClasses
                         else
                             CurrentPacketLength = TotalLength;
 
+                        //Thread.Sleep(2);                   
+
                         SendingBuffer = new byte[CurrentPacketLength];
                         Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                         netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                        netstream.Flush();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
                 }
+                
                 Fs.Close();
                 netstream.Close();
                 client.Close();
             }
-            if (PortN == 9250)
-            {
-                GenerarMensajes gm = new GenerarMensajes();
-                string mensaje = gm.GenerarMensajeInicio();
-                byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
-                netstream.Write(nouBuffer, 0, nouBuffer.Length);
-
-            }         
         }
        
         public void CrearListener()
-        {            
+        {
+            if (File.Exists("C:\\Users\\admin\\Desktop\\PACS.ZIP")) File.Delete("C:\\Users\\admin\\Desktop\\PACS.ZIP");
             string IPA = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
             Int32 PortN = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             TcpClient client2 = null;
@@ -102,6 +138,7 @@ namespace RepublicSystemClasses
                 netstream = client2.GetStream();
                 for (; ; )
                 {
+                    Listener2.Start();
                     if (Listener2.Pending())
                     {
                         int totalrecbytes = 0;
@@ -114,10 +151,12 @@ namespace RepublicSystemClasses
                             Fs.Write(RecData, 0, RecBytes);
                             totalrecbytes += RecBytes;
                         }
+                        Fs.Flush();
                         Fs.Close();
                         netstream.Close();
                         client2.Close();
-                        string msgOK = "Archivo Recibido";
+                        Listener2.Stop();
+                        string msgOK = "Archivo Recibido \n";
                         string msg = "Archivo No Recibido";
 
                         foreach (Control ctrl in form.Controls)
@@ -164,9 +203,8 @@ namespace RepublicSystemClasses
 
         public void ThreadListener()
         {
-            Thread th = new Thread(CrearListener);
-            th.Start();
-            
+            th = new Thread(CrearListener);
+            th.Start();            
         }
     }
 }

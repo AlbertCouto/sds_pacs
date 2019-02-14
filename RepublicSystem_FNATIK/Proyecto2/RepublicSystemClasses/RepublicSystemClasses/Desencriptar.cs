@@ -9,26 +9,35 @@ namespace RepublicSystemClasses
     {
         private static AccesoBD db = new AccesoBD();
         private static char[] abecedario = new char[] {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-        private static Dictionary<char, string> dict_letras_numeros = new Dictionary<char, string>(ObtenerDictionary());
-        public void DesencriptarFichero(string fichero_numeros, string fichero_letras)
+        private static Dictionary<char, string> dict_letras_numeros = new Dictionary<char, string>();
+        public bool DesencriptarFichero(string fichero_numeros, string fichero_letras)
         {
-            string numero = "";
-            if (File.Exists(fichero_letras)) File.Delete(fichero_letras);
-
-            using (StreamWriter sw = File.CreateText(fichero_letras))
+            try
             {
-                using (StreamReader sr = File.OpenText(fichero_numeros))
+                string numero = "";
+                if (!ObtenerDiccionario()) return false;
+                if (File.Exists(fichero_letras)) File.Delete(fichero_letras);
+
+                using (StreamWriter sw = File.CreateText(fichero_letras))
                 {
-                    while(!sr.EndOfStream)
+                    using (StreamReader sr = File.OpenText(fichero_numeros))
                     {
-                        numero += (char)sr.Read();
-                        if (numero.Length==4)
+                        while (!sr.EndOfStream)
                         {
-                            sw.Write(ObtenerLetra(numero));
-                            numero = "";
+                            numero += (char)sr.Read();
+                            if (numero.Length == 4)
+                            {
+                                sw.Write(ObtenerLetra(numero));
+                                numero = "";
+                            }
                         }
                     }
                 }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
         private char ObtenerLetra(string numero)
@@ -38,21 +47,21 @@ namespace RepublicSystemClasses
                 if (item.Value == numero) letra = item.Key;
             return letra;
         }
-        private static Dictionary<char, string> ObtenerDictionary()
+        private bool ObtenerDiccionario()
         {
-            Dictionary<char, string> diccio = new Dictionary<char, string>(); ;
-            foreach (char letra in abecedario)
-                diccio.Add(letra, GetNumeroBD(letra));
-
-            return diccio;
-        }
-        private static string GetNumeroBD(char letra)
-        {
-            string query = "SELECT Numbers from InnerEncryptionData where IdInnerEncryption = 13 AND Word = '" + letra + "'";
-            DataSet ds = new DataSet();
-            ds = db.PortarPerConsulta(query);
-
-            return ds.Tables[0].Rows[0][0].ToString();
+            string query = "select Numbers from InnerEncryptionData where IdInnerEncryption = 13";
+            try
+            {
+                DataSet ds = new DataSet();
+                ds = db.PortarPerConsulta(query);
+                for (int i = 0; i < abecedario.Length; i++)
+                    dict_letras_numeros.Add(abecedario[i], ds.Tables[0].Rows[i]["Numbers"].ToString());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

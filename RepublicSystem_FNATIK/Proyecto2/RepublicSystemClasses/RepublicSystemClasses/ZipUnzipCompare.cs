@@ -13,46 +13,39 @@ namespace RepublicSystemClasses
         string extractPath  = @"C:\Users\admin\Desktop\PACS\NaveTXT";
         
 
-        public void Comprimir(string startPath, string zipPath)
+        public bool Comprimir(string startPath, string zipPath)
         {
-
-            if (File.Exists(zipPath))
+            try
             {
-                File.Delete(zipPath);
-                try
-                {
+                if (File.Exists(zipPath))File.Delete(zipPath);
                     ZipFile.CreateFromDirectory(startPath, zipPath);
-                    MessageBox.Show("Archivo listo para enviar");
-                }
-                catch
-                {
-                    MessageBox.Show("Error al comprimir ficheros.");
-                }
+                ZipFile.CreateFromDirectory(startPath, zipPath);
+                return true;
             }
-            else
+            catch
             {
-                try
-                {
-                    ZipFile.CreateFromDirectory(startPath, zipPath);
-                    MessageBox.Show("Archivo listo para enviar");
-                }
-                catch
-                {
-                    MessageBox.Show("Error al comprimir ficheros.");
-                }
+                return false;
             }
-
         }
 
-        public void Descomprimir(string zipPath)
+        public bool Descomprimir(string zipPath)
         {
-            DirectoryInfo di = new DirectoryInfo(extractPath);
-
-            foreach (FileInfo file in di.GetFiles())
+            try
             {
-                file.Delete();
+                DirectoryInfo di = new DirectoryInfo(extractPath);
+
+                foreach (FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                ZipFile.ExtractToDirectory(zipPath, extractPath);
+                return true;
             }
-            ZipFile.ExtractToDirectory(zipPath, extractPath);
+            catch
+            {
+                return false;
+            }
+            
         }
 
         public bool Comparar(string original_file_path, string returned_file_path)
