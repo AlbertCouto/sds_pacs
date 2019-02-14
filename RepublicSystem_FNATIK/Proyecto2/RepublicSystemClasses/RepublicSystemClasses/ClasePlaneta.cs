@@ -15,9 +15,9 @@ namespace RepublicSystemClasses
         static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
         public string Status = string.Empty;
-        public  TcpListener Listener2;
-        public  TcpListener Listener;
-        private  ComprobarNave cn;
+        public TcpListener Listener2;
+        public TcpListener Listener;
+        private ComprobarNave cn;
         private ZipUnzipCompare zipCompare;
         private Concatenar concat;
         
@@ -41,7 +41,6 @@ namespace RepublicSystemClasses
                     Listener2.Stop();
                     Listener.Stop();
                     //T.Abort();
-
                 }
 
             }
@@ -96,7 +95,7 @@ namespace RepublicSystemClasses
                 Status = string.Empty;
                 try
                 {
-
+                    Listener2.Start();
                     if (Listener2.Pending())
                     {
                         client2 = Listener2.AcceptTcpClient();
@@ -159,8 +158,9 @@ namespace RepublicSystemClasses
                         }
                         netstream2.Close();
                         client2.Close();
-                   
+                        Listener2.Stop();
                     }
+                    Listener.Start();
                     if (Listener.Pending())
                     {
                         if (File.Exists(rutaZipSol))
@@ -179,6 +179,7 @@ namespace RepublicSystemClasses
                         Fs.Close();
                         netstream.Close();
                         client.Close();
+                        Listener.Stop();
                         msg = "Archivo recibido";
                         color = Color.Green;
                         MostrarMsgLog(msg, color);
@@ -186,28 +187,24 @@ namespace RepublicSystemClasses
 
 
                     //CREAR PACS AQUÍ
-                    concat = new Concatenar();
-                    zipCompare = new ZipUnzipCompare();
-                    string ruta_concatenar = @"C:\Users\admin\Desktop\FicherosLetras";
-                    string ruta_txt_concatenado = @"C:\Users\admin\Desktop\concatenado.txt";
-                    string ruta_toUnzip = @"C:\Users\admin\Desktop\PACSSOL.zip";
-                    string original_file_path = @"C: \Users\admin\Desktop\concatenado.txt";
+                        concat = new Concatenar();
+                        zipCompare = new ZipUnzipCompare();
+                        string ruta_concatenar = @"C:\Users\admin\Desktop\FicherosLetras";
+                        string ruta_txt_concatenado = @"C:\Users\admin\Desktop\concatenado.txt";
+                        string ruta_toUnzip = @"C:\Users\admin\Desktop\PACSSOL.zip";
+                        string original_file_path = @"C: \Users\admin\Desktop\concatenado.txt";
                         //string returned_file_path = @"C:\Users\admin\Desktop\PACS\NaveTXT\PACSSOL.txt";
                         string returned_file_path = @"C:\Users\admin\Desktop\PACSSOL.txt";
 
                         bool verificacion;
 
-                    concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
-                    //zipCompare.Descomprimir(ruta_toUnzip);
-                    verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
-                    MessageBox.Show(verificacion.ToString());
+                        concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
+                        //zipCompare.Descomprimir(ruta_toUnzip);
+                        verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
+                        MessageBox.Show(verificacion.ToString());
 
 
-
-
-
-
-                }
+                    }
                 }
                 catch (Exception ex)
                 {
