@@ -62,6 +62,7 @@ namespace RepublicSystemClasses
                 byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                 netstream.Write(nouBuffer, 0, nouBuffer.Length);
                 netstream.Close();
+                client.Close();
             }         
         }
 
@@ -83,31 +84,60 @@ namespace RepublicSystemClasses
                 FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
                 int TotalLength = (int)Fs.Length, CurrentPacketLength;
+                int total = 0;
                 try
                 {
-                    for (int i = 0; i < NoOfPackets; i++)
+                    while (!netstream.DataAvailable)
                     {
-
-                        if (i % 100 == 0)
-                        {
-                            MessageBox.Show(i.ToString());
-                        }
-
-                        if (TotalLength > BufferSize)
-                        {
-                            CurrentPacketLength = BufferSize;
-                            TotalLength = TotalLength - CurrentPacketLength;
-                        }
-                        else
-                            CurrentPacketLength = TotalLength;
-
-                        //Thread.Sleep(2);                   
-
+                        total = total + 1;
+                        
+                        CurrentPacketLength = BufferSize;
                         SendingBuffer = new byte[CurrentPacketLength];
                         Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                         netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
                         netstream.Flush();
+                        Fs.Flush();
+                        Thread.Sleep(2);
+                        if (total == NoOfPackets)
+                        {
+                            Thread.Sleep(4);
+                            MessageBox.Show(total.ToString());
+                            break;
+                        }
                     }
+                    //for (int i = 0; i < NoOfPackets; i++)
+                    //{
+
+                    //    if (i % 100 == 0)
+                    //    {
+                    //        Thread.Sleep(4);
+                    //        MessageBox.Show(i.ToString());
+                    //    }
+
+                    //    if (i == 320)
+                    //    {
+                    //        Fs.Close();
+                    //        Fs.Dispose();
+                    //        Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
+                    //    }
+
+
+                    //    if (TotalLength > BufferSize)
+                    //    {
+                    //        CurrentPacketLength = BufferSize;
+                    //        TotalLength = TotalLength - CurrentPacketLength;
+                    //        total = total + CurrentPacketLength;
+                    //    }
+                    //    else
+                    //        CurrentPacketLength = TotalLength;
+
+                    //    SendingBuffer = new byte[CurrentPacketLength];
+                    //    Fs.Read(SendingBuffer, 0, CurrentPacketLength);
+                    //    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                    //    netstream.Flush();
+                    //    Fs.Flush();
+                    //    Thread.Sleep(2);
+                    //}
                 }
                 catch (Exception e)
                 {
@@ -133,7 +163,6 @@ namespace RepublicSystemClasses
             try
             {
                 TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
-                Listener2.Start();
                 client2 = new TcpClient(IPA, PortN);
                 netstream = client2.GetStream();
                 for (; ; )
