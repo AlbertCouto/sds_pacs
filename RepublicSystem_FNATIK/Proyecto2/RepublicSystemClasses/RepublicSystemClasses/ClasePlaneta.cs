@@ -64,7 +64,8 @@ namespace RepublicSystemClasses
         {
             string Status = string.Empty;
             string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
-            string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.zip";
+            //string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.zip";
+            string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.txt";
             byte[] SendingBuffer = null;
             try
             {
@@ -93,8 +94,8 @@ namespace RepublicSystemClasses
                 int RecBytes;
 
                 Status = string.Empty;
-                /*try
-                {*/
+                try
+                {
 
                     if (Listener2.Pending())
                     {
@@ -162,6 +163,10 @@ namespace RepublicSystemClasses
                     }
                     if (Listener.Pending())
                     {
+                        if (File.Exists(rutaZipSol))
+                        {
+                            File.Delete(rutaZipSol);
+                        }
                         int totalrecbytes = 0;
                         client = Listener.AcceptTcpClient();
                         netstream = client.GetStream();                        
@@ -187,11 +192,13 @@ namespace RepublicSystemClasses
                     string ruta_txt_concatenado = @"C:\Users\admin\Desktop\concatenado.txt";
                     string ruta_toUnzip = @"C:\Users\admin\Desktop\PACSSOL.zip";
                     string original_file_path = @"C: \Users\admin\Desktop\concatenado.txt";
-                    string returned_file_path = @"C:\Users\admin\Desktop\PACS\NaveTXT\PACSSOL.txt";
-                    bool verificacion;
+                        //string returned_file_path = @"C:\Users\admin\Desktop\PACS\NaveTXT\PACSSOL.txt";
+                        string returned_file_path = @"C:\Users\admin\Desktop\PACSSOL.txt";
+
+                        bool verificacion;
 
                     concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
-                    zipCompare.Descomprimir(ruta_toUnzip);
+                    //zipCompare.Descomprimir(ruta_toUnzip);
                     verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
                     MessageBox.Show(verificacion.ToString());
 
@@ -201,12 +208,13 @@ namespace RepublicSystemClasses
 
 
                 }
-                /* }
-                 catch (Exception ex)
-                 {
-                     MessageBox.Show(ex.ToString());
-                     Console.WriteLine(ex.Message);
-                 }*/
+                }
+                catch (Exception ex)
+                {
+                   
+                    //MessageBox.Show(ex.ToString());
+                    //Console.WriteLine(ex.Message);
+                }
             }
         }
         private void MostrarMsgLog(string msg, Color color)
