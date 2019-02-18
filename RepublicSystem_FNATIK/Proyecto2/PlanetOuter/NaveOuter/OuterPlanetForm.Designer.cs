@@ -1,6 +1,6 @@
 ﻿namespace NaveOuter
 {
-    partial class Form1
+    partial class OuterPlanetForm
     {
         /// <summary>
         /// Variable del diseñador necesaria.

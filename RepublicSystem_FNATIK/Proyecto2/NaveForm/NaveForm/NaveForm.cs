@@ -139,7 +139,7 @@ namespace NaveForm
                     MostrarMsgLog("Fichero PACSSOL devuelto correctamente a " + planeta + ", esperando confirmación...", Color.Green);
                 else
                 {
-                    MostrarMsgLog("Error en la devolución de PACSSOL", Color.Red);
+                    MostrarMsgLog("Error en el envío de PACSSOL", Color.Red);
                     throw new Exception();
                 }
             }
