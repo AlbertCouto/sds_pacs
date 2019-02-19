@@ -80,7 +80,7 @@ namespace RepublicSystemClasses
             }
             byte[] RecData = new byte[BufferSize];
             byte[] RecData2 = new byte[BufferSize];
-
+            byte[] RecData3 = new byte[BufferSize];
             for (; ; )
             {
                 TcpClient client = null;
@@ -89,6 +89,9 @@ namespace RepublicSystemClasses
                 NetworkStream netstream2 = null;
                 TcpClient client3 = null;
                 NetworkStream netstream3 = null;
+                TcpClient client4 = null;
+                NetworkStream netstream4 = null;                
+
                 string texto = null;
                 int RecBytes;
 
@@ -144,17 +147,15 @@ namespace RepublicSystemClasses
                                         });
                                     }
                                 }
+
+                                client3.Close();
                                 Fs.Close();
                                 netstream3.Close();
                                 msg = "Archivo enviado";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
 
-                            }
-                            else
-                            {
-                                //AQUI HACER OUTER RING
-                            }
+                            }                           
                         }
                         netstream2.Close();
                         client2.Close();
@@ -184,9 +185,6 @@ namespace RepublicSystemClasses
                         color = Color.Green;
                         MostrarMsgLog(msg, color);
 
-
-
-                    //CREAR PACS AQUÍ
                         concat = new Concatenar();
                         zipCompare = new ZipUnzipCompare();
                         string ruta_concatenar = @"C:\Users\admin\Desktop\FicherosLetras";
@@ -200,10 +198,32 @@ namespace RepublicSystemClasses
 
                         concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
                         //zipCompare.Descomprimir(ruta_toUnzip);
-                        verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
+                        verificacion = zipCompare.Comparar(original_file_path, returned_file_path);                                            
+
+                        client4 = new TcpClient(IP, portN2);
+                        netstream4 = client.GetStream();
+
+                        if (portN2 == 9250)
+                        {
+                            GenerarMensajes gm = new GenerarMensajes();
+                            string mensaje = gm.generarMensageAprovacion(verificacion);
+                            byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
+                            netstream4.Write(nouBuffer, 0, nouBuffer.Length);
+                            netstream4.Close();
+                            client4.Close();
+                        }
+                      
+                        foreach (Control ctrl in form.Controls)
+                        {
+                            if (ctrl.GetType() == typeof(Timer))
+                            {
+                                ((Timer)ctrl).Invoke((MethodInvoker)delegate {
+                                    ((Timer)ctrl).Show();
+                                    ((Timer)ctrl).StopTimer();
+                                });
+                            }
+                        }
                         MessageBox.Show(verificacion.ToString());
-
-
                     }
                 }
                 catch (Exception ex)

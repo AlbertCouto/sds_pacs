@@ -12,12 +12,10 @@ using System.Threading;
 namespace RepublicSystemClasses
 {
     public class ClaseNave
-    {
-        //Thread th;        
+    {        
         private const int BufferSize = 2048;
         public static AccesoBD bd = new AccesoBD();
         Thread th;
-        //private static TcpListener Listener;
         public Int32 puerto;
         public Form form { get; set; }
         public void Start_Client()
@@ -45,15 +43,11 @@ namespace RepublicSystemClasses
 
         public void SendTCPMessage(string IPA, Int32 PortN)
         {
-            TcpClient client = null;
-            DataSet ds = new DataSet();
-            NetworkStream netstream = null;
-            byte[] RecData = new byte[BufferSize];  
-            
+            TcpClient client = null;            
+            NetworkStream netstream = null;            
 
             client = new TcpClient(IPA, PortN);
-            netstream = client.GetStream();
-            
+            netstream = client.GetStream();            
          
             if (PortN == 9250)
             {
@@ -69,12 +63,9 @@ namespace RepublicSystemClasses
         public void SendTCPFile(string IPA, Int32 PortN)
         {
             TcpClient client = null;
-            DataSet ds = new DataSet();
             NetworkStream netstream = null;
-            byte[] RecData = new byte[BufferSize];
             byte[] SendingBuffer = null;
             string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.txt";
-
 
             client = new TcpClient(IPA, PortN);
             netstream = client.GetStream();
@@ -104,40 +95,7 @@ namespace RepublicSystemClasses
                             MessageBox.Show(total.ToString());
                             break;
                         }
-                    }
-                    //for (int i = 0; i < NoOfPackets; i++)
-                    //{
-
-                    //    if (i % 100 == 0)
-                    //    {
-                    //        Thread.Sleep(4);
-                    //        MessageBox.Show(i.ToString());
-                    //    }
-
-                    //    if (i == 320)
-                    //    {
-                    //        Fs.Close();
-                    //        Fs.Dispose();
-                    //        Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
-                    //    }
-
-
-                    //    if (TotalLength > BufferSize)
-                    //    {
-                    //        CurrentPacketLength = BufferSize;
-                    //        TotalLength = TotalLength - CurrentPacketLength;
-                    //        total = total + CurrentPacketLength;
-                    //    }
-                    //    else
-                    //        CurrentPacketLength = TotalLength;
-
-                    //    SendingBuffer = new byte[CurrentPacketLength];
-                    //    Fs.Read(SendingBuffer, 0, CurrentPacketLength);
-                    //    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
-                    //    netstream.Flush();
-                    //    Fs.Flush();
-                    //    Thread.Sleep(2);
-                    //}
+                    }                   
                 }
                 catch (Exception e)
                 {
@@ -149,24 +107,49 @@ namespace RepublicSystemClasses
                 client.Close();
             }
         }
-       
-        public void CrearListener()
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = color;
+                    });
+                }
+            }
+        }
+        public void CrearListeners()
         {
             if (File.Exists("C:\\Users\\admin\\Desktop\\PACS.ZIP")) File.Delete("C:\\Users\\admin\\Desktop\\PACS.ZIP");
             string IPA = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
             Int32 PortN = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            Int32 PortF = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             TcpClient client2 = null;
+            TcpClient client = null;
             DataSet ds = new DataSet();
             NetworkStream netstream = null;
+            NetworkStream netstream2 = null;
             byte[] RecData = new byte[BufferSize];
             int RecBytes;
+            byte[] RecData2 = new byte[BufferSize];
+            string msgOK = "Archivo Recibido \n";
+            string msg = "Archivo No Recibido";
+
             try
             {
+                TcpListener Listener = new TcpListener(IPAddress.Any, PortF);
+                client = new TcpClient(IPA, PortF);
                 TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
                 client2 = new TcpClient(IPA, PortN);
                 netstream = client2.GetStream();
+
                 for (; ; )
                 {
+                    Listener.Start();
                     Listener2.Start();
                     if (Listener2.Pending())
                     {
@@ -184,31 +167,13 @@ namespace RepublicSystemClasses
                         Fs.Close();
                         netstream.Close();
                         client2.Close();
-                        Listener2.Stop();
-                        string msgOK = "Archivo Recibido \n";
-                        string msg = "Archivo No Recibido";
+                        Listener2.Stop();                       
 
-                        foreach (Control ctrl in form.Controls)
-                        {
-                            if (ctrl.GetType() == typeof(RichTextBox))
-                            {
-                                ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
-                                {
-                                    if (File.Exists(ruta))
-                                    {
-                                        ((RichTextBox)ctrl).AppendText(msgOK);
-                                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msgOK.Length, msgOK.Length);
-                                        ((RichTextBox)ctrl).SelectionColor = Color.Green;
-                                    }
-                                    else
-                                    {
-                                        ((RichTextBox)ctrl).AppendText(msg);
-                                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length, msg.Length);
-                                        ((RichTextBox)ctrl).SelectionColor = Color.Red;
-                                    }
-                                });
-                            }
-                        }
+                        if (File.Exists(ruta))                        
+                            MostrarMsgLog(msgOK, Color.Green);                        
+                        else                        
+                            MostrarMsgLog(msg, Color.Red);
+                        
 
                         foreach (Control ctrl in form.Controls)
                         {
@@ -222,6 +187,21 @@ namespace RepublicSystemClasses
                         }
 
                     }
+                    if (Listener.Pending())
+                    {
+                        client = Listener.AcceptTcpClient();
+                        netstream2 = client2.GetStream();
+                        int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
+                        string texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
+                        netstream2.Close();
+                        client2.Close();
+                        Listener2.Stop();
+
+                        if (texto.Substring(8,2) == "AG")
+                            MostrarMsgLog(msgOK, Color.Green);
+                        else
+                            MostrarMsgLog(msg, Color.Red);
+                    }
                 }
             }
             catch
@@ -232,7 +212,7 @@ namespace RepublicSystemClasses
 
         public void ThreadListener()
         {
-            th = new Thread(CrearListener);
+            th = new Thread(CrearListeners);
             th.Start();            
         }
     }
