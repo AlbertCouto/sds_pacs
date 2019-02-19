@@ -72,9 +72,9 @@ namespace RepublicSystemClasses
 
             if (PortN == 5678)
             {
-                FileStream Fs = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
-                int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
-                int TotalLength = (int)Fs.Length, CurrentPacketLength;
+                FileStream Fs2 = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
+                int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs2.Length) / Convert.ToDouble(BufferSize)));
+                int TotalLength = (int)Fs2.Length, CurrentPacketLength;
                 int total = 0;
                 try
                 {
@@ -84,10 +84,10 @@ namespace RepublicSystemClasses
                         
                         CurrentPacketLength = BufferSize;
                         SendingBuffer = new byte[CurrentPacketLength];
-                        Fs.Read(SendingBuffer, 0, CurrentPacketLength);
+                        Fs2.Read(SendingBuffer, 0, CurrentPacketLength);
                         netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
                         netstream.Flush();
-                        Fs.Flush();
+                        Fs2.Flush();
                         Thread.Sleep(2);
                         if (total == NoOfPackets)
                         {
@@ -102,7 +102,7 @@ namespace RepublicSystemClasses
                     MessageBox.Show(e.Message);
                 }
                 
-                Fs.Close();
+                Fs2.Close();
                 netstream.Close();
                 client.Close();
             }
@@ -173,7 +173,7 @@ namespace RepublicSystemClasses
                             MostrarMsgLog(msgOK, Color.Green);                        
                         else                        
                             MostrarMsgLog(msg, Color.Red);
-                        
+                      
 
                         foreach (Control ctrl in form.Controls)
                         {
