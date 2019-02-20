@@ -38,7 +38,7 @@ namespace RepublicSystemClasses
         {
             string verificacion = null;
             string menFinal = null;
-            ds = db.PortarPerConsulta("select SpaceShip from DeliberyData Where idDeliveryData = 1");
+            ds = db.PortarPerConsulta("select SpaceShip from DeliveryData Where idDeliveryData = 1");
 
             if (ver) verificacion = "AG";            
             else verificacion = "AD";
