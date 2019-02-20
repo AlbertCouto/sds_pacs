@@ -121,24 +121,26 @@ namespace RepublicSystemClasses
                                 FileStream Fs = new FileStream(rutaZip, FileMode.Open, FileAccess.Read);
                                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
                                 int TotalLength = (int)Fs.Length, CurrentPacketLength;
-                                for (int i = 0; i < NoOfPackets; i++)
+                                int total = 0;
+                                while (!netstream3.DataAvailable)
                                 {
-                                    if (TotalLength > BufferSize)
-                                    {
-                                        CurrentPacketLength = BufferSize;
-                                        TotalLength = TotalLength - CurrentPacketLength;
-                                    }
-                                    else
-                                    {
-                                        CurrentPacketLength = TotalLength;
-                                    }
-
+                                    total = total + 1;
+                                    CurrentPacketLength = BufferSize;
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
                                     netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
-
+                                    netstream3.Flush();
+                                    Fs.Flush();
+                                    Thread.Sleep(2);
+                                    
+                                        if (total == NoOfPackets)
+                                        {
+                                            Thread.Sleep(4);
+                                            MessageBox.Show(total.ToString());
+                                            break;
+                                        }
+                                    
                                 }
-                                
                                 foreach (Control ctrl in form.Controls)
                                 {
                                     if (ctrl.GetType() == typeof(Timer))
@@ -174,13 +176,13 @@ namespace RepublicSystemClasses
                         client = Listener.AcceptTcpClient();
                         netstream = client.GetStream();
                         if (netstream == null) return;
-                        FileStream Fs = new FileStream(rutaZipSol, FileMode.OpenOrCreate, FileAccess.Write);
+                        FileStream Fs2 = new FileStream(rutaZipSol, FileMode.OpenOrCreate, FileAccess.Write);
                         while((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                         {
-                            Fs.Write(RecData, 0, RecBytes);
+                            Fs2.Write(RecData, 0, RecBytes);
                             totalrecbytes += RecBytes;
                         }
-                        Fs.Close();
+                        Fs2.Close();
                         netstream.Close();
                         client.Close();
                         Listener.Stop();
