@@ -10,16 +10,15 @@ namespace RepublicSystemClasses
         //Rutas on estan i on aniran els arxius
         //string startPath    = @"C:\Users\admin\Desktop\PACS\PlanetTXT";
         //string zipPath      = @"C:\Users\admin\Desktop\PACS\PACS.zip";
-        string extractPath = @"C:\Users\admin\Desktop\PACS\NaveTXT";
-
+        string extractPath  = @"C:\Users\admin\Desktop\PACS\NaveTXT";
+        
 
         public bool Comprimir(string startPath, string zipPath)
         {
             try
             {
-                if (File.Exists(zipPath)) File.Delete(zipPath);
+                if (File.Exists(zipPath))File.Delete(zipPath);
                 ZipFile.CreateFromDirectory(startPath, zipPath);
-
                 return true;
             }
             catch
@@ -45,7 +44,7 @@ namespace RepublicSystemClasses
             {
                 return false;
             }
-
+            
         }
 
         public bool Comparar(string original_file_path, string returned_file_path)

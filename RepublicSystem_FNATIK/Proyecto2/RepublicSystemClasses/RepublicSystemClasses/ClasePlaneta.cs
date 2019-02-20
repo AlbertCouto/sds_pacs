@@ -59,7 +59,7 @@ namespace RepublicSystemClasses
             ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
            
         }
-        public  void ReceiveTCP(int portN, int portN2, string IP)
+        public  void ReceiveTCP(int puerto_archivo, int puerto_mensaje, string IP)
         {
             string Status = string.Empty;
             string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
@@ -69,9 +69,9 @@ namespace RepublicSystemClasses
             try
             {
                 cn = new ComprobarNave();
-                Listener2 = new TcpListener(IPAddress.Any, portN2);
+                Listener2 = new TcpListener(IPAddress.Any, puerto_mensaje);
                 Listener2.Start();
-                Listener = new TcpListener(IPAddress.Any, portN);
+                Listener = new TcpListener(IPAddress.Any, puerto_archivo);
                 Listener.Start();
             }
             catch (Exception ex)
@@ -99,10 +99,12 @@ namespace RepublicSystemClasses
                 try
                 {
                     Listener2.Start();
+                    Listener.Start();
                     if (Listener2.Pending())
                     {
                         client2 = Listener2.AcceptTcpClient();
                         netstream2 = client2.GetStream();
+                        if (netstream2 == null) return;
                         int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
                         texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
 
@@ -113,7 +115,7 @@ namespace RepublicSystemClasses
                                 msg = "Solicitud de planeta recibida";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
-                                client3 = new TcpClient(IP, portN2);
+                                client3 = new TcpClient(IP, puerto_archivo);
                                 netstream3 = client3.GetStream();
 
                                 FileStream Fs = new FileStream(rutaZip, FileMode.Open, FileAccess.Read);
@@ -161,7 +163,7 @@ namespace RepublicSystemClasses
                         client2.Close();
                         Listener2.Stop();
                     }
-                    Listener.Start();
+                    
                     if (Listener.Pending())
                     {
                         if (File.Exists(rutaZipSol))
@@ -170,7 +172,8 @@ namespace RepublicSystemClasses
                         }
                         int totalrecbytes = 0;
                         client = Listener.AcceptTcpClient();
-                        netstream = client.GetStream();                        
+                        netstream = client.GetStream();
+                        if (netstream == null) return;
                         FileStream Fs = new FileStream(rutaZipSol, FileMode.OpenOrCreate, FileAccess.Write);
                         while((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                         {
@@ -200,10 +203,10 @@ namespace RepublicSystemClasses
                         //zipCompare.Descomprimir(ruta_toUnzip);
                         verificacion = zipCompare.Comparar(original_file_path, returned_file_path);                                            
 
-                        client4 = new TcpClient(IP, portN2);
-                        netstream4 = client.GetStream();
+                        client4 = new TcpClient(IP, puerto_mensaje);
+                        netstream4 = client4.GetStream();
 
-                        if (portN2 == 9250)
+                        if (puerto_mensaje == 9250)
                         {
                             GenerarMensajes gm = new GenerarMensajes();
                             string mensaje = gm.generarMensageAprovacion(verificacion);
@@ -223,7 +226,7 @@ namespace RepublicSystemClasses
                                 });
                             }
                         }
-                        MessageBox.Show(verificacion.ToString());
+                        MessageBox.Show(verificacion.ToString());                        
                     }
                 }
                 catch (Exception ex)
