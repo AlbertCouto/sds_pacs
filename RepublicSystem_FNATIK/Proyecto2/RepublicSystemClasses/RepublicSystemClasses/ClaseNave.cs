@@ -145,7 +145,6 @@ namespace RepublicSystemClasses
                 client = new TcpClient(IPA, puerto_mensaje);
                 TcpListener Listener2 = new TcpListener(IPAddress.Any, puerto_fichero);
                 client2 = new TcpClient(IPA, puerto_fichero);
-                netstream = client2.GetStream();
 
                 for (; ; )
                 {
@@ -201,6 +200,7 @@ namespace RepublicSystemClasses
                             MostrarMsgLog(msgOK, Color.Green);
                         else
                             MostrarMsgLog(msg, Color.Red);
+
                     }
                 }
             }
