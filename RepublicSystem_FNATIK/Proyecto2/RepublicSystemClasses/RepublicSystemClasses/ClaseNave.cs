@@ -41,15 +41,15 @@ namespace RepublicSystemClasses
             }
         }
 
-        public void SendTCPMessage(string IPA, Int32 PortN)
+        public void SendTCPMessage(string IPA, Int32 puerto_mensaje)
         {
             TcpClient client = null;            
             NetworkStream netstream = null;            
 
-            client = new TcpClient(IPA, PortN);
+            client = new TcpClient(IPA, puerto_mensaje);
             netstream = client.GetStream();            
          
-            if (PortN == 9250)
+            if (puerto_mensaje == 9250)
             {
                 GenerarMensajes gm = new GenerarMensajes();
                 string mensaje = gm.GenerarMensajeInicio();
@@ -60,17 +60,17 @@ namespace RepublicSystemClasses
             }         
         }
 
-        public void SendTCPFile(string IPA, Int32 PortN)
+        public void SendTCPFile(string IPA, Int32 puerto_fichero)
         {
             TcpClient client = null;
             NetworkStream netstream = null;
             byte[] SendingBuffer = null;
             string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.txt";
 
-            client = new TcpClient(IPA, PortN);
+            client = new TcpClient(IPA, puerto_fichero);
             netstream = client.GetStream();
 
-            if (PortN == 5678)
+            if (puerto_fichero == 5678)
             {
                 FileStream Fs2 = new FileStream(ruta_inicial, FileMode.Open, FileAccess.Read);
                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs2.Length) / Convert.ToDouble(BufferSize)));
@@ -126,8 +126,8 @@ namespace RepublicSystemClasses
         {
             if (File.Exists("C:\\Users\\admin\\Desktop\\PACS.ZIP")) File.Delete("C:\\Users\\admin\\Desktop\\PACS.ZIP");
             string IPA = ((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3")).Tables[0].Rows[0][0]).ToString();
-            Int32 PortN = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
-            Int32 PortF = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            Int32 puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
+            Int32 puerto_fichero = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             TcpClient client2 = null;
             TcpClient client = null;
             DataSet ds = new DataSet();
@@ -141,10 +141,10 @@ namespace RepublicSystemClasses
 
             try
             {
-                TcpListener Listener = new TcpListener(IPAddress.Any, PortF);
-                client = new TcpClient(IPA, PortF);
-                TcpListener Listener2 = new TcpListener(IPAddress.Any, PortN);
-                client2 = new TcpClient(IPA, PortN);
+                TcpListener Listener = new TcpListener(IPAddress.Any, puerto_mensaje);
+                client = new TcpClient(IPA, puerto_mensaje);
+                TcpListener Listener2 = new TcpListener(IPAddress.Any, puerto_fichero);
+                client2 = new TcpClient(IPA, puerto_fichero);
                 netstream = client2.GetStream();
 
                 for (; ; )
@@ -190,12 +190,12 @@ namespace RepublicSystemClasses
                     if (Listener.Pending())
                     {
                         client = Listener.AcceptTcpClient();
-                        netstream2 = client2.GetStream();
+                        netstream2 = client.GetStream();
                         int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
                         string texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
                         netstream2.Close();
-                        client2.Close();
-                        Listener2.Stop();
+                        client.Close();
+                        Listener.Stop();
 
                         if (texto.Substring(8,2) == "AG")
                             MostrarMsgLog(msgOK, Color.Green);
