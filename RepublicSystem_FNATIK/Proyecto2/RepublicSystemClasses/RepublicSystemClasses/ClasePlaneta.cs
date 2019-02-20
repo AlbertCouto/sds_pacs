@@ -11,6 +11,8 @@ namespace RepublicSystemClasses
 {
     public class ClasePlaneta
     {
+        TcpClient client;
+        NetworkStream netstream;
         Thread T;
         static AccesoBD bd = new AccesoBD();
         private const int BufferSize = 1024;
@@ -83,14 +85,8 @@ namespace RepublicSystemClasses
             byte[] RecData3 = new byte[BufferSize];
             for (; ; )
             {
-                TcpClient client = null;
-                NetworkStream netstream = null;
-                TcpClient client2 = null;
-                NetworkStream netstream2 = null;
-                TcpClient client3 = null;
-                NetworkStream netstream3 = null;
-                TcpClient client4 = null;
-                NetworkStream netstream4 = null;                
+                
+                                       
 
                 string texto = null;
                 int RecBytes;
@@ -102,10 +98,10 @@ namespace RepublicSystemClasses
                     Listener.Start();
                     if (Listener2.Pending())
                     {
-                        client2 = Listener2.AcceptTcpClient();
-                        netstream2 = client2.GetStream();
-                        if (netstream2 == null) return;
-                        int bytesRead2 = netstream2.Read(RecData2, 0, RecData2.Length);
+                        client = Listener2.AcceptTcpClient();
+                        netstream = client.GetStream();
+                        if (netstream == null) return;
+                        int bytesRead2 = netstream.Read(RecData2, 0, RecData2.Length);
                         texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
 
                         if (texto.Length == 28)
@@ -115,21 +111,21 @@ namespace RepublicSystemClasses
                                 msg = "Solicitud de planeta recibida";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
-                                client3 = new TcpClient(IP, puerto_archivo);
-                                netstream3 = client3.GetStream();
+                                client = new TcpClient(IP, puerto_archivo);
+                                netstream = client.GetStream();
 
                                 FileStream Fs = new FileStream(rutaZip, FileMode.Open, FileAccess.Read);
                                 int NoOfPackets = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(Fs.Length) / Convert.ToDouble(BufferSize)));
                                 int TotalLength = (int)Fs.Length, CurrentPacketLength;
                                 int total = 0;
-                                while (!netstream3.DataAvailable)
+                                while (!netstream.DataAvailable)
                                 {
                                     total = total + 1;
                                     CurrentPacketLength = BufferSize;
                                     SendingBuffer = new byte[CurrentPacketLength];
                                     Fs.Read(SendingBuffer, 0, CurrentPacketLength);
-                                    netstream3.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
-                                    netstream3.Flush();
+                                    netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
+                                    netstream.Flush();
                                     Fs.Flush();
                                     Thread.Sleep(2);
                                     
@@ -152,17 +148,15 @@ namespace RepublicSystemClasses
                                     }
                                 }
 
-                                client3.Close();
+                                client.Close();
                                 Fs.Close();
-                                netstream3.Close();
+                                netstream.Close();
                                 msg = "Archivo enviado";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
 
                             }                           
-                        }
-                        netstream2.Close();
-                        client2.Close();
+                        }                        
                         Listener2.Stop();
                     }
                     
@@ -205,17 +199,17 @@ namespace RepublicSystemClasses
                         //zipCompare.Descomprimir(ruta_toUnzip);
                         verificacion = zipCompare.Comparar(original_file_path, returned_file_path);                                            
 
-                        client4 = new TcpClient(IP, puerto_mensaje);
-                        netstream4 = client4.GetStream();
+                        client = new TcpClient(IP, puerto_mensaje);
+                        netstream = client.GetStream();
 
                         if (puerto_mensaje == 9250)
                         {
                             GenerarMensajes gm = new GenerarMensajes();
                             string mensaje = gm.generarMensageAprovacion(verificacion);
                             byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
-                            netstream4.Write(nouBuffer, 0, nouBuffer.Length);
-                            netstream4.Close();
-                            client4.Close();
+                            netstream.Write(nouBuffer, 0, nouBuffer.Length);
+                            netstream.Close();
+                            client.Close();
                         }
                       
                         foreach (Control ctrl in form.Controls)
