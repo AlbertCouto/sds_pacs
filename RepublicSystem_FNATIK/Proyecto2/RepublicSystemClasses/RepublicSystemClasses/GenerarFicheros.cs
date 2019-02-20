@@ -94,7 +94,6 @@ namespace RepublicSystemClasses
             string ruta_letras = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
 
             if (File.Exists(ruta_numeros)) File.Delete(ruta_numeros);
-           
             using (StreamWriter sw = File.CreateText(ruta_numeros))
             {
                 using (StreamReader sr = File.OpenText(ruta_letras))
