@@ -35,13 +35,14 @@ namespace RepublicSystemClasses
         }
         public void OffServer()
         {
-
             try
             {
                 if (Listener2 != null||Listener!=null)
                 {
                     Listener2.Stop();
                     Listener.Stop();
+                    client = null;
+                    client.Close();
                     //T.Abort();
                 }
 
@@ -81,13 +82,9 @@ namespace RepublicSystemClasses
                 MessageBox.Show(ex.ToString());
             }
             byte[] RecData = new byte[BufferSize];
-            byte[] RecData2 = new byte[BufferSize];
-            byte[] RecData3 = new byte[BufferSize];
-            for (; ; )
-            {
-                
-                                       
 
+            for (; ; )
+            {     
                 string texto = null;
                 int RecBytes;
 
@@ -101,8 +98,8 @@ namespace RepublicSystemClasses
                         client = Listener2.AcceptTcpClient();
                         netstream = client.GetStream();
                         if (netstream == null) return;
-                        int bytesRead2 = netstream.Read(RecData2, 0, RecData2.Length);
-                        texto = Encoding.UTF8.GetString(RecData2, 0, bytesRead2);
+                        int bytesRead2 = netstream.Read(RecData, 0, RecData.Length);
+                        texto = Encoding.UTF8.GetString(RecData, 0, bytesRead2);
 
                         if (texto.Length == 28)
                         {
@@ -149,8 +146,10 @@ namespace RepublicSystemClasses
                                 }
 
                                 client.Close();
+                                client = null;
                                 Fs.Close();
                                 netstream.Close();
+                                netstream = null;
                                 msg = "Archivo enviado";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
@@ -178,7 +177,9 @@ namespace RepublicSystemClasses
                         }
                         Fs2.Close();
                         netstream.Close();
+                        netstream = null;
                         client.Close();
+                        client = null;
                         Listener.Stop();
                         msg = "Archivo recibido";
                         color = Color.Green;
@@ -208,7 +209,10 @@ namespace RepublicSystemClasses
                             string mensaje = gm.generarMensageAprovacion(verificacion);
                             byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                             netstream.Write(nouBuffer, 0, nouBuffer.Length);
-                            netstream.Close();
+                            
+                            netstream = null;
+                            netstream.Close();                            
+                            client = null;
                             client.Close();
                         }
                       
@@ -227,9 +231,15 @@ namespace RepublicSystemClasses
                 }
                 catch (Exception ex)
                 {
-                   
+
                     //MessageBox.Show(ex.ToString());
                     //Console.WriteLine(ex.Message);
+                    client.Close();
+                    netstream = null;
+                }
+                finally
+                {    
+                    
                 }
             }
         }
