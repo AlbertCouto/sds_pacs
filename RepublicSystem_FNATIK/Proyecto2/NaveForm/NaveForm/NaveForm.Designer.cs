@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.timer2 = new RepublicSystemClasses.Timer();
             this.timer1 = new RepublicSystemClasses.Timer();
+            this.timer3 = new RepublicSystemClasses.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Mensaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_DevolverFichero)).BeginInit();
@@ -162,6 +163,14 @@
             this.timer1.TabIndex = 6;
             this.timer1.Visible = false;
             // 
+            // timer3
+            // 
+            this.timer3.BackColor = System.Drawing.Color.Transparent;
+            this.timer3.Location = new System.Drawing.Point(313, 329);
+            this.timer3.Name = "timer3";
+            this.timer3.Size = new System.Drawing.Size(449, 228);
+            this.timer3.TabIndex = 16;
+            // 
             // NaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,6 +178,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1099, 571);
+            this.Controls.Add(this.timer3);
             this.Controls.Add(this.timer2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -205,6 +215,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private RepublicSystemClasses.Timer timer2;
+        private RepublicSystemClasses.Timer timer3;
     }
 }
 
