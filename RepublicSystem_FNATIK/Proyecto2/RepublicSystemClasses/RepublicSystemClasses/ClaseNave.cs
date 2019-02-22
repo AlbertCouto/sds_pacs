@@ -98,11 +98,7 @@ namespace RepublicSystemClasses
                         netstream.Flush();
                         Fs2.Flush();
                         Thread.Sleep(2);
-                        //if (total % 100 == 0)
-                        //{
-                        //    MessageBox.Show(total.ToString());
-
-                        //}
+                        
                         if (total == NoOfPackets)
                         {
                             Thread.Sleep(4);

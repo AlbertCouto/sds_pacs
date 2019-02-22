@@ -14,7 +14,9 @@ namespace PlanetOuter
 {
     public partial class PlanetOuterForm : Form
     {
+        Form frm = new Form();
         ClasePlanetaOuter cpo = new ClasePlanetaOuter();
+        RSA rs = new RSA();
         public PlanetOuterForm()
         {
             InitializeComponent();
@@ -22,6 +24,8 @@ namespace PlanetOuter
 
         private void button1_Click(object sender, EventArgs e)
         {
+            frm = FindForm();
+            cpo.form = frm;
             cpo.Start();
            
         }
@@ -29,6 +33,11 @@ namespace PlanetOuter
         private void button2_Click(object sender, EventArgs e)
         {
             cpo.StartClient();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            rs.GenerarKeys();
         }
     }
 }
