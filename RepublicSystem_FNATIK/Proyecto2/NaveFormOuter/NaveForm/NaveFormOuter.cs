@@ -11,7 +11,6 @@ namespace NaveForm
 {
     public partial class NaveFormOuter : Form
     {
-        string ruta_inicial = "C:\\Users\\admin\\Desktop\\PACS.ZIP";
         private static AccesoBD bd = new AccesoBD();
         Thread th1;
         Thread th2;
@@ -45,7 +44,7 @@ namespace NaveForm
             {
                 PingReply pingStatus = ping.Send(IPAddress.Parse("8.8.8.8"));
                 PingReply pingStatus2 = ping.Send(IPAddress.Parse((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3").Tables[0].Rows[0][0]).ToString()));
-                string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 3").Tables[0].Rows[0][0]).ToString();
+                string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 1").Tables[0].Rows[0][0]).ToString();
                 if (pingStatus.Status == IPStatus.Success) MostrarMsgLog("Conexión a Internet Correcta", Color.Green);
                 else MostrarMsgLog("No hay conexión a Internet", Color.Red);
                 if (pingStatus2.Status == IPStatus.Success) MostrarMsgLog("Conexión con "+planeta+" Correcta", Color.Green);
@@ -65,7 +64,7 @@ namespace NaveForm
         }
         private void EnviarCodigoPlaneta()
         {
-            ClaseNave cn = new ClaseNave();
+            ClaseNaveOuter cno = new ClaseNaveOuter();
             if (btn_Mensaje.InvokeRequired)
             {
                 btn_Mensaje.Invoke((MethodInvoker)delegate
@@ -74,13 +73,11 @@ namespace NaveForm
                 });
             }
             MostrarMsgLog("Enviando Código...", Color.White);
-            string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 3").Tables[0].Rows[0][0]).ToString();
+            string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 1").Tables[0].Rows[0][0]).ToString();
 
             try
             {
-                cn.form = FindForm();
-                cn.puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1").Tables[0].Rows[0][0]);
-                cn.Start_Client();
+                cno.StartClientNoE();
             }
             catch
             {
@@ -104,48 +101,30 @@ namespace NaveForm
         }
         private void DevolverFicheroPlaneta()
         {
-            ZipUnzipCompare zuc = new ZipUnzipCompare();
-            ClaseNave cn = new ClaseNave();
-            Desencriptar dc = new Desencriptar();
-            Concatenar con = new Concatenar();
-            MostrarMsgLog("Generando Fichero PACSSOL...", Color.White);
-            string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 3").Tables[0].Rows[0][0]).ToString();
-            string ruta_directorio_ficheros_numeros = "C:\\Users\\admin\\Desktop\\PACS\\NaveTXT";
-            string ruta_fichero_numeros_concatenados = "C:\\Users\\admin\\Desktop\\PACS\\PACS.txt";
-            string ruta_fichero_letras_concatenadas = "C:\\Users\\admin\\Desktop\\PACS\\PACSSOL.txt";
+            
+            ClaseNaveOuter cno = new ClaseNaveOuter();
+            
+            MostrarMsgLog("Encriptando Código...", Color.White);
+            string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 1").Tables[0].Rows[0][0]).ToString();
+   
             try
             {
-                if (zuc.Descomprimir("C:\\Users\\admin\\Desktop\\PACS.ZIP"))
-                    MostrarMsgLog("Fichero PACS Descomprimido", Color.Green);
-                else
+               
+                MostrarMsgLog("Enviando Código Encriptado...", Color.White);
+                try
                 {
-                    MostrarMsgLog("Error al Descomprimir PACS", Color.Red);
-                    throw new Exception();
+                    cno.StartClient();
+                    MostrarMsgLog("Código Encriptado enviado correctamente a " + planeta + ", esperando confirmación...", Color.Green);
                 }
-                if (!con.ConcatenaFicheros(ruta_directorio_ficheros_numeros, ruta_fichero_numeros_concatenados))
+                catch
                 {
-                    MostrarMsgLog("Error al Concatenar los ficheros PACS", Color.Red);
-                    throw new Exception();
+                    MostrarMsgLog("Error en el envío de código encriptado", Color.Red);
                 }
-                if (dc.DesencriptarFichero(ruta_fichero_numeros_concatenados, ruta_fichero_letras_concatenadas))
-                    MostrarMsgLog("Fichero Desencriptado", Color.Green);
-                else
-                {
-                    MostrarMsgLog("Error al Desencriptar PACS", Color.Red);
-                    throw new Exception();
-                }
-                MostrarMsgLog("Enviando Fichero PACSSOL...", Color.White);
-                if (cn.Start_Client_File())
-                    MostrarMsgLog("Fichero PACSSOL devuelto correctamente a " + planeta + ", esperando confirmación...", Color.Green);
-                else
-                {
-                    MostrarMsgLog("Error en el envío de PACSSOL", Color.Red);
-                    throw new Exception();
-                }
+
             }
             catch
             {
-                MostrarMsgLog("Imposible devolver el Fichero a " + planeta, Color.Red);
+                MostrarMsgLog("Imposible enviar código a " + planeta, Color.Red);
             }
         }
 
