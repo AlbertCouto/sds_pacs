@@ -40,6 +40,11 @@ namespace RepublicSystemClasses
                 string returnData = Encoding.ASCII.GetString(BytesIn);
                 if (returnData.Length > 0)
                 {
+                    CspParameters csp = new CspParameters();
+                    csp.KeyContainerName = "NABO";
+                    RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);                    
+                    rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true)); 
+                    
                     foreach (Control ctrl in form.Controls)
                     {
                         if (ctrl.GetType() == typeof(TextBox))
@@ -66,7 +71,7 @@ namespace RepublicSystemClasses
 
             RSA.FromXmlString(clave_publica);
 
-            mensaje = gm.GenerarMensajeInicio();
+            mensaje = gm.generarMensageAprovacion();
             mensaje_bytes = rs.RSAEncrypt(Encoding.ASCII.GetBytes(mensaje), RSA.ExportParameters(false));
             
             IPAddress ipbien = IPAddress.Parse("127.0.0.1");            
