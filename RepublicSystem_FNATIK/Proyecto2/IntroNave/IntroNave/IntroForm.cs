@@ -14,26 +14,26 @@ namespace IntroNave
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            try
-            {
-                LlenarCombobox();
-            }
-            catch
-            {
-                MessageBox.Show("No se ha encontrado ningun Planeta");
-            }
+            //try
+            //{
+            //    LlenarCombobox();
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("No se ha encontrado ningun Planeta");
+            //}
         }
-        private void LlenarCombobox()
-        {
-            button1.Enabled = false;
-            AccesoBD db = new AccesoBD();
-            DataTable dt = new DataTable();
-            string query = "select DescPlanet from Planets";
-            dt = db.PortarPerConsulta(query).Tables[0];
+        //private void LlenarCombobox()
+        //{
+        //    button1.Enabled = false;
+        //    AccesoBD db = new AccesoBD();
+        //    DataTable dt = new DataTable();
+        //    string query = "select DescPlanet from Planets";
+        //    dt = db.PortarPerConsulta(query).Tables[0];
 
-            for (int i = 0; i < dt.Rows.Count; i++)
-                comboBox1.Items.Add(dt.Rows[i][0].ToString());
-        }
+        //    for (int i = 0; i < dt.Rows.Count; i++)
+        //        comboBox1.Items.Add(dt.Rows[i][0].ToString());
+        //}
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -48,7 +48,7 @@ namespace IntroNave
         private void button1_Click(object sender, EventArgs e)
         {
             Form Nave = new Form();
-            if (comboBox1.SelectedItem.ToString() == "Las Cacas") Nave = new NaveForm.NaveForm();
+            if (comboBox1.SelectedItem.ToString() == "InnerRing") Nave = new NaveForm.NaveForm();
             else Nave = new NaveOuter.NaveOuterForm();
             Nave.Show();
         }
