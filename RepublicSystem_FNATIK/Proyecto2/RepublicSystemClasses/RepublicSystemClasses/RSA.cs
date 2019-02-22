@@ -65,8 +65,8 @@ namespace RepublicSystemClasses
 
             using (SqlConnection connexio = new SqlConnection(connectionString))
             {
-                query = "INSERT INTO PlanetKeys ([XMLKey]) VALUES (@XMLKey)";
-                //query_update = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 1";
+                //query = "INSERT INTO PlanetKeys ([XMLKey]) VALUES (@XMLKey)";
+                query = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 11";
 
                 connexio.Open();
 
