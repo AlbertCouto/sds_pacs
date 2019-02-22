@@ -39,20 +39,24 @@ namespace RepublicSystemClasses
                 byte[] BytesIn = udpServer.Receive(ref IeP);
                 string returnData = Encoding.ASCII.GetString(BytesIn), mensaje_comprobacion ;
                 byte[] decryptData = null;
+                int i = 0;
+
                 if (returnData.Length > 0)
                 {
-                    CspParameters csp = new CspParameters();
-                    csp.KeyContainerName = "NABO";
-                    RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
-                    decryptData = rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true));
-
                     if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
                     {
-                        mensaje_comprobacion = gm.generarMensageAprovacion(true);
-                        IPAddress ipbien = IPAddress.Parse("127.0.0.1");
-                        udpCli.Connect(ipbien, 9423);
-                        udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);
-
+                        if (i > 0)
+                        {
+                            CspParameters csp = new CspParameters();
+                            csp.KeyContainerName = "NABO";
+                            RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
+                            decryptData = rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true));
+                            mensaje_comprobacion = gm.generarMensageAprovacion(true);
+                        }
+                        else
+                        {
+                            mensaje_comprobacion = "Vale, ahora me lo puedes encriptar?";
+                        }
                         foreach (Control ctrl in form.Controls)
                         {
                             if (ctrl.GetType() == typeof(TextBox))
@@ -64,29 +68,13 @@ namespace RepublicSystemClasses
                                 });
                             }
                         }
+                        IPAddress ipbien = IPAddress.Parse("172.17.20.96");
+                        udpCli.Connect(ipbien, 9250);
+                        udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);                       
                     }
+                    i++;
                 }
             }
-        }
-
-        public void StartClient()
-        {
-            DataSet ds = new DataSet();
-            string mensaje, clave_publica;
-            byte[] mensaje_bytes = null;
-
-            ds = bd.PortarPerConsulta("select XMLKey from PlanetKeys where idKey = (select MAX(idKey) from PlanetKeys)");
-            clave_publica = ds.Tables[0].Rows[0][0].ToString();
-
-            RSA.FromXmlString(clave_publica);
-
-            mensaje = gm.generarMensageAprovacion();
-            mensaje_bytes = rs.RSAEncrypt(Encoding.ASCII.GetBytes(mensaje), RSA.ExportParameters(false));
-            
-            IPAddress ipbien = IPAddress.Parse("127.0.0.1");            
-            udpCli.Connect(ipbien,9423);
-            udpCli.Send(mensaje_bytes, mensaje_bytes.Length);          
-
         }
     }
 }
