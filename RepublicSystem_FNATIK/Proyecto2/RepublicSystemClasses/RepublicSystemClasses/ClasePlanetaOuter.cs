@@ -21,7 +21,7 @@ namespace RepublicSystemClasses
         RSA rs = new RSA();
         AccesoBD bd = new AccesoBD();
         RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
-
+        ComprobarNave cn = new ComprobarNave();
         public Form form { get; set; }
 
         public void Start()
@@ -36,24 +36,33 @@ namespace RepublicSystemClasses
             while (true)
             {
                 IPEndPoint IeP = new IPEndPoint(IPAddress.Any, 0);
-                Byte[] BytesIn = udpServer.Receive(ref IeP);
-                string returnData = Encoding.ASCII.GetString(BytesIn);
+                byte[] BytesIn = udpServer.Receive(ref IeP);
+                string returnData = Encoding.ASCII.GetString(BytesIn), mensaje_comprobacion ;
+                byte[] decryptData = null;
                 if (returnData.Length > 0)
                 {
                     CspParameters csp = new CspParameters();
                     csp.KeyContainerName = "NABO";
-                    RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);                    
-                    rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true)); 
-                    
-                    foreach (Control ctrl in form.Controls)
+                    RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
+                    decryptData = rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true));
+
+                    if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
                     {
-                        if (ctrl.GetType() == typeof(TextBox))
+                        mensaje_comprobacion = gm.generarMensageAprovacion(true);
+                        IPAddress ipbien = IPAddress.Parse("127.0.0.1");
+                        udpCli.Connect(ipbien, 9423);
+                        udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);
+
+                        foreach (Control ctrl in form.Controls)
                         {
-                            ((TextBox)ctrl).Invoke((MethodInvoker)delegate
+                            if (ctrl.GetType() == typeof(TextBox))
                             {
-                                ((TextBox)ctrl).AppendText(returnData.ToString());
-                         
-                            });
+                                ((TextBox)ctrl).Invoke((MethodInvoker)delegate
+                                {
+                                    ((TextBox)ctrl).AppendText(returnData.ToString());
+
+                                });
+                            }
                         }
                     }
                 }
