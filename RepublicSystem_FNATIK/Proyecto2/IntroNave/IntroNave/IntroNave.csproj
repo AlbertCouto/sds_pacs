@@ -39,6 +39,9 @@
     <Reference Include="NaveForm">
       <HintPath>..\..\NaveForm\NaveForm\bin\Debug\NaveForm.exe</HintPath>
     </Reference>
+    <Reference Include="NaveFormOuter">
+      <HintPath>..\..\NaveFormOuter\NaveForm\bin\Debug\NaveFormOuter.exe</HintPath>
+    </Reference>
     <Reference Include="NaveOuter">
       <HintPath>..\..\NaveOuter\NaveOuter\bin\Debug\NaveOuter.exe</HintPath>
     </Reference>

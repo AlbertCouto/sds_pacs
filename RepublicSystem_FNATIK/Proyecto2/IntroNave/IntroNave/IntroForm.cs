@@ -3,6 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using RepublicSystemClasses;
 
+
 namespace IntroNave
 {
     public partial class IntroForm : Form
@@ -49,7 +50,7 @@ namespace IntroNave
         {
             Form Nave = new Form();
             if (comboBox1.SelectedItem.ToString() == "InnerRing") Nave = new NaveForm.NaveForm();
-            else Nave = new NaveOuter.NaveOuterForm();
+            else Nave = new NaveForm.NaveFormOuter();
             Nave.Show();
         }
     }
