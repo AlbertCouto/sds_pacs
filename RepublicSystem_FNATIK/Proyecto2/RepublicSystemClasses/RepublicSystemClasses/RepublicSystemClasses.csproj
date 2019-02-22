@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClaseNave.cs" />
+    <Compile Include="ClaseNaveOuter.cs" />
     <Compile Include="ClasePlanetaOuter.cs" />
     <Compile Include="ComprobarNave.cs" />
     <Compile Include="Concatenar.cs" />

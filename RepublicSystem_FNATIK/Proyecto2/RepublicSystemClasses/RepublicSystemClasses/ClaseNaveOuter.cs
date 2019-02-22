@@ -37,7 +37,7 @@ namespace RepublicSystemClasses
                 string returnData = Encoding.ASCII.GetString(BytesIn);
                 if (returnData.Length > 0)
                 {
-
+                    StartClientNoE();
                 }
             }
         }

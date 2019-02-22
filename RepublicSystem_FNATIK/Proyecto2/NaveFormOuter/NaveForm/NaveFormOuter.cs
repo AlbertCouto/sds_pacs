@@ -43,7 +43,7 @@ namespace NaveForm
             try
             {
                 PingReply pingStatus = ping.Send(IPAddress.Parse("8.8.8.8"));
-                PingReply pingStatus2 = ping.Send(IPAddress.Parse((bd.PortarPerConsulta("select IPPlanet from Planets where idPlanet = 3").Tables[0].Rows[0][0]).ToString()));
+                PingReply pingStatus2 = ping.Send(IPAddress.Parse(("172.17.20.90")));
                 string planeta = (bd.PortarPerConsulta("select DescPlanet from Planets where idPlanet = 1").Tables[0].Rows[0][0]).ToString();
                 if (pingStatus.Status == IPStatus.Success) MostrarMsgLog("Conexión a Internet Correcta", Color.Green);
                 else MostrarMsgLog("No hay conexión a Internet", Color.Red);
@@ -77,7 +77,7 @@ namespace NaveForm
 
             try
             {
-                cno.StartClientNoE();
+                //cno.StartClientNoE();
             }
             catch
             {
