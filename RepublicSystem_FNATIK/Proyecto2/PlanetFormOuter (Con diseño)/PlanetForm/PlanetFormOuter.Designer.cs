@@ -36,6 +36,7 @@
             this.lblApagar = new System.Windows.Forms.Label();
             this.btnApagarServer = new System.Windows.Forms.PictureBox();
             this.timer1 = new RepublicSystemClasses.Timer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnApagarServer)).BeginInit();
@@ -126,6 +127,13 @@
             this.timer1.TabIndex = 9;
             this.timer1.Visible = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(800, 147);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(232, 20);
+            this.textBox1.TabIndex = 10;
+            // 
             // PlanetFormOuter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,6 +141,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1099, 571);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.timer1);
             this.Controls.Add(this.btnApagarServer);
             this.Controls.Add(this.lblApagar);
@@ -163,6 +172,7 @@
         private System.Windows.Forms.Label lblApagar;
         private System.Windows.Forms.PictureBox btnApagarServer;
         private RepublicSystemClasses.Timer timer1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

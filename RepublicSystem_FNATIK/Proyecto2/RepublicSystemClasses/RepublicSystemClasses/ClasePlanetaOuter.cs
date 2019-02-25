@@ -14,18 +14,21 @@ namespace RepublicSystemClasses
 {
     public class ClasePlanetaOuter
     {
-        UdpClient udpServer = new UdpClient(9423);
+        AccesoBD bd = new AccesoBD();
+        UdpClient udpServer;
         UdpClient udpCli = new UdpClient();
         Thread T;
         GenerarMensajes gm = new GenerarMensajes();
         RSA rs = new RSA();
-        AccesoBD bd = new AccesoBD();
+        
         RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
         ComprobarNave cn = new ComprobarNave();
         public Form form { get; set; }
 
         public void Start()
         {
+            Int32 puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 3").Tables[0].Rows[0][0]);
+            udpServer = new UdpClient(puerto);
             T = new Thread(StartServer);
             T.Start();
         }
@@ -43,7 +46,8 @@ namespace RepublicSystemClasses
 
                 if (returnData.Length > 0)
                 {
-                    if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
+                    //if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
+                    if (cn.Comprobacion(returnData))
                     {
                         if (i > 0)
                         {
@@ -63,13 +67,15 @@ namespace RepublicSystemClasses
                             {
                                 ((TextBox)ctrl).Invoke((MethodInvoker)delegate
                                 {
-                                    ((TextBox)ctrl).AppendText(returnData.ToString());
+                                    ((TextBox)ctrl).AppendText(mensaje_comprobacion);
 
                                 });
                             }
                         }
-                        IPAddress ipbien = IPAddress.Parse("172.17.20.96");
-                        udpCli.Connect(ipbien, 9250);
+                        string IP = ((bd.PortarPerConsulta("select IPSpaceShip from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]).ToString();
+                        IPAddress ipbien = IPAddress.Parse(IP);
+                        Int32 puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortSpaceShipText from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]);
+                        udpCli.Connect(ipbien, puerto);
                         udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);                       
                     }
                     i++;
