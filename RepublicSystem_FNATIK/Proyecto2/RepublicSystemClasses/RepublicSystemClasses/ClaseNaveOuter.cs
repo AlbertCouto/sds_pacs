@@ -32,13 +32,14 @@ namespace RepublicSystemClasses
 
         public void StartServer()
         {
-
+            int i = 0;
             while (true)
             {
                 IPEndPoint IeP = new IPEndPoint(IPAddress.Any, 0);
                 Byte[] BytesIn = udpServer.Receive(ref IeP);
                 string returnData = Encoding.ASCII.GetString(BytesIn);
-                if (returnData.Length > 0)
+                
+                if (returnData.Length > 0 && i < 1)
                 {
                     foreach (Control ctrl in form.Controls)
                     {
@@ -51,6 +52,7 @@ namespace RepublicSystemClasses
                             });
                         }
                     }
+                    i++;
                     StartClientNoE();
                 }
             }
