@@ -11,6 +11,7 @@ namespace NaveForm
 {
     public partial class NaveFormOuter : Form
     {
+        Form frm = new Form();
         private static AccesoBD bd = new AccesoBD();
         Thread th1;
         Thread th2;
@@ -59,12 +60,15 @@ namespace NaveForm
         //Enviar Mensaje al Planeta
         private void btn_Mensaje_Click(object sender, EventArgs e)
         {
+            frm = FindForm();
+            
             th2 = new Thread(EnviarCodigoPlaneta);
             th2.Start();
         }
         private void EnviarCodigoPlaneta()
         {
             ClaseNaveOuter cno = new ClaseNaveOuter();
+            cno.form = frm;
             if (btn_Mensaje.InvokeRequired)
             {
                 btn_Mensaje.Invoke((MethodInvoker)delegate
@@ -77,7 +81,8 @@ namespace NaveForm
 
             try
             {
-                //cno.StartClientNoE();
+                cno.StartClientNoE();
+                cno.Start();
             }
             catch
             {

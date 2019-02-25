@@ -14,15 +14,18 @@ namespace RepublicSystemClasses
 {
     public class ClaseNaveOuter
     {
-        UdpClient udpServer = new UdpClient(9423);
+        UdpClient udpServer;
         UdpClient udpCli = new UdpClient();
         Thread T;
         GenerarMensajes gm = new GenerarMensajes();
         RSA rs = new RSA();
         AccesoBD bd = new AccesoBD();
         RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+        public Form form { get; set; }
         public void Start()
         {
+            Int32 puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortSpaceShipText from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]);
+            udpServer = new UdpClient(puerto);
             T = new Thread(StartServer);
             T.Start();
         }
@@ -37,6 +40,17 @@ namespace RepublicSystemClasses
                 string returnData = Encoding.ASCII.GetString(BytesIn);
                 if (returnData.Length > 0)
                 {
+                    foreach (Control ctrl in form.Controls)
+                    {
+                        if (ctrl.GetType() == typeof(RichTextBox))
+                        {
+                            ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                            {
+                                ((RichTextBox)ctrl).AppendText(returnData);
+
+                            });
+                        }
+                    }
                     StartClientNoE();
                 }
             }
