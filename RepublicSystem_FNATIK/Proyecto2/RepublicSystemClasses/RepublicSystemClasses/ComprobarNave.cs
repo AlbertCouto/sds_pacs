@@ -16,19 +16,24 @@ namespace RepublicSystemClasses
         public bool Comprobacion(string datosEnvio)
         {
             bool ver = false;
-            string codigoNave = datosEnvio.Substring(8, 8);
-            string codigoEnvio = datosEnvio.Substring(16);
-            string año = datosEnvio.Substring(4,4);
-            string mes = datosEnvio.Substring(0,2);
-            string dia = datosEnvio.Substring(2,2);
-            
-            ds = ab.PortarPerConsulta("select * from deliveryData where SpaceShip = '"+ codigoNave +"' AND CODEDELIVERY = '"+ codigoEnvio + "'AND DELIVERYDATE = '"+ año +"-"+ mes +"-"+ dia +" 00:00:00'");
-            int rows = ds.Tables[0].Rows.Count;
-
-            if (rows == 1)
+            try
             {
-                ver = true;
+             
+                string codigoNave = datosEnvio.Substring(8, 8);
+                string codigoEnvio = datosEnvio.Substring(16);
+                string año = datosEnvio.Substring(4, 4);
+                string mes = datosEnvio.Substring(0, 2);
+                string dia = datosEnvio.Substring(2, 2);
+
+                ds = ab.PortarPerConsulta("select * from deliveryData where SpaceShip = '" + codigoNave + "' AND CODEDELIVERY = '" + codigoEnvio + "'AND DELIVERYDATE = '" + año + "-" + mes + "-" + dia + " 00:00:00'");
+                int rows = ds.Tables[0].Rows.Count;
+
+                if (rows == 1)
+                {
+                    ver = true;
+                }
             }
+            catch { Exception e; }
 
             return ver;
         }

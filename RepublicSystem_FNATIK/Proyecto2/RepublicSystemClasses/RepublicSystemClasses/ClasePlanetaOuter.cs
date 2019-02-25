@@ -34,22 +34,22 @@ namespace RepublicSystemClasses
         }
 
         public void StartServer()
-        {           
-
+        {
+            int i = 0;
             while (true)
             {
                 IPEndPoint IeP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] BytesIn = udpServer.Receive(ref IeP);
                 string returnData = Encoding.ASCII.GetString(BytesIn), mensaje_comprobacion ;
                 byte[] decryptData = null;
-                int i = 0;
+                
 
                 if (returnData.Length > 0)
                 {
                     //if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
-                    if (cn.Comprobacion(returnData))
+                    if (cn.Comprobacion(returnData) || i>1)
                     {
-                        if (i > 0)
+                        if (i > 1)
                         {
                             CspParameters csp = new CspParameters();
                             csp.KeyContainerName = "NABO";
@@ -59,7 +59,7 @@ namespace RepublicSystemClasses
                         }
                         else
                         {
-                            mensaje_comprobacion = "Vale, ahora me lo puedes encriptar?";
+                            mensaje_comprobacion = "Se solicita a la nave el mensaje encriptado.";
                         }
                         foreach (Control ctrl in form.Controls)
                         {
