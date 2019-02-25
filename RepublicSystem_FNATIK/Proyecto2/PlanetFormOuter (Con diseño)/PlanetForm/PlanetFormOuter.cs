@@ -8,8 +8,10 @@ namespace PlanetForm
 {
     public partial class PlanetFormOuter : Form
     {
-        ClasePlaneta cp;
+        ClasePlaneta cp = new ClasePlaneta();
+        ClasePlanetaOuter cpo = new ClasePlanetaOuter();
         GenerarFicheros gf = new GenerarFicheros();
+        Form frm;
         public PlanetFormOuter()
         {
             InitializeComponent();
@@ -17,22 +19,28 @@ namespace PlanetForm
 
         private void btnEncender_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Form frm = FindForm();
-                cp = new ClasePlaneta();
-          
+            //try
+            //{
+  
+
                 btnEncender.Enabled = false;
-                cp.form = frm;
-                cp.StartServer();
+                //cp.form = frm;
+                //cp.StartServer();
+
+                cpo.form = frm;
+                cpo.Start();
+
+                frm = FindForm();
+                cpo.form = frm;
+                cpo.Start();
 
                 btnApagarServer.Enabled = true;
                 MostrarMsgLog("Conexión establecida.", Color.Green);
-            }
-            catch
-            {
-                MostrarMsgLog("Error de conexión.", Color.Red);
-            }
+            //}
+            //catch
+            //{
+            //    MostrarMsgLog("Error de conexión.", Color.Red);
+            //}
         }
 
 
