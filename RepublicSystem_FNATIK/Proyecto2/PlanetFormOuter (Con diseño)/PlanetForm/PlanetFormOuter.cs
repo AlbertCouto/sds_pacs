@@ -19,16 +19,14 @@ namespace PlanetForm
 
         private void btnEncender_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-  
+            try
+            {
+
 
                 btnEncender.Enabled = false;
                 //cp.form = frm;
                 //cp.StartServer();
 
-                cpo.form = frm;
-                cpo.Start();
 
                 frm = FindForm();
                 cpo.form = frm;
@@ -36,11 +34,11 @@ namespace PlanetForm
 
                 btnApagarServer.Enabled = true;
                 MostrarMsgLog("Conexión establecida.", Color.Green);
-            //}
-            //catch
-            //{
-            //    MostrarMsgLog("Error de conexión.", Color.Red);
-            //}
+            }
+            catch
+            {
+                MostrarMsgLog("Error de conexión.", Color.Red);
+            }
         }
 
 
