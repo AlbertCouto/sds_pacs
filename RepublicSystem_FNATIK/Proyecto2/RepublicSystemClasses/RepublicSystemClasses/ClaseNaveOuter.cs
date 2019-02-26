@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -30,6 +31,7 @@ namespace RepublicSystemClasses
             T.Start();
         }
 
+
         public void StartServer()
         {
             while (true)
@@ -37,23 +39,12 @@ namespace RepublicSystemClasses
                 IPEndPoint IeP = new IPEndPoint(IPAddress.Any, 0);
                 Byte[] BytesIn = udpServer.Receive(ref IeP);
                 string returnData = Encoding.ASCII.GetString(BytesIn);
-                
+
                 if (returnData.Length > 0)
                 {
-                    foreach (Control ctrl in form.Controls)
-                    {
-                        if (ctrl.GetType() == typeof(RichTextBox))
-                        {
-                            ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
-                            {
-                                ((RichTextBox)ctrl).AppendText(returnData);
-
-                            });
-                        }
-                    }
-                  
+                    MostrarMsgLog(returnData, Color.Green);
                 }
-                
+
             }
         }
 
@@ -87,7 +78,6 @@ namespace RepublicSystemClasses
             string mensaje;
             byte[] mensaje_bytes = null;
 
-            
 
             mensaje = gm.GenerarMensajeInicio();
             mensaje_bytes = Encoding.ASCII.GetBytes(mensaje);
@@ -96,6 +86,22 @@ namespace RepublicSystemClasses
             udpCli.Connect(ipbien, puerto);
             udpCli.Send(mensaje_bytes, mensaje_bytes.Length);
 
+        }
+
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = color;
+                    });
+                }
+            }
         }
     }
 }
