@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -30,6 +31,7 @@ namespace RepublicSystemClasses
             T.Start();
         }
 
+
         public void StartServer()
         {
             while (true)
@@ -40,17 +42,7 @@ namespace RepublicSystemClasses
                 
                 if (returnData.Length > 0)
                 {
-                    foreach (Control ctrl in form.Controls)
-                    {
-                        if (ctrl.GetType() == typeof(RichTextBox))
-                        {
-                            ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
-                            {
-                                ((RichTextBox)ctrl).AppendText(returnData);
-
-                            });
-                        }
-                    }
+                    MostrarMsgLog(returnData, Color.Green);                 
                   
                 }
                 
@@ -85,7 +77,6 @@ namespace RepublicSystemClasses
             DataSet ds = new DataSet();
             string mensaje;
             byte[] mensaje_bytes = null;
-
             
 
             mensaje = gm.GenerarMensajeInicio();
@@ -96,5 +87,20 @@ namespace RepublicSystemClasses
             udpCli.Send(mensaje_bytes, mensaje_bytes.Length);
 
         }
-    }
+
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = color;
+                    });
+                }
+            }
+        }
 }
