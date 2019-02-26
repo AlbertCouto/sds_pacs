@@ -25,7 +25,7 @@ namespace RepublicSystemClasses
                 string mes = datosEnvio.Substring(0, 2);
                 string dia = datosEnvio.Substring(2, 2);
 
-                ds = ab.PortarPerConsulta("select * from deliveryData where SpaceShip = '" + codigoNave + "' AND CODEDELIVERY = '" + codigoEnvio + "'AND DELIVERYDATE = '" + año + "-" + mes + "-" + dia + " 00:00:00'");
+                ds = ab.PortarPerConsulta("select * from deliveryData where SpaceShip = '" + codigoNave + "' AND CODEDELIVERY = '" + codigoEnvio + "' AND DELIVERYDATE = '" + año + "-" + mes + "-" + dia + " 00:00:00'");
                 int rows = ds.Tables[0].Rows.Count;
 
                 if (rows == 1)

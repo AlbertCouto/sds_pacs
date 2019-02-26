@@ -24,13 +24,16 @@ namespace RepublicSystemClasses
         RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
         ComprobarNave cn = new ComprobarNave();
         public Form form { get; set; }
+        string mensaje_planet;
 
         public void Start()
         {
+            rs.GenerarKeys();
             Int32 puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 3").Tables[0].Rows[0][0]);
             udpServer = new UdpClient(puerto);
             T = new Thread(StartServer);
             T.Start();
+
         }
 
         public void StartServer()
@@ -47,27 +50,28 @@ namespace RepublicSystemClasses
                 if (returnData.Length > 0)
                 {
                     //if (cn.Comprobacion(Encoding.ASCII.GetString(decryptData)))
-                    if (cn.Comprobacion(returnData) || i>1)
+                    if (cn.Comprobacion(returnData) || i>0)
                     {
-                        if (i > 1)
+                        if (i > 0)
                         {
                             CspParameters csp = new CspParameters();
                             csp.KeyContainerName = "NABO";
                             RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
-                            decryptData = rs.RSADecrypt(Encoding.ASCII.GetBytes(returnData), rsc.ExportParameters(true));
+                            decryptData = rs.RSADecrypt(BytesIn, rsc.ExportParameters(true));
                             mensaje_comprobacion = gm.generarMensageAprovacion(true);
                         }
                         else
                         {
                             mensaje_comprobacion = "Se solicita a la nave el mensaje encriptado.";
+                            mensaje_planet = "Solicitud de nave para la entrada al planeta.\n";
                         }
                         foreach (Control ctrl in form.Controls)
                         {
-                            if (ctrl.GetType() == typeof(TextBox))
+                            if (ctrl.GetType() == typeof(RichTextBox))
                             {
-                                ((TextBox)ctrl).Invoke((MethodInvoker)delegate
+                                ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
                                 {
-                                    ((TextBox)ctrl).AppendText(mensaje_comprobacion);
+                                    ((RichTextBox)ctrl).AppendText(mensaje_planet);
 
                                 });
                             }

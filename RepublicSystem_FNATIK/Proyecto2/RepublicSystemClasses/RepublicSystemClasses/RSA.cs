@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RepublicSystemClasses
 {
@@ -27,14 +28,15 @@ namespace RepublicSystemClasses
             rsa.PersistKeyInCsp = true;
 
             UnicodeEncoding ByteConverter = new UnicodeEncoding();
-
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            {
-                RSAPrivate = RSA.ExportParameters(true);
-                RSAPublic = RSA.ExportParameters(false);
-                string publicKey = rsa.ToXmlString(false);
-                guardarXMLBBDD(publicKey);
-            }
+           
+            RSAPrivate = rsa.ExportParameters(true);
+            RSAPublic = rsa.ExportParameters(false);
+            string publicKey = rsa.ToXmlString(false);
+            string publicKey2 = rsa.ToXmlString(true);
+            MessageBox.Show(publicKey2);
+            MessageBox.Show(publicKey);
+            guardarXMLBBDD(publicKey);
+            
         }
        
         public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKey)
@@ -43,7 +45,7 @@ namespace RepublicSystemClasses
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
             {
                 RSA.ImportParameters(RSAKey);
-                encryptedData = RSA.Encrypt(DataToEncrypt, true);
+                encryptedData = RSA.Encrypt(DataToEncrypt, false);
             }
             return encryptedData;
         }
@@ -51,9 +53,10 @@ namespace RepublicSystemClasses
         {
             byte[] decryptedData;
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
+            //using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportParameters(RSAKey);
-                decryptedData = RSA.Decrypt(DataToDecrypt, true);
+                decryptedData = RSA.Decrypt(DataToDecrypt, false);
             }
             return decryptedData;
         }
@@ -66,7 +69,7 @@ namespace RepublicSystemClasses
             using (SqlConnection connexio = new SqlConnection(connectionString))
             {
                 //query = "INSERT INTO PlanetKeys ([XMLKey]) VALUES (@XMLKey)";
-                query = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 11";
+                query = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 12";
 
                 connexio.Open();
 

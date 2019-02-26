@@ -67,6 +67,7 @@ namespace RepublicSystemClasses
 
             ds = bd.PortarPerConsulta("select XMLKey from PlanetKeys where idKey = (select MAX(idKey) from PlanetKeys)");
             clave_publica = ds.Tables[0].Rows[0][0].ToString();
+            
 
             RSA.FromXmlString(clave_publica);
 
