@@ -56,6 +56,9 @@ namespace RepublicSystemClasses
             original_text = File.ReadAllText(original_file_path);
             returned_text = File.ReadAllText(returned_file_path);
 
+            original_text = original_text.Trim();
+            returned_text = returned_text.Trim();
+
             hashcode_original = original_text.GetHashCode();
             hashcode_returned = returned_text.GetHashCode();
 

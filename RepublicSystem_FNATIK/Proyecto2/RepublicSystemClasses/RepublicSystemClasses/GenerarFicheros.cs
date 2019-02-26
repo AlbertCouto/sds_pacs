@@ -15,6 +15,7 @@ namespace RepublicSystemClasses
         private Dictionary<char, string> cifrado = new Dictionary<char, string>();
         private Thread th1;
         private Thread th2;
+        public Form frm { get; set; }
 
         public void GenerarLosFicheros()
         {
@@ -58,6 +59,17 @@ namespace RepublicSystemClasses
                             () => { InvokeFicherosLetras("3"); },
                             () => { InvokeFicherosLetras("4"); }
             );
+            foreach (Control ctrl in frm.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+                        ((RichTextBox)ctrl).AppendText("Ficheros creados.\n");
+
+                    });
+                }
+            }
         }
         private void InvokeFicherosLetras(string valor)
         {
