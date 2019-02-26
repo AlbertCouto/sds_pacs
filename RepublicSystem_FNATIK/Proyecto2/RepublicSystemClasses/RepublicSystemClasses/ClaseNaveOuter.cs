@@ -39,13 +39,12 @@ namespace RepublicSystemClasses
                 IPEndPoint IeP = new IPEndPoint(IPAddress.Any, 0);
                 Byte[] BytesIn = udpServer.Receive(ref IeP);
                 string returnData = Encoding.ASCII.GetString(BytesIn);
-                
+
                 if (returnData.Length > 0)
                 {
-                    MostrarMsgLog(returnData, Color.Green);                 
-                  
+                    MostrarMsgLog(returnData, Color.Green);
                 }
-                
+
             }
         }
 
@@ -77,7 +76,7 @@ namespace RepublicSystemClasses
             DataSet ds = new DataSet();
             string mensaje;
             byte[] mensaje_bytes = null;
-            
+
 
             mensaje = gm.GenerarMensajeInicio();
             mensaje_bytes = Encoding.ASCII.GetBytes(mensaje);
@@ -103,4 +102,5 @@ namespace RepublicSystemClasses
                 }
             }
         }
+    }
 }
