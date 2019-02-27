@@ -198,6 +198,16 @@ namespace RepublicSystemClasses
                         if (texto.Substring(8,2) == "AG") MostrarMsgLog(texto, Color.Green);
                         else MostrarMsgLog(texto, Color.Red);
                         Listener.Stop();
+                        foreach (Control ctrl in form.Controls)
+                        {
+                            if (ctrl.GetType() == typeof(Timer))
+                            {
+                                ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                {
+                                    ((Timer)ctrl).StopTimer();
+                                });
+                            }
+                        }
                     }
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -43,7 +44,8 @@ namespace RepublicSystemClasses
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
             {
                 RSA.ImportParameters(RSAKey);
-                encryptedData = RSA.Encrypt(DataToEncrypt, true);
+                MessageBox.Show(RSA.ToXmlString(false));
+                encryptedData = RSA.Encrypt(DataToEncrypt, false);
             }
             return encryptedData;
         }
