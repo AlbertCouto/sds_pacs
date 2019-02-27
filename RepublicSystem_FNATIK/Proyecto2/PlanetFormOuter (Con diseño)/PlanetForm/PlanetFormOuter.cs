@@ -52,7 +52,7 @@ namespace PlanetForm
            
             btnApagarServer.Enabled = false;
 
-            gf.GenerarLosFicheros();
+            //gf.GenerarLosFicheros();
 
 
         }

@@ -26,6 +26,9 @@ namespace RepublicSystemClasses
             cspp.KeyContainerName = keyName;
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cspp);
             rsa.PersistKeyInCsp = true;
+            //rsa clear afegit perque necessita que esborri la clau anterior dins del mateix keycontainer
+            rsa.Clear();
+            rsa = new RSACryptoServiceProvider(cspp);
 
             UnicodeEncoding ByteConverter = new UnicodeEncoding();
            
@@ -33,8 +36,8 @@ namespace RepublicSystemClasses
             RSAPublic = rsa.ExportParameters(false);
             string publicKey = rsa.ToXmlString(false);
             string publicKey2 = rsa.ToXmlString(true);
-            MessageBox.Show(publicKey2);
-            MessageBox.Show(publicKey);
+            //MessageBox.Show(publicKey2);
+            //MessageBox.Show(publicKey);
             guardarXMLBBDD(publicKey);
             
         }
@@ -52,12 +55,12 @@ namespace RepublicSystemClasses
         public byte[] RSADecrypt(byte[] DataToDecrypt, RSAParameters RSAKey)
         {
             byte[] decryptedData;
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
+            RSACryptoServiceProvider rsc = new RSACryptoServiceProvider();
             //using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            {
-                RSA.ImportParameters(RSAKey);
-                decryptedData = RSA.Decrypt(DataToDecrypt, false);
-            }
+            //{
+                rsc.ImportParameters(RSAKey);
+                decryptedData = rsc.Decrypt(DataToDecrypt, false);
+            //}
             return decryptedData;
         }
         public void guardarXMLBBDD(string clauPublica)

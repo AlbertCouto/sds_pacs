@@ -57,8 +57,10 @@ namespace RepublicSystemClasses
                             CspParameters csp = new CspParameters();
                             csp.KeyContainerName = "NABO";
                             RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
-                            decryptData = rs.RSADecrypt(BytesIn, rsc.ExportParameters(true));
+                            RSAParameters rSAParameters = rsc.ExportParameters(true);
+                            decryptData = rs.RSADecrypt(BytesIn, rSAParameters);
                             mensaje_comprobacion = gm.generarMensageAprovacion(true);
+                            mensaje_planet = "Nave aceptada, se procede a su recepción.";
                         }
                         else
                         {
