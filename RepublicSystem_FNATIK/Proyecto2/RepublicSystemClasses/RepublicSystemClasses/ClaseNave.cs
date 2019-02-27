@@ -89,22 +89,18 @@ namespace RepublicSystemClasses
                 {
                     while (!netstream.DataAvailable)
                     {
-                        total = total + 1;
-                        
+                        if (total == NoOfPackets)
+                            break;
+
+                        total++;
+
                         CurrentPacketLength = BufferSize;
+
                         SendingBuffer = new byte[CurrentPacketLength];
                         Fs2.Read(SendingBuffer, 0, CurrentPacketLength);
                         netstream.Write(SendingBuffer, 0, (int)SendingBuffer.Length);
                         netstream.Flush();
                         Fs2.Flush();
-                        Thread.Sleep(2);
-                        
-                        if (total == NoOfPackets)
-                        {
-                            Thread.Sleep(4);
-                            MessageBox.Show(total.ToString());
-                            break;
-                        }
                     }
                 }
                 catch (Exception e)
