@@ -41,8 +41,12 @@ namespace RepublicSystemClasses
                 {
                     Listener2.Stop();
                     Listener.Stop();
-                    client = null;
-                    client.Close();
+                    //client = null;
+                    if(client != null)
+                    {
+                        client.Close();
+                    }
+                    MostrarMsgLog("Conexión apagada.", Color.Green);
                 }
 
             }
@@ -208,23 +212,27 @@ namespace RepublicSystemClasses
                             byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                             netstream.Write(nouBuffer, 0, nouBuffer.Length);
 
-                            netstream = null;
+                            //netstream = null;
                             netstream.Close();
-                            client = null;
-                            client.Close();
-                        }
+                            if (netstream != null) netstream.Close();
+                            //client = null;
+                            if (client != null) client.Close();
 
-                        foreach (Control ctrl in form.Controls)
-                        {
-                            if (ctrl.GetType() == typeof(Timer))
+                            MostrarMsgLog(mensaje, Color.White);
+                            foreach (Control ctrl in form.Controls)
                             {
-                                ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                if (ctrl.GetType() == typeof(Timer))
                                 {
-                                    ((Timer)ctrl).Show();
-                                    ((Timer)ctrl).StopTimer();
-                                });
+                                    ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                    {
+                                        //((Timer)ctrl).Show();
+                                        ((Timer)ctrl).StopTimer();
+                                    });
+                                }
                             }
                         }
+
+                        
                         //MessageBox.Show(verificacion.ToString());
                     }
                 }
@@ -233,7 +241,7 @@ namespace RepublicSystemClasses
 
                     //MessageBox.Show(ex.ToString());
                     //Console.WriteLine(ex.Message);
-                    client.Close();
+                    //client.Close();
                     netstream = null;
                 }
                 finally
