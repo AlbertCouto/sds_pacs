@@ -22,7 +22,7 @@ namespace RepublicSystemClasses
         private ComprobarNave cn;
         private ZipUnzipCompare zipCompare;
         private Concatenar concat;
-        
+
         public Form form { get; set; }
         private string msg;
         private Color color;
@@ -30,20 +30,19 @@ namespace RepublicSystemClasses
         {
             T = new Thread(StartReceiving);
             T.SetApartmentState(ApartmentState.STA);
-            T.Start();         
-           
+            T.Start();
+
         }
         public void OffServer()
         {
             try
             {
-                if (Listener2 != null||Listener!=null)
+                if (Listener2 != null || Listener != null)
                 {
                     Listener2.Stop();
                     Listener.Stop();
                     client = null;
                     client.Close();
-                    //T.Abort();
                 }
 
             }
@@ -53,20 +52,19 @@ namespace RepublicSystemClasses
             }
 
         }
-        public  void StartReceiving()
+        public void StartReceiving()
         {
             int puerto_archivo = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetFile from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             int puerto_mensaje = Convert.ToInt32((bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 1")).Tables[0].Rows[0][0]);
             string IP = ((bd.PortarPerConsulta("select IPSpaceShip from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]).ToString();
 
             ReceiveTCP(puerto_archivo, puerto_mensaje, IP);
-           
+
         }
-        public  void ReceiveTCP(int puerto_archivo, int puerto_mensaje, string IP)
+        public void ReceiveTCP(int puerto_archivo, int puerto_mensaje, string IP)
         {
             string Status = string.Empty;
             string rutaZip = @"C:\Users\admin\Desktop\PACS.zip";
-            //string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.zip";
             string rutaZipSol = @"C:\Users\admin\Desktop\PACSSOL.txt";
             byte[] SendingBuffer = null;
             try
@@ -84,7 +82,7 @@ namespace RepublicSystemClasses
             byte[] RecData = new byte[BufferSize];
 
             for (; ; )
-            {     
+            {
                 string texto = null;
                 int RecBytes;
 
@@ -125,20 +123,21 @@ namespace RepublicSystemClasses
                                     netstream.Flush();
                                     Fs.Flush();
                                     Thread.Sleep(2);
-                                    
-                                        if (total == NoOfPackets)
-                                        {
-                                            Thread.Sleep(4);
-                                            MessageBox.Show(total.ToString());
-                                            break;
-                                        }
-                                    
+
+                                    if (total == NoOfPackets)
+                                    {
+                                        Thread.Sleep(4);
+                                        //MessageBox.Show(total.ToString());
+                                        break;
+                                    }
+
                                 }
                                 foreach (Control ctrl in form.Controls)
                                 {
                                     if (ctrl.GetType() == typeof(Timer))
                                     {
-                                        ((Timer)ctrl).Invoke((MethodInvoker)delegate {
+                                        ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                        {
                                             ((Timer)ctrl).Show();
                                             ((Timer)ctrl).StartTimer();
                                         });
@@ -154,11 +153,11 @@ namespace RepublicSystemClasses
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
 
-                            }                           
-                        }                        
+                            }
+                        }
                         Listener2.Stop();
                     }
-                    
+
                     if (Listener.Pending())
                     {
                         if (File.Exists(rutaZipSol))
@@ -170,7 +169,7 @@ namespace RepublicSystemClasses
                         netstream = client.GetStream();
                         if (netstream == null) return;
                         FileStream Fs2 = new FileStream(rutaZipSol, FileMode.OpenOrCreate, FileAccess.Write);
-                        while((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
+                        while ((RecBytes = netstream.Read(RecData, 0, RecData.Length)) > 0)
                         {
                             Fs2.Write(RecData, 0, RecBytes);
                             totalrecbytes += RecBytes;
@@ -191,14 +190,13 @@ namespace RepublicSystemClasses
                         string ruta_txt_concatenado = @"C:\Users\admin\Desktop\concatenado.txt";
                         string ruta_toUnzip = @"C:\Users\admin\Desktop\PACSSOL.zip";
                         string original_file_path = @"C: \Users\admin\Desktop\concatenado.txt";
-                        //string returned_file_path = @"C:\Users\admin\Desktop\PACS\NaveTXT\PACSSOL.txt";
                         string returned_file_path = @"C:\Users\admin\Desktop\PACSSOL.txt";
 
                         bool verificacion;
 
                         concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
                         //zipCompare.Descomprimir(ruta_toUnzip);
-                        verificacion = zipCompare.Comparar(original_file_path, returned_file_path);                                            
+                        verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
 
                         client = new TcpClient(IP, puerto_mensaje);
                         netstream = client.GetStream();
@@ -209,24 +207,25 @@ namespace RepublicSystemClasses
                             string mensaje = gm.generarMensageAprovacion(verificacion);
                             byte[] nouBuffer = Encoding.ASCII.GetBytes(mensaje);
                             netstream.Write(nouBuffer, 0, nouBuffer.Length);
-                            
+
                             netstream = null;
-                            netstream.Close();                            
+                            netstream.Close();
                             client = null;
                             client.Close();
                         }
-                      
+
                         foreach (Control ctrl in form.Controls)
                         {
                             if (ctrl.GetType() == typeof(Timer))
                             {
-                                ((Timer)ctrl).Invoke((MethodInvoker)delegate {
+                                ((Timer)ctrl).Invoke((MethodInvoker)delegate
+                                {
                                     ((Timer)ctrl).Show();
                                     ((Timer)ctrl).StopTimer();
                                 });
                             }
                         }
-                        MessageBox.Show(verificacion.ToString());                        
+                        //MessageBox.Show(verificacion.ToString());
                     }
                 }
                 catch (Exception ex)
@@ -238,8 +237,8 @@ namespace RepublicSystemClasses
                     netstream = null;
                 }
                 finally
-                {    
-                    
+                {
+
                 }
             }
         }
@@ -261,7 +260,7 @@ namespace RepublicSystemClasses
             }
         }
     }
-    
+
 
 }
 

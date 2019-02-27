@@ -22,11 +22,7 @@ namespace PlanetForm
             try
             {
 
-
                 btnEncender.Enabled = false;
-                //cp.form = frm;
-                //cp.StartServer();
-
 
                 frm = FindForm();
                 cpo.form = frm;
@@ -56,7 +52,7 @@ namespace PlanetForm
            
             btnApagarServer.Enabled = false;
 
-            gf.GenerarLosFicheros();
+            //gf.GenerarLosFicheros();
 
 
         }

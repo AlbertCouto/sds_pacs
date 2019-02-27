@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RepublicSystemClasses
 {
@@ -26,16 +27,20 @@ namespace RepublicSystemClasses
             cspp.KeyContainerName = keyName;
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cspp);
             rsa.PersistKeyInCsp = true;
+            //rsa clear afegit perque necessita que esborri la clau anterior dins del mateix keycontainer
+            rsa.Clear();
+            rsa = new RSACryptoServiceProvider(cspp);
 
             UnicodeEncoding ByteConverter = new UnicodeEncoding();
-
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
-            {
-                RSAPrivate = RSA.ExportParameters(true);
-                RSAPublic = RSA.ExportParameters(false);
-                string publicKey = rsa.ToXmlString(false);
-                guardarXMLBBDD(publicKey);
-            }
+           
+            RSAPrivate = rsa.ExportParameters(true);
+            RSAPublic = rsa.ExportParameters(false);
+            string publicKey = rsa.ToXmlString(false);
+            string publicKey2 = rsa.ToXmlString(true);
+            //MessageBox.Show(publicKey2);
+            //MessageBox.Show(publicKey);
+            guardarXMLBBDD(publicKey);
+            
         }
        
         public byte[] RSAEncrypt(byte[] DataToEncrypt, RSAParameters RSAKey)
@@ -44,7 +49,6 @@ namespace RepublicSystemClasses
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
             {
                 RSA.ImportParameters(RSAKey);
-                MessageBox.Show(RSA.ToXmlString(false));
                 encryptedData = RSA.Encrypt(DataToEncrypt, false);
             }
             return encryptedData;
@@ -52,11 +56,12 @@ namespace RepublicSystemClasses
         public byte[] RSADecrypt(byte[] DataToDecrypt, RSAParameters RSAKey)
         {
             byte[] decryptedData;
-            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider(cspp))
-            {
-                RSA.ImportParameters(RSAKey);
-                decryptedData = RSA.Decrypt(DataToDecrypt, true);
-            }
+            RSACryptoServiceProvider rsc = new RSACryptoServiceProvider();
+            //using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            //{
+                rsc.ImportParameters(RSAKey);
+                decryptedData = rsc.Decrypt(DataToDecrypt, false);
+            //}
             return decryptedData;
         }
         public void guardarXMLBBDD(string clauPublica)
@@ -68,7 +73,7 @@ namespace RepublicSystemClasses
             using (SqlConnection connexio = new SqlConnection(connectionString))
             {
                 //query = "INSERT INTO PlanetKeys ([XMLKey]) VALUES (@XMLKey)";
-                query = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 11";
+                query = "update PlanetKeys set XMLKey =(@XMLKey) where idKey = 12";
 
                 connexio.Open();
 

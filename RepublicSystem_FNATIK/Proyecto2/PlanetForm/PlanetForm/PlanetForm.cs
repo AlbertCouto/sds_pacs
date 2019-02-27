@@ -10,6 +10,7 @@ namespace PlanetForm
     {
         ClasePlaneta cp;
         GenerarFicheros gf = new GenerarFicheros();
+        Form frm;
         public PlanetForm()
         {
             InitializeComponent();
@@ -19,7 +20,7 @@ namespace PlanetForm
         {
             try
             {
-                Form frm = FindForm();
+                frm = FindForm();
                 cp = new ClasePlaneta();
           
                 btnEncender.Enabled = false;
@@ -49,7 +50,8 @@ namespace PlanetForm
         {
            
             btnApagarServer.Enabled = false;
-
+            frm = FindForm();
+            gf.frm = frm;
             gf.GenerarLosFicheros();
 
 
