@@ -110,6 +110,9 @@ namespace RepublicSystemClasses
                                 msg = "Solicitud de planeta recibida";
                                 color = Color.Green;
                                 MostrarMsgLog(msg, color);
+
+                                msg = "Enviando archivo...";
+                                color = Color.White;
                                 client = new TcpClient(IP, puerto_archivo);
                                 netstream = client.GetStream();
 
@@ -197,7 +200,8 @@ namespace RepublicSystemClasses
                         string returned_file_path = @"C:\Users\admin\Desktop\PACSSOL.txt";
 
                         bool verificacion;
-
+                    
+                        MostrarMsgLog(msg, color);
                         concat.ConcatenaFicheros(ruta_concatenar, ruta_txt_concatenado);
                         //zipCompare.Descomprimir(ruta_toUnzip);
                         verificacion = zipCompare.Comparar(original_file_path, returned_file_path);
