@@ -38,9 +38,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.timer3 = new RepublicSystemClasses.Timer();
             this.timer2 = new RepublicSystemClasses.Timer();
             this.timer1 = new RepublicSystemClasses.Timer();
-            this.timer3 = new RepublicSystemClasses.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Mensaje)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_DevolverFichero)).BeginInit();
@@ -146,6 +146,14 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "Devolver Fichero";
             // 
+            // timer3
+            // 
+            this.timer3.BackColor = System.Drawing.Color.Transparent;
+            this.timer3.Location = new System.Drawing.Point(313, 329);
+            this.timer3.Name = "timer3";
+            this.timer3.Size = new System.Drawing.Size(449, 228);
+            this.timer3.TabIndex = 16;
+            // 
             // timer2
             // 
             this.timer2.BackColor = System.Drawing.Color.Transparent;
@@ -162,14 +170,6 @@
             this.timer1.Size = new System.Drawing.Size(159, 62);
             this.timer1.TabIndex = 6;
             this.timer1.Visible = false;
-            // 
-            // timer3
-            // 
-            this.timer3.BackColor = System.Drawing.Color.Transparent;
-            this.timer3.Location = new System.Drawing.Point(313, 329);
-            this.timer3.Name = "timer3";
-            this.timer3.Size = new System.Drawing.Size(449, 228);
-            this.timer3.TabIndex = 16;
             // 
             // NaveForm
             // 
@@ -193,7 +193,7 @@
             this.MaximizeBox = false;
             this.Name = "NaveForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Nave";
             this.Load += new System.EventHandler(this.NaveForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Mensaje)).EndInit();
