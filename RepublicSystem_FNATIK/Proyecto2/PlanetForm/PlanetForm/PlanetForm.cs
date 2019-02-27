@@ -26,9 +26,11 @@ namespace PlanetForm
                 btnEncender.Enabled = false;
                 cp.form = frm;
                 cp.StartServer();
+                gf.GenerarLosFicheros();
 
                 btnApagarServer.Enabled = true;
                 MostrarMsgLog("Conexión establecida.", Color.Green);
+                MostrarMsgLog("Generando archivos...", Color.White);
             }
             catch
             {
@@ -52,12 +54,10 @@ namespace PlanetForm
             btnApagarServer.Enabled = false;
             frm = FindForm();
             gf.frm = frm;
-            gf.GenerarLosFicheros();
-
 
         }
 
-        private void MostrarMsgLog(string msg, Color color)
+        public void MostrarMsgLog(string msg, Color color)
         {
             //if (console_Log.InvokeRequired)
             //{

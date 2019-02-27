@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Data;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace RepublicSystemClasses
 {
@@ -59,14 +60,17 @@ namespace RepublicSystemClasses
                             () => { InvokeFicherosLetras("3"); },
                             () => { InvokeFicherosLetras("4"); }
             );
+
+            string msg = "Ficheros creados.";
             foreach (Control ctrl in frm.Controls)
             {
                 if (ctrl.GetType() == typeof(RichTextBox))
                 {
                     ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
                     {
-                        ((RichTextBox)ctrl).AppendText("Ficheros creados.\n");
-
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = Color.Green;
                     });
                 }
             }
