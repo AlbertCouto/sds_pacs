@@ -231,6 +231,7 @@ namespace RepublicSystemClasses
                                     {
                                         //((Timer)ctrl).Show();
                                         ((Timer)ctrl).StopTimer();
+                                        //((Timer)ctrl).r;
                                     });
                                 }
                             }
