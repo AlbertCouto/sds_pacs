@@ -13,6 +13,7 @@ namespace PlanetForm
         Form frm;
         public PlanetForm()
         {
+            toolStrip1.GripMargin = null;
             InitializeComponent();
         }
 
