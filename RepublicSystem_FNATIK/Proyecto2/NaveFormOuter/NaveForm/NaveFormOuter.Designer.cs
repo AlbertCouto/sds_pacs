@@ -194,7 +194,7 @@
             this.MaximizeBox = false;
             this.Name = "NaveFormOuter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Nave Outer";
             this.Load += new System.EventHandler(this.NaveForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btn_Conectar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_Mensaje)).EndInit();

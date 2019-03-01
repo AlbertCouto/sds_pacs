@@ -145,7 +145,7 @@
             this.MaximizeBox = false;
             this.Name = "PlanetFormOuter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Planet";
+            this.Text = "Planet Outer";
             this.Load += new System.EventHandler(this.PlanetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEncender)).EndInit();

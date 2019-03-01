@@ -64,6 +64,7 @@ namespace NaveForm
             
             th2 = new Thread(EnviarCodigoPlaneta);
             th2.Start();
+            btn_DevolverFichero.Enabled = true;
         }
         private void EnviarCodigoPlaneta()
         {
@@ -136,7 +137,7 @@ namespace NaveForm
         //LOAD
         private void NaveForm_Load(object sender, EventArgs e)
         {
-            //if (File.Exists(ruta_inicial)) File.Delete(ruta_inicial);
+            btn_DevolverFichero.Enabled = false;
         }
 
         //Mostrar Mensaje

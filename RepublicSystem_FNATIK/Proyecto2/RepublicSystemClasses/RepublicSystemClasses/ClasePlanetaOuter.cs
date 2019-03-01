@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Data;
 using System.Security.Cryptography;
+using System.Drawing;
 
 namespace RepublicSystemClasses
 {
@@ -57,8 +58,11 @@ namespace RepublicSystemClasses
                             CspParameters csp = new CspParameters();
                             csp.KeyContainerName = "NABO";
                             RSACryptoServiceProvider rsc = new RSACryptoServiceProvider(csp);
-                            decryptData = rs.RSADecrypt(BytesIn, rsc.ExportParameters(true));
+                            RSAParameters rSAParameters = rsc.ExportParameters(true);
+                            decryptData = rs.RSADecrypt(BytesIn, rSAParameters);
                             mensaje_comprobacion = gm.generarMensageAprovacion(true);
+                            mensaje_planet = "Nave aceptada, se procede a su recepción. \n";
+                            MostrarMsgLog(mensaje_comprobacion, Color.Green);
                         }
                         else
                         {
@@ -80,9 +84,28 @@ namespace RepublicSystemClasses
                         IPAddress ipbien = IPAddress.Parse(IP);
                         Int32 puerto = Convert.ToInt32((bd.PortarPerConsulta("select PortSpaceShipText from SpaceShips where idSpaceShip = 1")).Tables[0].Rows[0][0]);
                         udpCli.Connect(ipbien, puerto);
-                        udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);                       
+                        udpCli.Send(Encoding.ASCII.GetBytes(mensaje_comprobacion), mensaje_comprobacion.Length);
+                        //MostrarMsgLog(mensaje_comprobacion, Color.Green);
                     }
                     i++;
+                }
+            }
+        }
+
+        private void MostrarMsgLog(string msg, Color color)
+        {
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.GetType() == typeof(RichTextBox))
+                {
+                    ((RichTextBox)ctrl).Invoke((MethodInvoker)delegate
+                    {
+
+                        ((RichTextBox)ctrl).AppendText(msg + "\r\n");
+                        ((RichTextBox)ctrl).Select(((RichTextBox)ctrl).Text.Length - msg.Length - 1, msg.Length);
+                        ((RichTextBox)ctrl).SelectionColor = color;
+
+                    });
                 }
             }
         }

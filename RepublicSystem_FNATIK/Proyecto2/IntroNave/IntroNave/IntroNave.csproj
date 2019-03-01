@@ -33,17 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AltoControls">
-      <HintPath>..\..\..\..\..\..\..\Desktop\AltoControls-on-development\AltoControls\bin\Debug\AltoControls.dll</HintPath>
-    </Reference>
     <Reference Include="NaveForm">
       <HintPath>..\..\NaveForm\NaveForm\bin\Debug\NaveForm.exe</HintPath>
     </Reference>
     <Reference Include="NaveFormOuter">
       <HintPath>..\..\NaveFormOuter\NaveForm\bin\Debug\NaveFormOuter.exe</HintPath>
-    </Reference>
-    <Reference Include="NaveOuter">
-      <HintPath>..\..\NaveOuter\NaveOuter\bin\Debug\NaveOuter.exe</HintPath>
     </Reference>
     <Reference Include="RepublicSystemClasses">
       <HintPath>..\..\DLL\RepublicSystemClasses.dll</HintPath>

@@ -51,22 +51,15 @@ namespace RepublicSystemClasses
         {
             string original_text, returned_text;
             int hashcode_original, hashcode_returned;
-            bool boolean = false;
 
-            original_text = File.ReadAllText(original_file_path);
-            returned_text = File.ReadAllText(returned_file_path);
-
-            original_text = original_text.Trim();
-            returned_text = returned_text.Trim();
+            original_text = File.ReadAllText(original_file_path).Trim();
+            returned_text = File.ReadAllText(returned_file_path).Trim();
+            returned_text = returned_text.Substring(0, 4000000);
 
             hashcode_original = original_text.GetHashCode();
             hashcode_returned = returned_text.GetHashCode();
 
-            if (hashcode_original == hashcode_returned)
-            {
-                boolean = true;
-            };
-            return boolean;
+            return original_text.GetHashCode() == returned_text.GetHashCode();
         }
     }
 }
