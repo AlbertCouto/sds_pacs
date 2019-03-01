@@ -36,7 +36,7 @@ namespace IntroNave
         {
             if(Nave != null) Nave.Close();
             Nave = new Form();
-            if (comboBox1.SelectedItem.ToString() == "InnerRing") Nave = new NaveForm.NaveForm();
+            if (comboBox1.SelectedItem.ToString() == "Anillo interior") Nave = new NaveForm.NaveForm();
             else Nave = new NaveForm.NaveFormOuter();
             Nave.Show();
         }
