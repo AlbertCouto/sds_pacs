@@ -113,6 +113,7 @@ namespace RepublicSystemClasses
 
                                 msg = "Enviando archivo...";
                                 color = Color.White;
+                                MostrarMsgLog(msg, color);
                                 client = new TcpClient(IP, puerto_archivo);
                                 netstream = client.GetStream();
 
