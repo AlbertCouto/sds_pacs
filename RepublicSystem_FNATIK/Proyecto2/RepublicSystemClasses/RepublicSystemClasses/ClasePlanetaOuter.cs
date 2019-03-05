@@ -29,6 +29,7 @@ namespace RepublicSystemClasses
 
         public void Start()
         {
+        
             rs.GenerarKeys();
             Int32 puerto = Convert.ToInt32(bd.PortarPerConsulta("select PortPlanetText from Planets where idPlanet = 3").Tables[0].Rows[0][0]);
             udpServer = new UdpClient(puerto);

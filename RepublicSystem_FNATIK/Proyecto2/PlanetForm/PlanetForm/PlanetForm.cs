@@ -74,5 +74,15 @@ namespace PlanetForm
         {
             //btnEncender.Image = @"C:\Users\admin\Documents\GitHub\sds_pacs\RepublicSystem_FNATIK\Proyecto2\PlanetForm\PlanetForm\Resources\gray_button.png";
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

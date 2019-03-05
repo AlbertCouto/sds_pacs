@@ -77,11 +77,13 @@ namespace RepublicSystemClasses
         }
         private void InvokeFicherosLetras(string valor)
         {
-            string ruta = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
+            string ruta_txt = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
+            string ruta = "C:\\Users\\admin\\Desktop\\FicherosLetras";
 
-            if (File.Exists(ruta)) File.Delete(ruta);
+            if (File.Exists(ruta_txt)) File.Delete(ruta_txt);
+            if (!Directory.Exists(ruta)) Directory.CreateDirectory(ruta);
             Random rnd = new Random();
-            using (StreamWriter sw = File.CreateText(ruta))
+            using (StreamWriter sw = File.CreateText(ruta_txt))
             {
                 for (int j = 0; j < 1000000; j++)
                 {
@@ -108,8 +110,10 @@ namespace RepublicSystemClasses
         {
             string ruta_numeros = "C:\\Users\\admin\\Desktop\\FicherosNumeros\\pacs" + valor + ".txt";
             string ruta_letras = "C:\\Users\\admin\\Desktop\\FicherosLetras\\pacs" + valor + ".txt";
+            string ruta = "C:\\Users\\admin\\Desktop\\FicherosNumeros";
 
             if (File.Exists(ruta_numeros)) File.Delete(ruta_numeros);
+            if (!Directory.Exists(ruta)) Directory.CreateDirectory(ruta);
             using (StreamWriter sw = File.CreateText(ruta_numeros))
             {
                 using (StreamReader sr = File.OpenText(ruta_letras))

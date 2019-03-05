@@ -21,7 +21,7 @@ namespace PlanetForm
         {
             try
             {
-
+                //cp.OffServer();
                 btnEncender.Enabled = false;
 
                 frm = FindForm();
